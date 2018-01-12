@@ -1,0 +1,110 @@
+%%% Copyright (C) 2018 Vincent Goulet
+%%%
+%%% Ce fichier fait partie du projet
+%%% «Provisionnement en assurance IARD»
+%%% http://github.com/vigou3/provisionnement-assurance-iard
+%%%
+%%% Cette création est mise à disposition selon le contrat
+%%% Attribution-Partage dans les mêmes conditions 4.0
+%%% International de Creative Commons.
+%%% http://creativecommons.org/licenses/by-sa/4.0/
+
+%%%
+%%% Page de titre
+%%%
+
+\begingroup
+\TPGrid{3}{36}
+\textblockorigin{0mm}{0mm}
+\setlength{\parindent}{0mm}
+\setlength{\imageheight}{29\TPVertModule}
+\setlength{\banderougewidth}{2\TPHorizModule}
+\setlength{\banderougeheight}{\TPVertModule}
+\setlength{\bandeorwidth}{\TPHorizModule}
+\setlength{\bandeorheight}{\banderougeheight}
+\setlength{\logoheight}{2.5\TPVertModule}
+\setlength{\gapwidth}{1.5pt}
+\addtolength{\bandeorwidth}{-\gapwidth}
+\addtolength{\imageheight}{-\gapwidth}
+\setlength{\fboxrule}{3pt}
+\setlength{\fboxsep}{0pt}
+
+\def\titlefmt{%
+  \sffamily\bfseries\fontsize{45}{45}\selectfont\thetitle\par}
+\def\authorfmt{%
+  \sffamily\mdseries\fontsize{28}{28}\selectfont\theauthor}
+\def\affiliation{%
+  \sffamily\mdseries\fontsize{22}{26}\selectfont
+  Professeur titulaire \\
+  École d'actuariat, Université Laval}
+\def\edition{%
+  \sffamily\mdseries\fontsize{22}{26}\selectfont
+  Édition {\fullcaps\year}.\month}
+
+%% bandeau identitaire
+\begin{textblock*}{\paperwidth}[0,1](0mm,30\TPVertModule)
+  \textcolor{rouge}{\rule{\banderougewidth}{\banderougeheight}}% % bande rouge
+  \rule{\gapwidth}{0pt}%                                         % filet
+  \textcolor{or}{\rule{\bandeorwidth}{\bandeorheight}}           % bande or
+\end{textblock*}
+
+%% logo UL
+\begin{textblock*}{\TPHorizModule}(2\TPHorizModule,31\TPVertModule)
+  \rule{\gapwidth}{0pt}%                                         % filet
+  \includegraphics[height=\logoheight,%
+                   keepaspectratio=true]{ul_p}
+\end{textblock*}
+
+%% image de fond
+\begin{textblock*}{\paperwidth}(0mm,0mm)
+  \includegraphics[width=\paperwidth,%
+                   keepaspectratio=true]{Sciurus_carolinensis}
+\end{textblock*}
+
+%% titre
+\begin{textblock*}{1.6\TPHorizModule}(0.35\TPHorizModule,3.5\TPVertModule)
+  \pgfsetfillopacity{0.85}
+  \textcolor{white}{\titlefmt}
+  \pgfsetfillopacity{1}
+\end{textblock*}
+
+%% auteur
+\begin{textblock*}{2\TPHorizModule}(0.35\TPHorizModule,8.5\TPVertModule)
+  \pgfsetfillopacity{0.85}
+  \textcolor{white}{\authorfmt}
+  \pgfsetfillopacity{1}
+\end{textblock*}
+
+\null\cleardoublepage
+
+%%%
+%%% Page frontispice
+%%%
+
+%% titre
+\begin{textblock*}{1.6\TPHorizModule}(0.35\TPHorizModule,3.5\TPVertModule)
+  \titlefmt
+\end{textblock*}
+
+%% auteur
+\begin{textblock*}{2\TPHorizModule}(0.35\TPHorizModule,8.5\TPVertModule)
+  \authorfmt
+\end{textblock*}
+
+%% affiliation
+\begin{textblock*}{2\TPHorizModule}(0.35\TPHorizModule,10.5\TPVertModule)
+  \affiliation
+\end{textblock*}
+
+%% édition
+\begin{textblock*}{1.7\TPHorizModule}(0.35\TPHorizModule,30\TPVertModule)
+  \edition
+\end{textblock*}
+\endgroup
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-engine: xetex
+%%% TeX-master: "provisionnement-assurance-iard"
+%%% coding: utf-8
+%%% End:
