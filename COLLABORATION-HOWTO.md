@@ -4,7 +4,7 @@
 
 > Seuls les étudiants de l'Université Laval inscrits au cours ACT-2008 disposent des droits en écriture requis pour effectuer la procédure décrite ci-dessous.
 
-La version de développement du projet [Provisionnement en assurance IARD](https://vigou3.github.io/provisionnement-assurance-iard) est hébergée dans un [dépôt Git public](https://projets.fsg.ulaval.ca/git/scm/vg/provisionnement-assurance-iard) de la Faculté des sciences et de génie de l'Université Laval.
+La version de développement du projet [Provisionnement en assurance IARD](https://vigou3.github.io/provisionnement-assurance-iard) est hébergée dans un [dépôt Git public](https://projets.fsg.ulaval.ca/git/scm/vg/provisionnement-assurance-iard-develop) de la Faculté des sciences et de génie de l'Université Laval.
 
 Le dépôt utilise l'interface [Atlassian BitBucket Server](https://www.atlassian.com/software/bitbucket/server).
 
