@@ -77,26 +77,26 @@ all: pdf
 
 FORCE: ;
 
-pdf: $(MASTER)
+pdf: ${MASTER}
 
-tex: $(RNWFILES:.Rnw=.tex)
+tex: ${RNWFILES:.Rnw=.tex}
 
-Rout: $(SCRIPTS:.R=.Rout)
+Rout: ${SCRIPTS:.R=.Rout}
 
 contrib: ${COLLABORATEURS}
 
 release: zip create-release upload publish
 
 %.tex: %.Rnw
-	$(SWEAVE) '$<'
+	${SWEAVE} '$<'
 
 %.Rout: %.R
 	echo "options(error=expression(NULL))" | cat - $< > $<.tmp
-	$(RBATCH) $<.tmp $@
-	$(RM) $<.tmp
+	${RBATCH} $<.tmp $@
+	${RM} $<.tmp
 
-$(MASTER): $(MASTER:.pdf=.tex) $(RNWFILES:.Rnw=.tex) $(TEXFILES) $(SCRIPTS)
-	$(TEXI2DVI) $(MASTER:.pdf=.tex)
+${MASTER}: ${MASTER:.pdf=.tex} ${RNWFILES:.Rnw=.tex} ${TEXFILES} ${SCRIPTS}
+	${TEXI2DVI} ${MASTER:.pdf=.tex}
 
 ${COLLABORATEURS}: FORCE
 	git log --pretty="%an%n" | sort | uniq | \
@@ -161,7 +161,7 @@ publish :
 	@echo ----- Done publishing
 
 clean:
-	$(RM) $(RNWFILES:.Rnw=.tex) \
+	${RM} ${RNWFILES:.Rnw=.tex} \
 	      *-[0-9][0-9][0-9].pdf \
 	      *.aux *.log  *.blg *.bbl *.out *.rel *~ Rplots.ps
 
