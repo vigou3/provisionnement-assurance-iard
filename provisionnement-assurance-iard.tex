@@ -1,4 +1,4 @@
-%%% Copyright (C) 2018 Vincent Goulet
+%%% Copyright (C) 2018 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
 %%%
 %%% Ce fichier fait partie du projet
 %%% «Provisionnement en assurance IARD»
@@ -36,10 +36,10 @@
   %%%  Informations de publication
   %%% =============================
   \title{Provisionnement en assurance IARD}
-  \author{Vincent Goulet}
+  \author{Vincent Goulet \and Frédérick Guillot \and Mathieu Pigeon}
   \renewcommand{\year}{2018}
-  \renewcommand{\month}{01-1}
-  \newcommand{\ghurl}{https://github.com/vigou3/theorie-credibilite-avec-r/}
+  \renewcommand{\month}{0}
+  \newcommand{\ghurl}{https://github.com/vigou3/provisionnement-assurance-iard/}
 
   %%% ===================
   %%%  Style du document
@@ -65,8 +65,6 @@
   \definecolor{citation}{rgb}{0,0.5,0}      % citations
   \definecolor{codebg}{named}{LightYellow1} % fond code R
   \definecolor{prob}{named}{orange}         % encadrés «problème»
-  \definecolor{rouge}{rgb}{0.85,0,0.07} % rouge bandeau identitaire
-  \definecolor{or}{rgb}{1,0.8,0}        % or bandeau identitaire
 
   %% Hyperliens
   \usepackage{hyperref}
@@ -334,10 +332,6 @@
     \href{#1}{%
       Voir sur GitHub \raisebox{-1pt}{\footnotesize\faGithub}}}
 
-  %% «Logo» C++
-  \newcommand{\Rplus}{\protect\hspace{-.05em}\protect\raisebox{.2ex}{\smaller\textbf{+}}}
-  \newcommand{\Cpp}{\mbox{C\Rplus\Rplus}\xspace}
-
   %% Raccourcis usuels vg
   \newcommand{\pt}{{\scriptscriptstyle \Sigma}}
   \newcommand{\mat}[1]{\mathbf{#1}}
@@ -367,23 +361,8 @@
   %%% Style de la bibliographie
   \bibliographystyle{francais}
 
-  %% Longueurs pour la composition des pages couvertures avant et
-  %% arrière.
-  \newlength{\banderougewidth} \newlength{\banderougeheight}
-  \newlength{\bandeorwidth}    \newlength{\bandeorheight}
-  \newlength{\imageheight}
-  \newlength{\logoheight}
-  \newlength{\gapwidth}
-
   %% Aide pour la césure
   \hyphenation{%
-    con-nai-tre
-    con-sole
-    cons-tante
-    con-tenu
-    con-trôle
-    nom-bre
-    puis-que
   }
 
 %  \includeonly{}
@@ -404,19 +383,6 @@
 
 %\include{introduction}
 \tableofcontents*
-
-%% Vignette tirée de xkcd.com
-% \cleartoverso
-% \thispagestyle{empty}
-% \begin{vplace}[0.45]
-%   \centering
-%   \begin{minipage}{0.9\linewidth}
-%     \setkeys{Gin}{width=\textwidth}
-%     \includegraphics{images/compiling.png} \\
-%     \footnotesize\sffamily%
-%     Tiré de \href{http://xkcd.com/303/}{XKCD.com}
-%   \end{minipage}
-% \end{vplace}
 
 \mainmatter
 
@@ -441,7 +407,6 @@
 \end{document}
 
 %%% Local Variables:
-%%% mode: latex
 %%% TeX-engine: xetex
 %%% TeX-master: t
 %%% coding: utf-8
