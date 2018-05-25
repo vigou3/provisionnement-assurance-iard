@@ -1,6 +1,6 @@
 ### -*-Makefile-*- pour préparer "Provisionnement en assurance IARD"
 ##
-## Copyright (C) 2018 Vincent Goulet
+## Copyright (C) 2018 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
 ##
 ## 'make pdf' crée les fichiers .tex à partir des fichiers .Rnw avec
 ## Sweave et compile le document maître avec XeLaTeX.
@@ -55,7 +55,7 @@ MONTH = $(shell grep "newcommand{\\\\month" ${MASTER:.pdf=.tex} \
 VERSION = ${YEAR}.${MONTH}
 
 ## Auteurs à exclure du fichier COLLABORATEURS (regex)
-OMITAUTHORS = Vincent Goulet|Inconnu|unknown
+OMITAUTHORS = Vincent Goulet|Frédérick Guillot|Mathieu Pigeon|Inconnu|unknown
 
 ## Outils de travail
 SWEAVE = R CMD SWEAVE --encoding="utf-8"
@@ -164,5 +164,3 @@ clean:
 	${RM} ${RNWFILES:.Rnw=.tex} \
 	      *-[0-9][0-9][0-9].pdf \
 	      *.aux *.log  *.blg *.bbl *.out *.rel *~ Rplots.ps
-
-
