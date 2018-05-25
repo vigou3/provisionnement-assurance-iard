@@ -4,9 +4,11 @@
 
 (description à venir)
 
-## Auteur
+## Auteurs
 
-Vincent Goulet, professeur titulaire, École d'actuariat, Université Laval
+Vincent Goulet, École d'actuariat, Université Laval  
+Frédérick Guillot, Recherche et innovation, Co-operators  
+Mathieu Pigeon, Département de mathématiques, Université du Québec à Montréal
 
 ## Modèle de développement
 
