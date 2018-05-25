@@ -40,7 +40,7 @@ Le moteur XeLaTeX est utilisé pour composer le document.
 
 La compilation du document requiert les polices de caractères suivantes:
 
-- [Lucida Bright OT, Lucida Math OT et Lucida Mono DK](https://tug.org/store/lucida/). Ces polices de très grande qualité sont payantes. La Bibliothèque de l'Université Laval détient une licence d'utilisation de cette police. Les étudiants et le personnel de l'Université peuvent s'en procurer une copie gratuitement en écrivant à [mailto:lucida@bibl.ulaval.ca].
+- [Lucida Bright OT, Lucida Math OT et Lucida Mono DK](https://tug.org/store/lucida/). Ces polices de très grande qualité sont payantes. La Bibliothèque de l'Université Laval détient une licence d'utilisation de cette police. Les étudiants et le personnel de l'Université peuvent s'en procurer une copie gratuitement en écrivant à [lucida@bibl.ulaval.ca](mailto:lucida@bibl.ulaval.ca?subject=Obtenir les polices Lucida).
 - [Myriad Pro](https://fontsup.com/fr/family/myriad+pro.html) en versions *Regular*, *Bold*, *Italic* et *Bold Italic*. Cette police est normalement livrée avec Acrobat Reader.
 - [Font Awesome](http://fontawesome.io/). Cette police fournit une multitude d'icônes et de symboles. Télécharger la plus récente version de la distribution et installer la police `fontawesome-webfont.ttf` du dossier `fonts`.
 
