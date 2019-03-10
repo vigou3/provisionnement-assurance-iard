@@ -19,8 +19,6 @@
   \usepackage{framed}                  % env. snugshade*, oframed
   \usepackage[absolute]{textpos}       % éléments des pages de titre
   \usepackage[shortlabels]{enumitem}   % configuration listes
-  \usepackage{multicol}                % environnement multicols
-  \usepackage{float}                   % positionnement [H] annexe C
   \usepackage{relsize}                 % \smaller et al.
   \usepackage{manfnt}                  % \mantriangleright (puce)
   \usepackage{metalogo}                % \XeLaTeX logo
@@ -28,6 +26,9 @@
   \usepackage{awesomebox}              % boites info, important, etc.
   \usepackage{answers}                 % exercices et solutions
   \usepackage{listings}                % code informatique
+
+  %% paquetage à supprimer?
+  \usepackage{tikz}
 
   %%% =============================
   %%%  Informations de publication
@@ -189,9 +190,13 @@
   %%% =========================
 
   %% Environnements d'exemples et al.
-  \theoremstyle{remark}
-  \newtheorem*{rem}{Remarque}
-  \newtheorem*{rems}{Remarques}
+  \theoremstyle{plain}
+  \newtheorem{thm}{Théorème}[chapter]
+  \newtheorem{corrolaire}{Corollaire}[chapter]
+
+  \theoremstyle{definition}
+  \newtheorem{definition}{Définition}[chapter]
+  \newtheorem{exemple}{Exemple}[chapter]
 
   %% Redéfinition de l'environnement titled-frame de framed.sty avec
   %% deux modifications: épaisseur des filets réduite de 2pt à 1pt;
@@ -266,6 +271,7 @@
   \makeatother
 
   %% Exercices et réponses
+  \Newassociation{rep}{reponse}{reponses}
   \Newassociation{sol}{solution}{solutions}
   \newcounter{exercice}[chapter]
   \renewcommand{\theexercice}{\thechapter.\arabic{exercice}}
@@ -296,6 +302,10 @@
         \setlist[enumerate,2]{label=\roman*),labelsep=0.5em,align=right}}
       \item}
     {\end{list}}
+  \renewenvironment{reponse}[1]{%
+    \begin{enumerate}[label=\textbf{#1}]
+    \item}%
+    {\end{enumerate}}
 
   %% Listes de commandes
   \newenvironment{ttscript}[1]{%
@@ -413,12 +423,12 @@
 
 \mainmatter
 
-%\include{}
+\include{presentation}
 
 \appendix
-%\include{solutions}
+\include{solutions}
 
-\bibliography{r,stat,informatique,vg}
+\bibliography{provisionnement}
 
 \cleardoublepage
 \printindex
