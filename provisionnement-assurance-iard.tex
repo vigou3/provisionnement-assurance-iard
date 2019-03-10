@@ -4,7 +4,7 @@
 %%% «Provisionnement en assurance IARD»
 %%% http://github.com/vigou3/provisionnement-assurance-iard
 %%%
-%%% Cette création est mise à disposition selon le contrat
+%%% Cette création est mise à disposition sous licence
 %%% Attribution-Partage dans les mêmes conditions 4.0
 %%% International de Creative Commons.
 %%% http://creativecommons.org/licenses/by-sa/4.0/
@@ -24,22 +24,19 @@
   \usepackage{relsize}                 % \smaller et al.
   \usepackage{manfnt}                  % \mantriangleright (puce)
   \usepackage{metalogo}                % \XeLaTeX logo
-  \usepackage{applekeys}               % touches Mac
-  \usepackage{dirtree}                 % arbre pour exercice sur \include
   \usepackage{fontawesome}             % icônes \fa*
   \usepackage{awesomebox}              % boites info, important, etc.
   \usepackage{answers}                 % exercices et solutions
   \usepackage{listings}                % code informatique
-  \usepackage{pgf}                     % transparence pour couverture avant
 
   %%% =============================
   %%%  Informations de publication
   %%% =============================
   \title{Provisionnement en assurance IARD}
   \author{Vincent Goulet \and Frédérick Guillot \and Mathieu Pigeon}
-  \renewcommand{\year}{2018}
+  \renewcommand{\year}{2019}
   \renewcommand{\month}{0}
-  \newcommand{\ghurl}{https://github.com/vigou3/provisionnement-assurance-iard/}
+  \newcommand{\reposurl}{https://gitlab.com/vigou3/provisionnement-assurance-iard/}
 
   %%% ===================
   %%%  Style du document
@@ -48,12 +45,33 @@
   %% Polices de caractères
   \usepackage{fontspec}
   \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=0.92}
-  \setmainfont[Ligatures=TeX,Numbers=OldStyle]{Lucida Bright OT}
+  \defaultfontfeatures
+  {
+    Scale = 0.92
+  }
+  \setmainfont{Lucida Bright OT}
+  [
+    Ligatures = TeX,
+    Numbers = OldStyle
+  ]
   \setmathfont{Lucida Bright Math OT}
   \setmonofont{Lucida Grande Mono DK}
-  \setsansfont[Scale=1.0,Numbers=OldStyle]{Myriad Pro}
-  \newfontfamily\fullcaps[Letters=Uppercase,Numbers=Uppercase]{Myriad Pro}
+  \setsansfont{FiraSans}
+  [
+    Extension = .otf,
+    UprightFont = *-Book,
+    BoldFont = *-SemiBold,
+    BoldItalicFont = *-SemiBoldItalic,
+    Scale = 1.0,
+    Numbers = OldStyle
+  ]
+  \newfontfamily\fullcaps{FiraSans}
+  [
+    Extension = .otf,
+    UprightFont = *-Book,
+    Scale = 1.0,
+    Numbers = Uppercase
+  ]
   \usepackage[babel=true]{microtype}
   \usepackage{icomma}
 
@@ -64,7 +82,7 @@
   \definecolor{url}{rgb}{0.6,0,0}           % liens externes
   \definecolor{citation}{rgb}{0,0.5,0}      % citations
   \definecolor{codebg}{named}{LightYellow1} % fond code R
-  \definecolor{prob}{named}{orange}         % encadrés «problème»
+  \definecolor{lineno}{named}{gray}         % numéros de lignes
 
   %% Hyperliens
   \usepackage{hyperref}
@@ -107,6 +125,11 @@
   \renewcommand{\cftchapterafterpnum}{\cftparfillskip}
   \renewcommand{\cftsectionleader}{\hspace{1.5em}}
   \renewcommand{\cftsectionafterpnum}{\cftparfillskip}
+  \renewcommand{\cfttableleader}{\hspace{1.5em}}
+  \renewcommand{\cfttableafterpnum}{\cftparfillskip}
+  \renewcommand{\cftfigureleader}{\hspace{1.5em}}
+  \renewcommand{\cftfigureafterpnum}{\cftparfillskip}
+  \setlength{\cftfigurenumwidth}{3.2em}
 
   %% Titres des chapitres
   \chapterstyle{hangnum}
@@ -139,6 +162,7 @@
     og=«, fg=»}
   \addto\captionsfrench{\def\figurename{{\scshape Fig.}}}
   \addto\captionsfrench{\def\tablename{{\scshape Tab.}}}
+  \addto\captionsfrench{\def\listfigurename{Liste des figures}}
 
   %%% =========================
   %%%  Sections de code source
@@ -327,10 +351,9 @@
       \smaller[1] {\sffamily Fichier d'accompagnement} {\ttfamily #1}}
     \endgroup}
 
-  %% Lien vers GitHub dans la page de notices
+  %% Lien vers GitLab dans la page de notices
   \newcommand{\viewsource}[1]{%
-    \href{#1}{%
-      Voir sur GitHub \raisebox{-1pt}{\footnotesize\faGithub}}}
+    \href{#1}{\faGitlab\ Voir sur GitLab}}
 
   %% Raccourcis usuels vg
   \newcommand{\pt}{{\scriptscriptstyle \Sigma}}
@@ -382,7 +405,11 @@
 \pagestyle{companion}
 
 %\include{introduction}
-\tableofcontents*
+\tableofcontents
+\cleartorecto
+\listoftables
+\cleartorecto
+\listoffigures
 
 \mainmatter
 
@@ -407,7 +434,7 @@
 \end{document}
 
 %%% Local Variables:
-%%% TeX-engine: xetex
 %%% TeX-master: t
+%%% TeX-engine: xetex
 %%% coding: utf-8
 %%% End:

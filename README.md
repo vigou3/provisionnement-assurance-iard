@@ -12,9 +12,9 @@ Mathieu Pigeon, Département de mathématiques, Université du Québec à Montr�
 
 ## Modèle de développement
 
-Le processus de rédaction et de maintenance du projet se conforme au modèle [*Gitflow Workflow*](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow). Seule particularité: la branche *master* se trouve [sur GitHub]((https://github.com/vigou3/provisionnement-assurance-iard)), alors que la branche de développement se trouve dans un [dépôt public](https://projets.fsg.ulaval.ca/git/scm/vg/provisionnement-assurance-iard-develop) de la Faculté des sciences et de génie de l'Université Laval.
+Le processus de rédaction et de maintenance du projet se conforme au modèle [*Gitflow Workflow*](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow). Seule particularité: la branche *master* se trouve [sur GitLab]((https://gitlab.com/vigou3/provisionnement-assurance-iard)), alors que la branche de développement se trouve dans un [dépôt public](https://projets.fsg.ulaval.ca/git/scm/vg/provisionnement-assurance-iard-develop) de la Faculté des sciences et de génie de l'Université Laval.
 
-Prière de passer par ce dépôt pour proposer des modifications; consulter le fichier `COLLABORATION-HOWTO.md` dans le dépôt pour la marche à suivre.
+Prière de passer par ce dépôt pour proposer des modifications; consulter le fichier `CONTRIBUTING.md` dans le dépôt pour la marche à suivre.
 
 ## Composition du document
 
@@ -30,7 +30,7 @@ La composition d'un document requiert d'abord une distribution du système LaTeX
 - [Vidéo expliquant l'installation sur Windows](https://youtu.be/7MfodhaghUk)
 - [Vidéo expliquant l'installation sur macOS](https://youtu.be/kA53EQ3Q47w)
 
-Ensuite, des connaissances de base sur le fonctionnement de LaTeX sont nécessaires. Consulter [*Rédaction avec LaTeX*](https://vigou3.github.io/formation-latex-ul/), la formation LaTeX de l'Université Laval. 
+Ensuite, des connaissances de base sur le fonctionnement de LaTeX sont nécessaires. Consulter [*Rédaction avec LaTeX*](https://vigou3.gitlab.io/formation-latex-ul/), la formation LaTeX de l'Université Laval. 
 
 >  *Rédaction avec LaTeX* est distribué avec TeX Live. 
 
@@ -41,7 +41,7 @@ Le moteur XeLaTeX est utilisé pour composer le document.
 La compilation du document requiert les polices de caractères suivantes:
 
 - [Lucida Bright OT, Lucida Math OT et Lucida Mono DK](https://tug.org/store/lucida/). Ces polices de très grande qualité sont payantes. La Bibliothèque de l'Université Laval détient une licence d'utilisation de cette police. Les étudiants et le personnel de l'Université peuvent s'en procurer une copie gratuitement en écrivant à [lucida@bibl.ulaval.ca](mailto:lucida@bibl.ulaval.ca?subject=Obtenir les polices Lucida).
-- [Myriad Pro](https://fontsup.com/fr/family/myriad+pro.html) en versions *Regular*, *Bold*, *Italic* et *Bold Italic*. Cette police est normalement livrée avec Acrobat Reader.
+- [Fira Sans](https://www.fontsquirrel.com/fonts/fira-sans) (les versions OpenType de Mozilla) en graisses *Book*, *Semi Bold*, *Book Italic* et *Semi Bold Italic*.
 - [Font Awesome](http://fontawesome.io/). Cette police fournit une multitude d'icônes et de symboles. Télécharger la plus récente version de la distribution et installer la police `fontawesome-webfont.ttf` du dossier `fonts`.
 
 ### Outils Unix additionnels
@@ -78,10 +78,6 @@ Nous avons automatisé le processus de compilation avec l'outil Unix standard `m
 
 - `zip` crée l'archive contenant le document et le code source des sections d'exemples;
 
-- `release` crée une nouvelle version (*tag*) dans GitHub, téléverse les fichiers PDF et `.zip` et modifie les liens de la page web;
+- `release` crée une nouvelle version (*tag*) dans GitLab, téléverse les fichiers PDF et `.zip` et modifie les liens de la page web;
 
 Question d'éviter les publications accidentelles, `make all` est équivalent à `make pdf`.
-
-## Historique des versions
-
-### (en développement)

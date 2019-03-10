@@ -1,10 +1,10 @@
-%%% Copyright (C) 2018 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
+%%% Copyright (C) 2019 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
 %%%
 %%% Ce fichier fait partie du projet
 %%% «Provisionnement en assurance IARD»
-%%% http://github.com/vigou3/provisionnement-assurance-iard
+%%% http://gitlab.com/vigou3/provisionnement-assurance-iard
 %%%
-%%% Cette création est mise à disposition selon le contrat
+%%% Cette création est mise à disposition sous licence
 %%% Attribution-Partage dans les mêmes conditions 4.0
 %%% International de Creative Commons.
 %%% http://creativecommons.org/licenses/by-sa/4.0/
@@ -14,53 +14,49 @@
 %%%
 
 \begingroup
-\TPGrid{3}{36}
+\TPGrid{8}{64}
 \textblockorigin{0mm}{0mm}
 \setlength{\parindent}{0mm}
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-2\TPHorizModule}
 
 \def\titlefmt{%
-  \sffamily\bfseries\fontsize{45}{45}\selectfont\thetitle\par}
+  \sffamily\bfseries\fontsize{42}{42}\selectfont\thetitle\par}
 \def\authorsfmt{%
   \sffamily\mdseries\fontsize{28}{28}\selectfont
   V.\ Goulet \quad F.\ Guillot \quad M.\ Pigeon}
 \def\affiliations{%
   \sffamily\mdseries
-  \fontsize{28}{28}\selectfont
+  \fontsize{28}{38}\selectfont
   Vincent Goulet \par
-  \fontsize{18}{22}\selectfont
+  \fontsize{16}{20}\selectfont
   École d'actuariat \\ Université Laval \par
   \fontsize{28}{40}\selectfont
   Frédérick Guillot \par
-  \fontsize{18}{22}\selectfont
+  \fontsize{16}{20}\selectfont
   Recherche et innovation \\ Co-operators \par
   \fontsize{28}{40}\selectfont
   Mathieu Pigeon \par
-  \fontsize{18}{22}\selectfont
+  \fontsize{16}{20}\selectfont
   Département de mathématiques \\ Université du Québec à Montréal}
-
 \def\edition{%
-  \sffamily\mdseries\fontsize{18}{18}\selectfont
+  \sffamily\mdseries\fontsize{16}{16}\selectfont
   Édition {\fullcaps\year}.\month}
 
 %% image de fond
 \begin{textblock*}{\paperwidth}(0mm,0mm)
   \includegraphics[width=\paperwidth,%
-                   keepaspectratio=true]{Sciurus_carolinensis}
+                   keepaspectratio=true]{images/Sciurus_carolinensis}
 \end{textblock*}
 
 %% titre
-\begin{textblock*}{1.6\TPHorizModule}(0.35\TPHorizModule,3.5\TPVertModule)
-  \pgfsetfillopacity{0.85}
-  \textcolor{white}{\titlefmt}
-  \pgfsetfillopacity{1}
+\begin{textblock*}{0.7\textwidth}(\TPHorizModule,6\TPVertModule)
+  \textcolor{black!10}{\titlefmt}
 \end{textblock*}
 
 %% auteurs
-\begin{textblock*}{2\TPHorizModule}(0.35\TPHorizModule,8.5\TPVertModule)
-  \pgfsetfillopacity{0.85}
-  \sffamily\mdseries\fontsize{28}{28}\selectfont
-  \textcolor{white}{\authorsfmt}
-  \pgfsetfillopacity{1}
+\begin{textblock*}{\textwidth}(\TPHorizModule,14.5\TPVertModule)
+  \textcolor{black!10}{\authorsfmt}
 \end{textblock*}
 
 \null\cleardoublepage
@@ -70,18 +66,17 @@
 %%%
 
 %% titre
-\begin{textblock*}{1.6\TPHorizModule}(0.35\TPHorizModule,3.5\TPVertModule)
-  \pgfsetfillopacity{1}       % autrement titre un peu trop haut (?)
+\begin{textblock*}{0.7\textwidth}(\TPHorizModule,6\TPVertModule)
   \titlefmt
 \end{textblock*}
 
 %% auteurs et affiliations
-\begin{textblock*}{2\TPHorizModule}(0.35\TPHorizModule,8.5\TPVertModule)
+\begin{textblock*}{\textwidth}(\TPHorizModule,14.5\TPVertModule)
   \affiliations
 \end{textblock*}
 
 %% édition
-\begin{textblock*}{1.7\TPHorizModule}(0.35\TPHorizModule,30\TPVertModule)
+\begin{textblock*}{\textwidth}(\TPHorizModule,58\TPVertModule)
   \edition
 \end{textblock*}
 \endgroup
