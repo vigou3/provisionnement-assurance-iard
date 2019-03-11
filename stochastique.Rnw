@@ -291,7 +291,7 @@ Ainsi, un intervalle de confiance (à $95\%$) est donné par
 
 \gotorbox{La fonction \code{MackChainLadder} du paquetage
   \pkg{ChainLadder} permet de calculer les réserves à l'aide du modèle
-  de Mack. Étudiez et exécutez les lignes \reflines{stochastique:code}
+  de Mack. Étudiez et exécutez les lignes \reflines{stochastique:mack}
   du fichier de script \code{\scriptfilename} reproduit à la
   \autoref{sec:stochastique:code} et comparez les résultats avec ceux
   de l'\autoref{ex:stochastique:mack}.}
@@ -629,7 +629,7 @@ Par contre, il n'est pas possible d'évaluer l'erreur d'estimation.
   \begin{table}[!h]
     \centering
     \caption{Paiements cumulatifs}
-    \label{tab::stochastique:tri1a}
+    \label{tab:stochastique:tri1a}
     \begin{tabular}{cccccc}
       \toprule
       & $1$ & $2$ & $3$ & $4$ & $5$\\
