@@ -16,6 +16,7 @@
   \usepackage{amsmath,amsthm}
   \usepackage[noae]{Sweave}
   \usepackage{graphicx}
+  \usepackage{currfile}                % pour noms fichiers de script
   \usepackage{framed}                  % env. snugshade*, oframed
   \usepackage[absolute]{textpos}       % éléments des pages de titre
   \usepackage[shortlabels]{enumitem}   % configuration listes
@@ -165,25 +166,49 @@
   \addto\captionsfrench{\def\tablename{{\scshape Tab.}}}
   \addto\captionsfrench{\def\listfigurename{Liste des figures}}
 
-  %%% =========================
-  %%%  Sections de code source
-  %%% =========================
-  \lstloadlanguages{R}
-  \lstdefinelanguage{Renhanced}[]{R}{%
-    morekeywords={colMeans,colSums,head,is.na,is.null,mapply,ms,na.rm,%
-      nlmin,replicate,row.names,rowMeans,rowSums,sys.time,system.time,%
-      tail,which.max,which.min,letters,LETTERS},
-    deletekeywords={c,start},
-    alsoletter={.\%},%
-    alsoother={:_\$}}
-  \lstset{language=Renhanced,
+  %% Mise en forme du code source.
+  %%
+  %% Les numéros de lignes sont des hyperliens vers le point dans le
+  %% document où l'on y fait référence dans une boite \gotorbox (voir
+  %% plus loin).
+  %%
+  %% Pour y parvenir, j'utilise deux étiquettes pour une ligne: une
+  %% basée sur un "nom" utilisé dans la rédaction, et une autre
+  %% générée automatiquement à partir du numéro de chapitre et du
+  %% numéro de ligne.
+  %%
+  %% Solution basée sur https://tex.stackexchange.com/q/191771
+  \lstset{%
+    language=R,
     extendedchars=true,
     basicstyle=\small\ttfamily\NoAutoSpacing,
     commentstyle=\color{comments}\slshape,
     keywordstyle=\mdseries,
     showstringspaces=false,
-    index=[1][keywords],
-    indexstyle=\indexcode}
+    numbers=left,
+    numberstyle={%
+      \color{lineno}\tiny\ttfamily%
+      \ifnum\value{lstnumber}=\getrefnumber{code:\thechapter:\thelstnumber}%
+        \renewcommand*\thelstnumber{\hyperlink{goto:\thechapter:\the\value{lstnumber}}{\bfseries\arabic{lstnumber}}}%
+      \fi},
+    firstnumber=\scriptfirstline,
+    escapechar=`,
+    moredelim=[il]{\#-*-}}
+
+  %% Commandes pour créer les références et liens vers des numéros de
+  %% lignes.
+  \makeatletter
+  \newcommand\labelline[1]{%
+    \def\@currentlabel{\thelstnumber}%
+    \label{lst:#1}\label{code:\thechapter:\the\value{lstnumber}}}
+  \makeatother
+  \newcommand{\reflines}[1]{%
+    \hypertarget{goto:\thechapter:\getrefnumber{lst:#1}}{\ref{lst:#1}}--%
+    \hypertarget{goto:\thechapter:\getrefnumber{lst:#1:fin}}{\ref{lst:#1:fin}}}
+
+  %% L'entête des fichiers de script n'est pas affiché dans le
+  %% document.
+  \def\scriptfirstline{14}      % nombre magique!
 
   %%% =========================
   %%%  Nouveaux environnements
@@ -340,16 +365,10 @@
     \fi
   }
 
-  %% Indications de capsule vidéo
-  \newcommand{\capsule}[2]{\href{#1}{#2}\marginpar{%
-      \href{#1}{\raisebox{-0.5em}[0em][0em]{\Huge\faYoutubePlay}}}}
-
-  %% Boites additionnelles (basées sur awesomebox.sty) pour remarques
-  %% spécifiques à macOS et Windows
-  \newcommand{\osxbox}[1]{%
-    \awesomebox{\faApple}{\aweboxrulewidth}{black}{#1}}
-  \newcommand{\windowsbox}[1]{%
-    \awesomebox{\faWindows}{\aweboxrulewidth}{black}{#1}}
+  %% Boite additionnelle (basée sur awesomebox.sty) pour changements
+  %% au fil de la lecture.
+  \newcommand{\gotorbox}[1]{%
+    \awesomebox{\faMapSigns}{\aweboxrulewidth}{black}{#1}}
 
   %% Boite pour le nom du fichier de script correspondant au début des
   %% sections d'exemples.
@@ -370,7 +389,9 @@
   \newcommand{\Esp}[1]{E\! \left[ #1 \right]}
   \newcommand{\esp}[1]{E [ #1 ]}
   \newcommand{\Var}[1]{\operatorname{Var}\! \left[ #1 \right]}
+  \newcommand{\hVar}[1]{\widehat{\operatorname{Var}}\! \left[ #1 \right]}
   \newcommand{\var}[1]{\operatorname{Var} [ #1 ]}
+  \newcommand{\hvar}[1]{\widehat{\operatorname{Var}} [ #1 ]}
   \newcommand{\Cov}{\operatorname{Cov}}
   \newcommand{\CV}{\operatorname{CV}}
   \ifxetex
@@ -439,6 +460,7 @@
 
 \include{presentation}
 \include{deterministe}
+\include{stochastique}
 
 \appendix
 \include{solutions}

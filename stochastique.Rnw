@@ -1,0 +1,960 @@
+%%% Copyright (C) 2019 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
+%%%
+%%% Ce fichier fait partie du projet
+%%% «Provisionnement en assurance IARD»
+%%% https://gitlab.com/vigou3/provisionnement-assurance-iard
+%%%
+%%% Cette création est mise à disposition sous licence
+%%% Attribution-Partage dans les mêmes conditions 4.0
+%%% International de Creative Commons.
+%%% https://creativecommons.org/licenses/by-sa/4.0/
+
+\chapter{Modélisation stochastique des réserves}
+\label{chap:stochastique}
+
+\def\scriptfilename{\currfilebase.R}
+<<echo=FALSE>>=
+suppressPackageStartupMessages(library(ChainLadder))
+options(width = 52)
+@
+
+Les modèles introduits dans le chapitre précédent ne comportaient pas
+d'élément aléatoire, ils étaient donc déterministes. À l'inverse, un
+modèle stochastique suppose que la variable à modéliser possède un
+élément aléatoire. La plupart du temps, on lui associe une loi de
+probabilité, ou bien sinon, une mesure de son caractère variable, par
+exemple sa variance. Les modèles stochastiques permettent de
+déterminer le degré d'incertitude de la réserve, ce qui peut s'avérer
+une information capitale pour les stratégies financières de la
+compagnie.
+
+\section{Modèle de Mack}
+\label{sec:stochastique:mack}
+
+Ce modèle non-paramétrique peut être vu comme la version stochastique
+de la méthode \emph{Chain-Ladder}. Il permet d'estimer, en plus des
+valeurs prédites des réserves, les erreurs commises lors
+de l'évaluation de celles-ci.
+
+Les hypothèses du modèle de Mack sont les suivantes.
+\begin{enumerate}[({H}1)]
+\item Indépendance par ligne: $(C_{ij})_{j=1,\ldots,n}$ et
+  $(C_{i'j})_{j=1,\ldots,n} $ sont indépendants pour $i \ne i'$;
+\item On peut lier $C_{i j+1}$ sachant le passé
+  $C_{i 1}, \ldots,C_{i j}$
+  \begin{equation*}
+    \Esp{C_{i j+1}|C_{i 1}, \ldots,C_{i j}} = \lambda_j C_{i j}.
+  \end{equation*}
+\end{enumerate}
+Avec ces hypothèses, ce modèle stochastique fournit exactement les
+mêmes réserves que le modèle Chain-Ladder.
+
+Sous les hypothèses (H1) et (H2), pour tout $k > n - i +1$, on a
+\begin{align*}
+\Esp{C_{i j+1}|C_{i 1}, ...,C_{i j}} &= \lambda_{n-i+1} \lambda_{n-i+2}
+\ldots \lambda_{k-1} C_{i, n+1-i}.
+\end{align*}
+Sous les hypothèses (H1) et (H2), les estimateurs standards de
+Chain-Ladder, c'est-à-dire
+\begin{equation*}
+  \hat{\lambda}_{j} =
+  \frac{\sum_{i=1}^{n-j} C_{i,j+1}}{\sum_{i=1}^{n-j} C_{i,j}},
+  \quad j = 1, \ldots, n-1
+\end{equation*}
+sont sans biais et non-corrélés. La non-corrélation est essentielle
+dans le modèle puisqu'elle permet d'écrire
+\begin{equation*}
+  \Esp{\hat{\lambda}_{n-i+1} \hat{\lambda}_{n-i+2}\ldots \hat{\lambda}_{k-1}}
+  = \lambda_{n-i+1} \lambda_{n-i+2}\ldots \lambda_{k-1}
+\end{equation*}
+qui est utilisée dans l'estimation des réserves.
+
+Une méthode stochastique a l'avantage de pouvoir estimer l'erreur
+d'une prévision. Pour le modèle de Mack, il faut ajouter une troisième
+hypothèse afin de pouvoir calculer l'erreur de prévision:
+\begin{enumerate}[({H}1)]
+  \setcounter{enumi}{2}
+\item On a
+  \begin{equation*}
+    \Var{C_{i, k+1}|C_{i,1}, \dots, C_{i,k}} = C_{i,k} \sigma^2_k.
+  \end{equation*}
+\end{enumerate}
+
+
+\subsection{Estimation de l'erreur}
+\label{sec:stochastique:mack:erreur}
+
+Le montant de réserve pour l'année $i$ est donné par
+\begin{equation*}
+  \hat{R}_i = \hat{C}_{i,n} - C_{i,j}
+\end{equation*}
+et sa variance est définie comme
+\begin{equation*}
+  \Var{\hat{R}_i} = \Esp{(\hat{R}_i - R_i)^2 |C_{i,1},...,C_{i,k}}.
+\end{equation*}
+Elle est estimée par
+\begin{equation*}
+  \hVar{(\hat{R}_i)} = \hat{C}_{i,n}^2 \sum_{k = n-i+1}^{n-1} \frac{\hat{\sigma}^2_k}{\hat{\lambda}_k^2}
+\left(\frac{1}{\hat{C}_{i,k}} + \frac{1}{\sum_{j=1}^{n-k} \hat{C}_{j,k}} \right),
+\end{equation*}
+où
+\begin{itemize}
+\item
+  \begin{equation*}
+    \hat{C}_{i,k} = \lambda_{n-i+1} \lambda_{n-i+2}\ldots
+                    \lambda_{k-1} C_{i,n-i+1}
+  \end{equation*}
+  pour tout $k > n-i+1$ avec la convention $\hat{C}_{i,n-i+1} = C_{i,n-i+1}$;
+\item
+  \begin{equation*}
+    \hat{\sigma}^2_k = \frac{1}{n-k-1} \sum_{i=1}^{n-k} C_{i,k} \left(\frac{C_{i, k+1}}{C_{i, k}} - \hat{\lambda}_k \right)^2,
+    \text{ pour } k = 1,\ldots n-2.
+  \end{equation*}
+\end{itemize}
+
+Le choix de $\hat{\sigma}^2_{n-1}$ est effectué en extrapolant de
+telle sorte que :
+\begin{equation*}
+  \frac{\hat{\sigma}^2_{n-3}}{\hat{\sigma}^2_{n-2}} =
+  \frac{\hat{\sigma}^2_{n-2}}{\hat{\sigma}^2_{n-1}}
+\end{equation*}
+tout en s'assurant que $\hat{\sigma}^2_{n-3} > \hat{\sigma}^2_{n-2}$.
+Ainsi,
+\begin{equation*}
+  \hat{\sigma}^2_{n-1} = \min\left\{ \frac{\hat{\sigma}^4_{n-2}}{\hat{\sigma}^2_{n-3}},
+\min\{\hat{\sigma}^2_{n-3}, \hat{\sigma}^2_{n-2} \} \right\}.
+\end{equation*}
+La démonstration de ce dernier résultat n'est pas à réaliser dans le
+cadre de ce cours\footnote{Voir \citet{Mack93}.}.
+
+Ainsi, on a une estimation de la réserve $R_i$, c'est-à-dire
+$\hat{R}_i$, représentant la moyenne de $R_i$, une estimation de
+l'écart-type de $\hat{R}_i$, soit
+$\hat{e-t}(\hat{R}_i) = \sqrt{\hVar{\hat{R}_i}}$ et il est donc
+possible de construire des intervalles de confiance sur les réserves.
+
+\subsection{Intervalles de confiance}
+\label{sec:stochastique:mack:ic}
+
+Si le volume de données est suffisant, on peut supposer une
+distribution normale pour la distribution de la réserve. Ainsi, un
+intervalle de confiance (à $95\%$) pourrait être donné par
+\begin{equation*}
+  R_i \in [\hat{R}_i- 1,96 \hat{e-t}(\hat{R}_i); \hat{R}_i + 1,96
+\hat{e-t}(\hat{R}_i)].
+\end{equation*}
+
+Cependant, une telle approche peut conduire à des problèmes. Par
+exemple, il est théoriquement possible d'obtenir une borne inférieure
+négative et/ou la distribution réelle du montant de la réserve peut ne
+pas être symétrique, causant une approximation normale plus ou moins
+justifiée.
+
+On pourrait alors plutôt considérer une approche basée sur une
+distribution log-normale. L'idée est de sélectionner les paramètres de
+la loi log-normale afin qu'ils correspondent à ceux que l'on a
+trouvés:
+\begin{align*}
+  \text{Moyenne d'une Lognormale} &: \exp(\mu_i + \Sigma^2_i/2) = \hat{R}_i\\
+  \text{Variance d'une Lognormale} &: \exp(2\mu_i + \Sigma^2_i)(\exp(\Sigma^2_i) - 1) = (\hat{e-t}(\hat{R}_i))^2,
+\end{align*}
+et donc
+\begin{align*}
+  \mu_i    &= \ln(\hat{R}_i) - \Sigma^2_i/2 \\
+  \Sigma_i^2 &= \ln\left(1 + \left(\frac{\hat{e-t}(\hat{R}_i)}{\hat{R}_i}\right)^2 \right).
+\end{align*}
+Ainsi, un intervalle de confiance (à $95\%$) est donné par
+\begin{equation*}
+  R_i \in [\exp(\mu_i - 1,96 \Sigma_i) ; \exp(\mu_i + 1,96 \Sigma_i)]
+= \left[\hat{R}_i \exp(-\Sigma^2_i/2 - 1,96 \Sigma_i); \hat{R}_i
+  \exp(-\Sigma^2_i/2 + 1,96 \Sigma_i) \right].
+\end{equation*}
+
+\begin{exemple}
+  \label{ex:stochastique:mack}
+  On suppose le triangle des paiements cumulés suivant
+  \begin{center}
+    \begin{tabular}{|l|l l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$ & $5$  \\ \hline
+      $1$ & $35,40$ & $37,69$ & $39,13$ & $39,76$ & $40,16$ \\
+      $2$ & $38,61$ & $41,61$ & $43,37$ & $44,56$ &  \\
+      $3$ & $43,85$  & $47,30$ & $49,45$ &  &  \\
+      $4$ & $49,52$  & $53,33$ &  &  &  \\
+      $5$ & $55,47$  &  &  &  &  \\ \hline
+    \end{tabular}
+  \end{center}
+  Trouver la réserve et l'incertitude de celle-ci.
+
+  En utilisant les formules standards du modèle Chain-Ladder, on
+  obtient
+  \begin{align*}
+    \hat{\lambda}_1 &= 1,0750\\
+    \hat{\lambda}_2 &= 1,0423\\
+    \hat{\lambda}_3 &= 1,0221\\
+    \hat{\lambda}_4 &= 1,0101.
+  \end{align*}
+  On trouve maintenant les $\hat{\sigma}^2_k$
+  \begin{align*}
+    \hat{\sigma}^2_1
+    &= \frac{1}{5-1-1} \sum_{i=1}^{5-1} C_{i,1} \left(\frac{C_{i, 1+1}}{C_{i, 1}} - \hat{\lambda}_1 \right)^2 \\
+    &= \frac{1}{3} \Big[ 35,40 \left(\frac{37,69}{35,40} - 1,0750 \right)^2
+                       + 38,61 \left(\frac{41,61}{38,61} - 1,0750 \right)^2 \\
+    & + 43,85 \left(\frac{47,30}{43,85} - 1,0750 \right)^2  + 49,52 \left(\frac{53,33}{49,52} - 1,0750 \right)^2 \Big] \\
+    &= 1,6080 * 10^{-3}\\
+    \hat{\sigma}^2_2 &= 0,5510 * 10^{-3}\\
+    \hat{\sigma}^2_3 &= 2,6444 * 10^{-3}\\
+  \end{align*}
+  et donc
+  \begin{align*}
+    \hat{\sigma}^2_{4}
+    &= \min\left\{ \frac{\hat{\sigma}^4_{3}}{\hat{\sigma}^2_{2}},
+      \min\{\hat{\sigma}^2_{2}, \hat{\sigma}^2_{3} \} \right\}\\
+    &= \min\left\{ \frac{(2,6444 - 10^{-3})^2}{0,5510 - 10^{-3}},
+      \min\{0,5510 - 10^{-3}, 2,6444 - 10^{-3} \} \right\}\\
+    &= 0,5510 * 10^{-3}.
+  \end{align*}
+  On peut alors projeter les paiements cumulatifs $\hat{C}_{i,5}$ et
+  estimer les réserves $\hat{R}_i$
+  \begin{center}
+    \begin{tabular}{|l|l l l l l|l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$ & $5$ & $\hat{R}_i$ \\ \hline
+      $1$ & $35,40$ & $37,69$ & $39,13$ & $39,76$ & $40,16$ & $\textbf{0}$\\
+      $2$ & $38,61$ & $41,61$ & $43,37$ & $44,56$ & $\mathbf{45,01}$ & $\mathbf{0,45}$ \\
+      $3$ & $43,85$  & $47,30$ & $49,45$ & $\mathbf{50,54}$ & $\mathbf{51,05}$ & $\mathbf{1,60}$ \\
+      $4$ & $49,52$  & $53,33$ & $\mathbf{55,58}$ & $\mathbf{56,81}$ &  $\mathbf{57,38}$ & $\mathbf{4,05}$ \\
+      $5$ & $55,47$  & $\mathbf{56,63}$ & $\mathbf{62,15}$ & $\mathbf{63,52}$ & $\mathbf{64,16}$ & $\mathbf{8,69}$\\ \hline
+    \end{tabular}
+  \end{center}
+  On peut alors estimer les variances
+  \begin{align*}
+    \hVar{\hat{R}_2}
+    &= \hat{C}_{2,5}^2 \sum_{k = 5-2+1}^{5-1} \frac{\hat{\sigma}^2_k}{\hat{\lambda}_k^2}
+      \left(\frac{1}{\hat{C}_{2,k}} + \frac{1}{\sum_{j=1}^{5-k} \hat{C}_{j,k}} \right) \\
+    &= \hat{C}_{2,5}^2 \left[\frac{\hat{\sigma}^2_4}{\hat{\lambda}_4^2}
+      \left(\frac{1}{\hat{C}_{2,4}} + \frac{1}{\sum_{j=1}^{1} \hat{C}_{j,4}} \right) \right] \\
+    &= 45,01^2 \left[\frac{0,5510 * 10^{-3}}{1,0101^2}
+      \left(\frac{1}{44,56 } + \frac{1}{39,76} \right) \right] \\
+    &= 0,0521\\
+  \end{align*}
+  \begin{align*}
+    \hVar{\hat{R}_3}
+    &= \hat{C}_{3,5}^2 \sum_{k = 5-3+1}^{5-1} \frac{\hat{\sigma}^2_k}{\hat{\lambda}_k^2}
+      \left(\frac{1}{\hat{C}_{3,k}} + \frac{1}{\sum_{j=1}^{5-k} \hat{C}_{j,k}} \right) \\
+    &= \hat{C}_{3,5}^2 \left[ \frac{\hat{\sigma}^2_3}{\hat{\lambda}_3^2}
+      \left(\frac{1}{\hat{C}_{3,3}} + \frac{1}{\sum_{j=1}^{5-3} \hat{C}_{j,3}} \right) +
+      \frac{\hat{\sigma}^2_4}{\hat{\lambda}_4^2}
+      \left(\frac{1}{\hat{C}_{3,4}} + \frac{1}{\sum_{j=1}^{5-4} \hat{C}_{j,4}} \right) \right]\\
+    &= 51,05^2 \left[ \frac{2,6444 * 10^{-3}}{1,0221^2}
+      \left(\frac{1}{49,45} + \frac{1}{39,13  + 43,37} \right) +
+      \frac{0,5510 * 10^{-3}}{1,0101^2}
+      \left(\frac{1}{50,54 } + \frac{1}{39,76} \right) \right]\\
+    &= 0,2766 \\
+    \hVar{\hat{R}_4} &= 0,3715 \\
+    \hVar{\hat{R}_5} &= 0,5740.
+  \end{align*}
+  L'intervalle de confiance à $95\%$, sous l'hypothèse de la loi
+  normale pour les réserves peut donc se calculer
+  \begin{align*}
+    R_2 &\in [\hat{R}_2- 2 \hat{e-t}(\hat{R}_2); \hat{R}_2 + 2 \hat{e-t}(\hat{R}_2)]\\
+        &\in [-0,01; 0,90] \\
+    R_3 &\in [0,55; 2,65] \\
+    R_4 &\in [2,83; 5,27] \\
+    R_5 &\in [7,17; 10,20].
+  \end{align*}
+  Pour l'hypothèse de la loi lognormale, on trouve les paramètres
+  $\Sigma_i$:
+  \begin{align*}
+    \Sigma_2^2 &= \ln\left(1 + \left(\frac{\hat{e-t}(\hat{R}_2)}{\hat{R}_2}\right)^2 \right) \\
+               &= \ln\left(1 + \left(\frac{\sqrt{0,0521}}{0,45}\right)^2 \right) \\
+               &= 0,22895\\
+    \Sigma_2^3  &= 0,10260 \\
+    \Sigma_2^4  &= 0,02296 \\
+    \Sigma_2^5  &= 0,00757.
+  \end{align*}
+  L'intervalle de confiance à $95\%$, sous l'hypothèse de la loi
+  Lognormale pour les réserves peut donc se calculer
+  \begin{equation*}
+    R_i \in [\exp(\mu_i - 2 \Sigma_i) ; \exp(\mu_i + 2\Sigma_i)]
+          = \left[\hat{R}_i \exp(-\Sigma^2_i/2 - 2 \Sigma_i); \hat{R}_i
+          \exp(-\Sigma^2_i/2 + 2 \Sigma_i) \right]
+  \end{equation*}
+  et
+  \begin{align*}
+    R_2 &\in \left[\hat{R}_i \exp(-\Sigma^2_i/2 - 2 \Sigma_i); \hat{R}_i \exp(-\Sigma^2_i/2 + 2 \Sigma_i) \right]\\
+        &\in [0,15; 1,04] \\
+    R_3 &\in [0,80; 2,88] \\
+    R_4 &\in [2,97; 5,40] \\
+    R_5 &\in [7,27; 10,30].
+  \end{align*}
+  \qed
+\end{exemple}
+
+\gotorbox{La fonction \code{MackChainLadder} du paquetage
+  \pkg{ChainLadder} permet de calculer les réserves à l'aide du modèle
+  de Mack. Étudiez et exécutez les lignes \reflines{stochastique:code}
+  du fichier de script \code{\scriptfilename} reproduit à la
+  \autoref{sec:stochastique:code} et comparez les résultats avec ceux
+  de l'\autoref{ex:stochastique:mack}.}
+
+L'erreur quadratique moyenne du montant total de provisions,
+$\hat{R} = \hat{R}_2 + \ldots + \hat{R}_n$ est intéressante à
+calculer. On ne peut pas se contenter de la somme des
+$\Var{\hat{R}_i}$ parce qu'il y a corrélation entre elles. La variance
+de $\hat{R}$ est estimée par
+\begin{equation*}
+  \hVar{\hat{R}} = \sum_{i=2}^n \left(\hVar{\hat{R}_i} + \hat{C}_{i,n} \left(\sum_{j=i+1}^{n}  \hat{C}_{j,n} \right)
+\sum_{k=n-i+1}^{n-1} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{n-k} C_{j,k}}\right).
+\end{equation*}
+
+\begin{exemple}
+  La réserve totale s'établit à
+  \begin{align*}
+    \hat{R} &= \hat{R}_2 + \hat{R}_3 + \hat{R}_4 + \hat{R}_5\\
+            &= 0,45 + 1,60 + 4,05 + 8,69 = 14,79
+  \end{align*}
+  Calculer la variance de la réserve totale.
+
+  On a
+  \begin{equation*}
+    \hVar{\hat{R}} = \underbrace{\sum_{i=2}^5 \left( \hVar{\hat{R}_i} + \hat{C}_{i,5} \left(\sum_{j=i+1}^{5}  \hat{C}_{j,5} \right)
+                     \sum_{k=5-i+1}^{5-1} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{5-k} C_{j,k}}\right)
+                     }_{\text{Somme de 4 éléments}}
+  \end{equation*}
+  et
+  \begin{align*}
+    (i=2)
+    &=  \hVar{\hat{R}_2} + \hat{C}_{2,5} \left(\sum_{j=3}^{5}  \hat{C}_{j,5} \right)
+      \sum_{k=4}^{4} \frac{2 \hat{\sigma}_k^2/
+      \hat{\lambda}_k^2}{\sum_{j=1}^{5-k} C_{j,k}} \\
+    &= 0,0521 + 45,01 (51,05+57,38+64,16)\left(\frac{2*0,5510*10^{-3}/1,0101^2}{39,76}\right) \\
+    &= 0,2631
+  \end{align*}
+  \begin{align*}
+    (i=3)
+    &= \hVar{\hat{R}_3} + \hat{C}_{3,5} \left(\sum_{j=4}^{5}  \hat{C}_{j,5} \right)
+      \sum_{k=3}^{4} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{5-k} C_{j,k}} \\
+    &= 0,2766 + 51,05(57,38+64,16)\left(\frac{2*2,644*10^{-3}/1,0221^2}{39,13+43,37}
+      + \frac{2*0,5510*10^{-3}/1,0101^2}{39,76} \right)\\
+    &= 0,8258
+  \end{align*}
+
+  \begin{align*}
+    (i=4)
+    &=  \hVar{\hat{R}_4} + \hat{C}_{4,5} \left(\sum_{j=5}^{5}  \hat{C}_{j,5} \right)
+      \sum_{k=2}^{4} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{5-k} C_{j,k}} \\
+    &= 0,3715 + 57,38(64,16)\\
+    &\times \left(\frac{2*0,5510*10^{-3}/1,0423^2}{37,69+41,61+47,30} + \frac{2*2,644*10^{-3}/1,0221^2}{39,13+43,37}
+      + \frac{2*0,5510*10^{-3}/1,0101^2}{39,76} \right) \\
+    &= 0,72688
+  \end{align*}
+
+  \begin{align*}
+    (i=5)
+    &=  \hVar{\hat{R}_5} + \hat{C}_{5,5} \left(\sum_{j=6}^{5}  \hat{C}_{j,5} \right)
+      \sum_{k=1}^{4} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{5-k} C_{j,k}} \\
+    &= 0,5740 + 64,16 (0) \sum_{k=1}^{4} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{5-k} C_{j,k}}\\
+    &= 0,5740.
+  \end{align*}
+  Ainsi $\hVar{\hat{R}} = 2,3900$ et donc
+  $\hat{e-t}(\hat{R}) = 1,5460$, soit $10\%$ de $\hat{R}$.
+  \qed
+\end{exemple}
+
+\importantbox{Le modèle de Mack, version stochastique de la méthode
+  Chain-Ladder, est basé sur les hypothèses (H1), (H2) et (H3). Il est
+  important de vérifier que le triangle de données sur lequel on veut
+  travailler satisfait bien à ces trois conditions avant de pouvoir
+  appliquer le modèle de Mack.}
+
+
+\section{Modèle de Poisson}
+\label{sec:stochastique:poisson}
+
+Il est également possible d'utiliser le cadre théorique des modèles
+linéaires généralisés pour évaluer les réserves. Les modèles
+stochastiques de cette section supposent que les pertes incrémentales
+$Y_{i,j}$ sont une réalisation d'une loi de probabilité provenant de
+la famille exponentielle linéaire. On tentera donc de modéliser
+l'espérance $\mu_{i,j}$ de cette variable aléatoire.
+
+\subsection{Paramétrisation}
+\label{sec:stochastique:poisson:parametrisation}
+
+La façon la plus élémentaire de paramétriser la moyenne $\mu_{i,j}$ de
+la variable aléatoire $Y_{i,j}$ est de supposer que l'effet de l'année
+d'accident est indépendant de l'effet de la période de développement.
+
+On suppose ainsi que chaque année d'accident aura besoin d'un
+paramètre distinct pour représenter une réserve finale différente.
+Ensuite, dans la même logique, on suppose qu'à chaque période de
+développement, un pourcentage spécifique de la réserve finale sera
+réclamé, ainsi on aura besoin de paramètres différents selon la
+période de développement.
+
+En ce qui concerne les triangles de développement, on utilise
+\begin{equation*}
+  \mu_{i,j} = g(\gamma + \alpha_i + \beta_j),
+\end{equation*}
+où $i \in \{2, 3, \ldots , n\}$ représente l'année d'accident et
+$ j \in \{2, 3, \ldots , n\}$, l'année de développement. Ainsi, on
+voit rapidement la modélisation de la moyenne dans un modèle linéaire
+généralisé où $g()$ est une fonction de lien.
+
+On observe ainsi que la moyenne de la variable aléatoire $Y_{i,j}$ est
+affectée par un paramètre correspondant à la ligne du triangle de
+développement, et à un paramètre correspondant à la colonne de ce même
+triangle. On remarque aussi $\gamma$ représentant les pertes
+incrémentales moyennes pour la cellule de référence, qui est définie
+comme étant la première année d'accident et la première année de
+développement. Pour fin d'identification des paramètres, on suppose
+$\alpha_1 = \beta_1 = 0$.
+
+En fonction de $g(\gamma + \alpha_i + \beta_j)$, il est possible
+d'exprimer le triangle de développement de la manière suivante:
+\begin{center}
+  \begin{tabular}{|l|l l l l l l|}\hline
+    Année & $1$ & $2$ & $3$ & $\ldots$ & $n-1$ & $n$  \\ \hline
+    $1$ & $g(\gamma)$ & $g(\gamma + \beta_2)$ & $g(\gamma + \beta_3)$ & $\ldots$ & $g(\gamma + \beta_{n-1})$ & $g(\gamma + \beta_n)$ \\
+    $2$ & $g(\gamma + \alpha_2)$ & $g(\gamma + \alpha_2 + \beta_2)$ & $g(\gamma + \alpha_2 + \beta_3)$ & $\ldots$ & $g(\gamma + \alpha_2 + \beta_{n-1})$ & $\ldots$ \\
+    $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ \\
+    $n-1$ & $g(\gamma + \alpha_{n-1})$ & $g(\gamma + \alpha_{n-1} + \beta_2)$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ \\
+    $n$ & $g(\gamma + \alpha_n)$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ \\ \hline
+  \end{tabular}
+\end{center}
+
+\begin{exemple}
+  Transformer le triangle des $C_{i,j}$ suivant pour pouvoir ajuster
+  un modèle de Poisson.
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $225$ & $300$ & $350$ \\
+      $2$ & $200$  & $425$ & $600$ &    \\
+      $3$ & $325$  & $660$ &  &    \\
+      $4$ & $350$  &  &  &    \\  \hline
+    \end{tabular}
+  \end{center}
+
+  Dans le modèle, on suppose un $\mu$ commun à toutes les variables
+  $Y_{i,j}$ et on a la contrainte $\alpha_1 = \beta_1 = 0$. On doit
+  modifier le triangle des $C_{i,j}$ en triangle des $Y_{i,j}$.
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $125$ & $75$ & $50$ \\
+      $2$ & $200$  & $225$ & $175$ &    \\
+      $3$ & $325$  & $335$ &  &    \\
+      $4$ & $350$  &  &  &    \\  \hline
+    \end{tabular}
+  \end{center}
+  Ainsi,
+  \begin{center}
+    \begin{tabular}{|l l l l|}\hline
+      $Y_{i,j}$ & Valeur & Année (facteur) & Délai (facteur)   \\\hline
+      $Y_{1 1}$ &  $100$ & 1 & 1 \\
+      $Y_{1 2}$ & $125$  & 1 & 2 \\
+      $Y_{1 3}$ &  $75$   & 1 & 3 \\
+      $Y_{1 4}$ &  $50$  & 1 & 4 \\
+      $Y_{2 1}$ &  $200$  & 2 & 1 \\
+      $Y_{2 2}$ &  $225$  & 2 & 2 \\
+      $Y_{2 2}$ &  $175$  & 2 & 3 \\
+      $Y_{3 1}$ &  $325$  & 3 & 1 \\
+      $Y_{3 2}$ &  $335$  & 3 & 2 \\
+      $Y_{4 1}$ &  $350$  & 4 & 1 \\\hline
+    \end{tabular}
+  \end{center}
+  \qed
+\end{exemple}
+
+Le modèle de Poisson suppose que les pertes incrémentales $Y_{i,j}$
+sont une réalisation d'une loi de Poisson. Ainsi, lors de
+l'application d'un tel modèle, on utilise le triangle des pertes
+incrémentées ($Y_{ij}$) et on suppose que les $Y_{ij}$ sont positifs.
+
+Le modèle suppose que pour tout $i,j$, les
+$Y_{ij} \sim \text{Poisson}(\mu_{ij})$ sont des variables aléatoires
+indépendantes. La distribution de Poisson étant membre de la famille
+exponentielle linéaire, elle peut être utilisée dans le cadre des
+modèles linéaires généralisés. Ainsi, il pourrait être intéressant de
+voir ce qu'on peut faire avec cette distribution, en utilisant
+diverses fonctions de liens
+\begin{equation*}
+  \mu_{ij} = g(\gamma + \alpha_i + \beta_j),
+\end{equation*}
+\begin{equation*}
+  \Pr[Y_{ij} = y_{ij}] = \frac{\mu_{ij}^{y_{ij}} e^{-\mu_{ij}}}{y_{ij}!}.
+\end{equation*}
+
+\subsection{Estimation}
+\label{sec:stochastique:poisson:estimation}
+
+Puisqu'il s'agit d'un modèle que l'on connaît bien, on peut utiliser
+encore une fois l'estimation par maximum de vraisemblance (et la
+fonction \code{glm} de R).
+
+Il peut sembler étrange d'utiliser une distribution de Poisson pour
+modéliser des variables aléatoires qui sont des coûts et non des
+nombres entiers. Pour être plus précis, l'estimation des paramètres
+dans une telle situation s'appelle de la pseudo-vraisemblance (ou
+quasi-vraisemblance).
+
+\begin{exemple}
+  \label{ex:stochastique:poisson}
+  Calculer la réserve en supposant un modèle de Poisson avec fonction
+  de lien canonique pour les données
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $125$ & $75$ & $50$ \\
+      $2$ & $200$  & $225$ & $175$ &    \\
+      $3$ & $325$  & $335$ &  &    \\
+      $4$ & $350$  &  &  &    \\  \hline
+    \end{tabular}
+  \end{center}
+
+  Après convergence de l'algorithme, on obtient les estimations
+  suivantes des paramètres
+  \begin{align*}
+    \hat{\gamma} &= 4,6383\\
+    \hat{\beta}_2 &=  0,09167  \\
+    \hat{\beta}_3 &= -0,2155  \\
+    \hat{\beta}_4 &=  -0,7263\\
+    \hat{\alpha}_2 &=  0,6931\\
+    \hat{\alpha}_3 &=  1,1139 \\
+    \hat{\alpha}_4 &=  1,2196.
+  \end{align*}
+  On a alors
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $125$ & $75$ & $50$ \\
+      $2$ & $200$  & $225$ & $175$ &  $e^{4,6383 + 0,6931 - 0,7263}$    \\
+      $3$ & $325$  & $335$ &   $e^{4,6383 + 1,1139 - 0,2155}$ &     $e^{4,6383 + 1,1139 -0,7263}$\\
+      $4$ & $350$  & $e^{4,6383 + 1,2196 + 0,09167}$ &      $e^{4,6383 + 1,2196 - 0,2155}$ &     $e^{4,6383 + 1,2196 -0,7263}$\\  \hline
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $125$ & $75$ & $50$ \\
+      $2$ & $200$  & $225$ & $175$ &   $99,99$   \\
+      $3$ & $325$  & $330$ &   $253,84$ &  $152,31$   \\
+      $4$ & $350$  &  $383,59$ & $282,14$ &  $169,29$  \\  \hline
+    \end{tabular}
+  \end{center}
+  et donc un tableau des $C_{ij}$
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $225$ & $300$    & $350$ \\
+      $2$ & $200$  & $425$ & $600$    & $699,99 $  \\
+      $3$ & $325$  & $660$ & $913,84$ & $\nombre{1066,15}$   \\
+      $4$ & $350$  & $733,59$ & $\nombre{1015,73}$ & $\nombre{1185,02}$   \\  \hline
+    \end{tabular}
+  \end{center}
+  Puisque la méthode Chain-Ladder est la base de toutes les méthodes,
+  on compare les résultats des deux méthodes:
+  \begin{align*}
+    \lambda_1 &= 2,096, \lambda_2 = 1,3846 , \lambda_1 = 1,16666
+  \end{align*}
+  \begin{center}
+    \begin{tabular}{|l|l l l l|}\hline
+      Année & $1$ & $2$ & $3$ & $4$  \\ \hline
+      $1$ & $100$  & $225$ & $300$    & $350$ \\
+      $2$ & $200$  & $425$ & $600$    & $699,99 $  \\
+      $3$ & $325$  & $660$ & $913,84$ & $\nombre{1066,15}$   \\
+      $4$ & $350$  & $733,59$ & $\nombre{1015,73}$ & $\nombre{1185,02}$   \\  \hline
+    \end{tabular}
+  \end{center}
+  On remarque que les deux méthodes produisent exactement les mêmes
+  résultats.
+  \qed
+\end{exemple}
+
+\gotorbox{Étudiez et exécutez les lignes
+  \reflines{stochastique:poisson} du fichier de script
+  \code{\scriptfilename} reproduit à la
+  \autoref{sec:stochastique:code} et comparez les résultats avec ceux
+  de l'\autoref{ex:stochastique:poisson}.}
+
+
+En comparaison avec les modèles déterministes, un modèle de Poisson
+(avec fonction de lien canonique) pour les réserves possède les
+avantages suivants:
+\begin{enumerate}
+\item les montants estimés sont similaires à ceux obtenus par la
+  méthode Chain-Ladder , la méthode la plus fréquemment utilisée en
+  pratique;
+\item on connaît la distribution des $Y_{i,j}$; et
+\item on peut calculer la distribution des $C_{i,j}$
+  \begin{itemize}
+  \item si $X$ et $Y$ sont indépendants et de distribution Poisson
+    avec paramètres $\lambda_X$ et $\lambda_Y$, alors
+    $X+Y \sim \text{Poisson}(\lambda_X + \lambda_Y)$;
+  \end{itemize}
+\item on peut calculer la variance de la réserve de $R_{i}$
+  \begin{align*}
+    \Var{R_i} &= \Var{C_{i, n} -  C_{i, n+1-i}}\\
+              &= \Var{Y_{i,n+2-i} + Y_{i,n+3-i} + \ldots + Y_{i,n}} \\
+              &= \Var{Y_{i,n+2-i}} + \Var{Y_{i,n+3-i}} + \ldots + \Var{Y_{i,n}} \\
+              &= \mu_{i,n+2-i} + \mu_{i,n+3-i} + \ldots + \mu_{i,n}.
+  \end{align*}
+\end{enumerate}
+Par contre, il n'est pas possible d'évaluer l'erreur d'estimation.
+
+\section{Code informatique}
+\label{sec:stochastique:code}
+
+\scriptfile{\scriptfilename}
+\lstinputlisting[firstline=\scriptfirstline]{\scriptfilename}
+
+
+\section{Exercices}
+\label{sec:stochastique:exercices}
+
+\Opensolutionfile{reponses}[reponses-stochastique]
+\Opensolutionfile{solutions}[solutions-stochastique]
+
+\begin{Filesave}{solutions}
+\section*{Chapitre \ref*{chap:stochastique}}
+\addcontentsline{toc}{section}{Chapitre \protect\ref*{chap:stochastique}}
+
+\end{Filesave}
+
+\begin{exercice}
+  \label{exercice:stochastique:mack}
+  On considère un triangle des paiements cumulés tel que celui
+  présenté dans le \autoref{tab:stochastique:tri1a}.
+  \begin{table}[!h]
+    \centering
+    \caption{Paiements cumulatifs}
+    \label{tab::stochastique:tri1a}
+    \begin{tabular}{cccccc}
+      \toprule
+      & $1$ & $2$ & $3$ & $4$ & $5$\\
+      \midrule
+      2000 & $425$ & $522$ & $612$ & $714$ & $730$\\
+      2001 & $532$ & $657$ & $714$ & $732$ & -\\
+      2002 & $717$ & $730$ & $802$ & - & -\\
+      2003 & $440$ & $560$ & - & - & -\\
+      2004 & $620$ & - & - & - & -\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{enumerate}
+  \item Calculer les estimateurs des facteurs de développement dans le
+    modèle de Mack et déterminer le montant de la réserve totale à
+    l'ultime.
+  \item Calculer les estimateurs des $\sigma_k^2$.
+  \item Déterminer les écarts-types des réserves par année de
+    survenance et l'écart-type de la réserve totale.
+  \item Vérifier dans R les résultats à l'aide de la fonction
+    \code{MackChainLadder} du paquetage \pkg{ChainLadder}.
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $1,167928$, $1,114720$, $1,090498$, $1,022409$, $1$. Le
+      montant total de la réserve est $524$.
+    \item $8,285875$, $1,220096$, $6,594053$, $1,220096$
+    \item Par année de survenance, de $1$ à $5$: $0$, $42,5$, $106,0$,
+      $95,1$ et $152,1$. L'écart-type de la réserve totale est
+      $275,4176$.
+    \item --
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On a
+      \begin{align*}
+        \lambda_1 &= \frac{522 + 657 + 730 + 560}{425 + 532 + 717 + 440}\\
+                  &=  \frac{\numprint{2469}}{\numprint{2114}}\\
+                  &= 1,167928\\
+        \lambda_2 &= \frac{\numprint{2128}}{\numprint{1909}}\\
+                  &= 1,114720\\
+        \lambda_3 &= \frac{\numprint{1446}}{\numprint{1326}}\\
+                  &= 1,090498\\
+        \lambda_4 &= \frac{\numprint{730}}{\numprint{714}}\\
+                  &= 1,022409.
+      \end{align*}
+      Le montant total de la réserve est donné par la différence entre
+      le montant total des paiements ultimes et le montant total des
+      paiements déjà réalisés:
+      \begin{align*}
+        730 + 748 + 894 + 696 + 900 &= \numprint{3968}\\
+        730 + 732 + 802 + 560 + 620 &= \numprint{3444}\\
+        \numprint{3968} - \numprint{3444} &= 524.
+      \end{align*}
+    \item On a
+      \begin{align*}
+        \hat{\sigma}^2_1 &= \frac{1}{5-1-1}\left((425)\left(\frac{522}{425} -
+                           1,167928\right)^2 + (532)\left(\frac{657}{532} -
+                           1,167928\right)^2\right.\\
+                         &\phantom{=}\left.+ (717)\left(\frac{730}{717} -
+                           1,167928\right)^2 + (440)\left(\frac{560}{440} -
+                           1,167928\right)^2\right)\\
+                         &= 8,285875\\
+        \hat{\sigma}^2_2 &= \frac{1}{5-2-1}\left((522)\left(\frac{612}{522} -
+                           1,114720\right)^2 + (657)\left(\frac{714}{657} -
+                           1,114720\right)^2\right.\\
+                         &\phantom{=}\left.+ (730)\left(\frac{802}{730} -
+                           1,114720\right)^2\right)\\
+                         &= 1,220096\\
+        \hat{\sigma}^2_3 &= \frac{1}{5 - 3 - 1}\left((612)\left(\frac{714}{612}
+                           - 1,0905\right)^2 + (714)\left(\frac{732}{714} - 1,0905\right)^2\right)\\
+                         &= 6,594053\\
+        \hat{\sigma}^2_4 &= \min\left(\frac{6,594053^2}{1,220096},
+                           \min\left(6,594053, 1,220096\right)\right)\\
+                         &= 1,220096.
+      \end{align*}
+    \item Le triangle complété est
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{cccccc}
+          \toprule
+          & $1$ & $2$ & $3$ & $4$ & $5$\\
+          \midrule
+          2000 & $425$ & $522$ & $612$ & $714$ & $730$\\
+          2001 & $532$ & $657$ & $714$ & $732$ & $\textcolor{black}{748}$\\
+          2002 & $717$ & $730$ & $802$ & $\textcolor{black}{875}$ & $\textcolor{black}{894}$\\
+          2003 & $440$ & $560$ & $\textcolor{black}{624}$ & $\textcolor{black}{681}$ & $\textcolor{black}{696}$\\
+          2004 & $620$ & $\textcolor{black}{724}$ & $\textcolor{black}{807}$ & $\textcolor{black}{880}$ & $\textcolor{black}{900}$\\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+      La variance de la réserve de la première années de survenance
+      est nulle. Pour les autres, on a
+      \begin{align*}
+        \hVar{\hat{R}_2}
+        &= \hat{C}_{2,5}^2 \sum_{k = 5-2+1}^{5-1} \frac{\hat{\sigma}^2_k}{\hat{\lambda}_k^2}
+          \left(\frac{1}{\hat{C}_{2,k}} + \frac{1}{\sum_{j=1}^{5-k} \hat{C}_{j,k}} \right) \\
+        &= \hat{C}_{2,5}^2 \left[\frac{\hat{\sigma}^2_4}{\hat{\lambda}_4^2}
+          \left(\frac{1}{\hat{C}_{2,4}} + \frac{1}{\sum_{j=1}^{1} \hat{C}_{j,4}} \right) \right] \\
+        &= 748^2 \left[\frac{1,220096}{1,022409^2}
+          \left(\frac{1}{732} + \frac{1}{714} \right) \right] \\
+        &= \nombre{1806,787}\\
+      \end{align*}
+      \begin{align*}
+        \hVar{\hat{R}_3}
+        &= \hat{C}_{3,5}^2 \sum_{k = 5-3+1}^{5-1} \frac{\hat{\sigma}^2_k}{\hat{\lambda}_k^2}
+          \left(\frac{1}{\hat{C}_{3,k}} + \frac{1}{\sum_{j=1}^{5-k} \hat{C}_{j,k}} \right) \\
+        &= \hat{C}_{3,5}^2 \left[ \frac{\hat{\sigma}^2_3}{\hat{\lambda}_3^2}
+          \left(\frac{1}{\hat{C}_{3,3}} + \frac{1}{\sum_{j=1}^{5-3} \hat{C}_{j,3}} \right) +
+          \frac{\hat{\sigma}^2_4}{\hat{\lambda}_4^2}
+          \left(\frac{1}{\hat{C}_{3,4}} + \frac{1}{\sum_{j=1}^{5-4} \hat{C}_{j,4}} \right) \right]\\
+        &= 894^2 \left[ \frac{6,594053}{1,090498^2}
+          \left(\frac{1}{802} + \frac{1}{612  + 714} \right) +
+          \frac{1,220096}{1,022409^2}
+          \left(\frac{1}{875} + \frac{1}{714} \right) \right]\\
+        &= \nombre{11240,79} \\
+        \widehat{\Var{\hat{R}_4}} &= \nombre{9044,01}\\
+        \widehat{\Var{\hat{R}_5}} &= \nombre{23134,41}.
+      \end{align*}
+      La variance de $\hat{R} = 524$ est estimée par
+      \begin{align*}
+        \hVar{\hat{R}}
+        &= \sum_{i=2}^n \left(\widehat{\Var{\hat{R}_i}} + \hat{C}_{i,n} \left(\sum_{j=i+1}^{n}  \hat{C}_{j,n} \right)
+          \sum_{k=n-i+1}^{n-1} \frac{2 \hat{\sigma}_k^2/
+          \hat{\lambda}_k^2}{\sum_{j=1}^{n-k} C_{j,k}}\right)\\
+        &= \ldots\\
+        &= \nombre{75856,18}.
+      \end{align*}
+    \item Le code permettant de vérifier les résultats est
+<<echo=TRUE>>=
+tri <- matrix(c(425,532,717,440,620,522,657,730,560,NA,612,714,802,
+                NA,NA,714,732,NA,NA,NA,730,NA,NA,NA,NA), ncol = 5)
+model1 <- MackChainLadder(tri)
+summary(model1)
+model1$f
+model1$sigma^2
+model1$Total.Mack.S.E
+@
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Pour les données du \autoref{tab:stochastique:tri1a}, ajuster un
+  modèle de Poisson.
+  \begin{enumerate}
+  \item Quelles sont les valeurs estimées des paramètres?
+  \item Quelle est la valeur estimée de la réserve?
+  \item Calculer la variance de la réserve pour chacune des années de
+    survenance.
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $\gamma = 6,22$, $\alpha_2 = 0,0249$, $\alpha_3 = 0,2029$,
+      $\alpha_4 =-0,0477$, $\alpha_5 = 0,2093$, $\beta_2 = -1,7842$,
+      $\beta_3 = -2,0100$, $\beta_4 = -2,1386$ et $\beta_5 = -3,4478$
+    \item $524,5406$
+    \item $0$, $16,40$,$92,1776$, $135,9902$ et $279,9594$.
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Le code permettant d'obtenir les estimations est
+<<echo=TRUE>>=
+triINC <- cum2incr(tri)
+pmt <- c(425, 532, 717, 440, 620, 97,125, 13, 120, 90,
+         57, 72, 102, 18, 16)
+Year <- as.factor(c(1,2,3,4,5,1,2,3,4,1,2,3,1,2,1))
+Delay <- as.factor(c(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5))
+dda <- data.frame(pmt = pmt, Year = Year, Delay = Delay)
+model2 <- glm(pmt ~ Year + Delay, family = quasipoisson, data = dda)
+summary(model2)
+@
+    \item Le code permettant d'obtenir la réserve est
+<<echo=TRUE>>=
+ddaNEW <- data.frame(Year = as.factor(c(1,2,3,4,5,1,2,3,4,5,1,2,3,
+          4,5,1,2,3,4,5,1,2,3,4,5)), Delay = as.factor(c(1,1,1,1,1,
+          2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5)))
+ddaNEW$pred <- predict(model2, newdata = ddaNEW, type =  "response")
+matrix(ddaNEW$pred, ncol = 5)
+@
+      Il suffit maintenant de sommer la partie inférieure droite du
+      triangle pour obtenir la réserve totale
+      \begin{align*}
+        \hat{R}
+        &= 104,11542+ 83,07034+ 73,04849+ 19,72514+64,24306+
+          56,49258+ 15,25458\\
+        &\phantom{=}+72,57919+19,59841+16,40336\\
+        &= 524,5306.
+      \end{align*}
+    \item Les variances des réserves sont données par
+      \begin{align*}
+        \widehat{\Var{R_1}} &= 0\\
+        \widehat{\Var{R_2}} &= 16,40\\
+        \widehat{\Var{R_3}} &= 72,57919+19,59841 = 92,1776\\
+        \widehat{\Var{R_4}} &= 64,24306+ 56,49258+ 15,25458=135,9902\\
+        \widehat{\Var{R_5}} &= 104,11542+ 83,07034+ 73,04849+ 19,72514 = 279,9594.
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Un assureur dispose des données présentés dans le
+  \autoref{tab:stochastique:tri2}.
+  \begin{table}[!h]
+    \centering
+    \caption{Paiements cumulatifs}
+    \label{tab:stochastique:tri2}
+    \begin{tabular}{lllllll}
+      \toprule
+      & $1$ & $2$ & $3$ & $4$ & $5$ & $6$\\
+      \midrule
+      1 & $120$ & $310$ & $320$ & $360$ & $370$ & $370$\\
+      2 & $240$ & $410$ & $420$ & $450$ & $460$ & -\\
+      3 & $230$ & $400$ & $430$ & $480$ & - & -\\
+      4 & $260$ & $450$ & $460$ & - & - & -\\
+      5 & $270$ & $460$ & - & - & - & -\\
+      6 & $280$ & - & - & - & - & -\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{enumerate}
+  \item Calculer les estimateurs des facteurs de développement dans le
+    modèle de Mack et déterminer les réserves à l'ultime.
+  \item Calculer les estimateurs des $\sigma_k^2$.
+  \item Déterminer les écarts-types des réserves par année de
+    survenance et l'écart-type de la réserve totale.
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $1,812500$, $1,038217$, $1,102564$, $1,024691$, $1$ et $1$.
+      La réserve est $466,4$.
+    \item $20,01926$, $0,2485706$, $0,3245592$, $0,006172840$,
+      $0,0001174022$
+    \item Les écarts-types sont, par année de survenance: $0$,
+      $0,348$, $2,203$, $14,954$, $20,577$ et $100,598$. L'écart-type
+      de la réserve totale est $106,34$.
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    Les démarches sont identiques à celles de
+    l'\autoref{exercice:stochastique:mack}. Nous fournissons
+    ci-dessous les résultats calculés avec \code{MackChainLadder}.
+<<echo=TRUE>>=
+tri <- matrix(c(120, 310, 320, 360, 370, 370,
+                240, 410, 420, 450, 460, NA,
+                230, 400, 430, 480, NA,  NA,
+                260, 450, 460, NA,  NA,  NA,
+                270, 460, NA,  NA,  NA,  NA,
+                280, NA,  NA,  NA,  NA,  NA),
+nrow = 6, byrow = TRUE)
+model1 <- MackChainLadder(tri)
+summary(model1)
+model1$f
+model1$sigma^2
+model1$Total.Mack.S.E
+@
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Pour les données du \autoref{tab:stochastique:tri2}, ajuster un
+  modèle de Poisson.
+  \begin{enumerate}
+  \item Quelles sont les valeurs estimées des paramètres?
+  \item Quelle est la valeur estimée de la réserve?
+  \item Calculer la variance de la réserve pour chacune des années de
+    survenance.
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $\gamma = 5,16$, $\alpha_2 = 0,2177$, $\alpha_3 = 0,2847$,
+      $\alpha_4 =0,3398$, $\alpha_5 = 0,3773$, $\alpha_6 = 0,4755$,
+      $\beta_2 = -0,2076$, $\beta_3 = -2,6698$, $\beta_4 = -1,6451$,
+      $\beta_5 = -2,9715$ et $\beta_6 = -21,4618$
+    \item $466$
+    \item $0$, $0$ $11,85$,$59,70$, $79,56$ et $315,28$.
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Le code permettant d'obtenir les résultats est
+<<echo=TRUE>>=
+triINC <- cum2incr(tri)
+pmt <- c(120,240,230,260,270,280,190,170,170,190,190,
+         10,10,30,10,40,30,50,10,10,0)
+Year <- c(1,2,3,4,5,6,1,2,3,4,5,1,2,3,4,1,2,3,1,2,1)
+Delay <- c(1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6)
+dda <- data.frame(pmt = pmt, Year = as.factor(Year),
+                  Delay = as.factor(Delay))
+model2 <- glm(pmt ~ Year + Delay, family = quasipoisson, data = dda)
+summary(model2)
+@
+    \item Le code permettant d'obtenir la réserve est
+<<echo=TRUE>>=
+ddaNEW <- data.frame(Year = as.factor(c(1,2,3,4,5,6,1,2,3,4,5,
+          6,1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6)),
+          Delay = as.factor(c(1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,
+          3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6)))
+ddaNEW$pred <- predict(model2, newdata = ddaNEW, type =  "response")
+matrix(ddaNEW$pred, ncol = 6)
+@
+      Il suffit maintenant de sommer la partie inférieure droite du
+      triangle pour obtenir la réserve totale $466$.
+    \item Les variances des réserves sont données par
+      \begin{align*}
+        \hVar{R_1} &= 0\\
+        \hVar{R_2} &= 0\\
+        \hVar{R_3} &= 11,8519\\
+        \hVar{R_4} &= 59,7024\\
+        \hVar{R_5} &= 79,5637\\
+        \hVar{R_5} &= 315,2795.
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\Closesolutionfile{solutions}
+\Closesolutionfile{reponses}
+
+%%% Local Variables:
+%%% mode: noweb
+%%% TeX-master: "provisionnement-assurance-iard"
+%%% TeX-engine: xetex
+%%% coding: utf-8
+%%% End:
