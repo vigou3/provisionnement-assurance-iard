@@ -51,14 +51,19 @@
                    keepaspectratio=true]{images/Sciurus_carolinensis}
 \end{textblock*}
 
-%% titre
+%% bandeau et titre
+\begin{textblock*}{\paperwidth}(0mm,4.5\TPVertModule)
+  \pgfsetfillopacity{0.55}
+  \textcolor{black!10}{\rule{\paperwidth}{13\TPVertModule}}
+  \pgfsetfillopacity{1}
+\end{textblock*}
 \begin{textblock*}{0.75\textwidth}(\TPHorizModule,6\TPVertModule)
-  \textcolor{black!10}{\titlefmt}
+  \titlefmt
 \end{textblock*}
 
 %% auteurs
 \begin{textblock*}{0.75\textwidth}(\TPHorizModule,14.5\TPVertModule)
-  \textcolor{black!10}{\authorsfmt}
+  \authorsfmt
 \end{textblock*}
 
 \null\cleardoublepage
