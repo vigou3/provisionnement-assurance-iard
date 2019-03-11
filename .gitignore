@@ -10,9 +10,15 @@
 *.out
 *.snm
 *.toc
+*.lot
+*.lof
 *.vrb
+*.Rout
 *-[0-9][0-9][0-9].pdf
 reponses-*.tex
 solutions-*.tex
+Rplots.pdf
+.RData
 auto/
 auto/*
+COLLABORATEURS
