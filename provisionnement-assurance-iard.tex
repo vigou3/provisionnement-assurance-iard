@@ -367,8 +367,22 @@
 
   %% Raccourcis usuels vg
   \newcommand{\pt}{{\scriptscriptstyle \Sigma}}
-  \newcommand{\mat}[1]{\mathbf{#1}}
+  \newcommand{\Esp}[1]{E\! \left[ #1 \right]}
+  \newcommand{\esp}[1]{E [ #1 ]}
+  \newcommand{\Var}[1]{\operatorname{Var}\! \left[ #1 \right]}
   \newcommand{\var}[1]{\operatorname{Var} [ #1 ]}
+  \newcommand{\Cov}{\operatorname{Cov}}
+  \newcommand{\CV}{\operatorname{CV}}
+  \ifxetex
+    \newcommand{\mat}[1]{\symbf{#1}}
+  \else
+    \newcommand{\mat}[1]{\mathbf{#1}}
+  \fi
+  \ifxetex
+    \newcommand{\Z}{\symbb{Z}}
+  \else
+    \newcommand{\Z}{\mathbb{Z}}
+  \fi
 
   %%% =======
   %%%  Index
@@ -424,6 +438,7 @@
 \mainmatter
 
 \include{presentation}
+\include{deterministe}
 
 \appendix
 \include{solutions}
