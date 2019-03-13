@@ -138,7 +138,7 @@ possible de construire des intervalles de confiance sur les réserves.
 
 Si le volume de données est suffisant, on peut supposer une
 distribution normale pour la distribution de la réserve. Ainsi, un
-intervalle de confiance (à $95\%$) pourrait être donné par
+intervalle de confiance (à $95~\%$) pourrait être donné par
 \begin{equation*}
   R_i \in [\hat{R}_i- 1,96 \hat{e-t}(\hat{R}_i); \hat{R}_i + 1,96
 \hat{e-t}(\hat{R}_i)].
@@ -163,7 +163,7 @@ et donc
   \mu_i    &= \ln(\hat{R}_i) - \Sigma^2_i/2 \\
   \Sigma_i^2 &= \ln\left(1 + \left(\frac{\hat{e-t}(\hat{R}_i)}{\hat{R}_i}\right)^2 \right).
 \end{align*}
-Ainsi, un intervalle de confiance (à $95\%$) est donné par
+Ainsi, un intervalle de confiance (à $95~\%$) est donné par
 \begin{equation*}
   R_i \in [\exp(\mu_i - 1,96 \Sigma_i) ; \exp(\mu_i + 1,96 \Sigma_i)]
 = \left[\hat{R}_i \exp(-\Sigma^2_i/2 - 1,96 \Sigma_i); \hat{R}_i
@@ -252,7 +252,7 @@ Ainsi, un intervalle de confiance (à $95\%$) est donné par
     \hVar{\hat{R}_4} &= 0,3715 \\
     \hVar{\hat{R}_5} &= 0,5740.
   \end{align*}
-  L'intervalle de confiance à $95\%$, sous l'hypothèse de la loi
+  L'intervalle de confiance à $95~\%$, sous l'hypothèse de la loi
   normale pour les réserves peut donc se calculer
   \begin{align*}
     R_2 &\in [\hat{R}_2- 2 \hat{e-t}(\hat{R}_2); \hat{R}_2 + 2 \hat{e-t}(\hat{R}_2)]\\
@@ -271,7 +271,7 @@ Ainsi, un intervalle de confiance (à $95\%$) est donné par
     \Sigma_2^4  &= 0,02296 \\
     \Sigma_2^5  &= 0,00757.
   \end{align*}
-  L'intervalle de confiance à $95\%$, sous l'hypothèse de la loi
+  L'intervalle de confiance à $95~\%$, sous l'hypothèse de la loi
   Lognormale pour les réserves peut donc se calculer
   \begin{equation*}
     R_i \in [\exp(\mu_i - 2 \Sigma_i) ; \exp(\mu_i + 2\Sigma_i)]
@@ -356,7 +356,7 @@ de $\hat{R}$ est estimée par
     &= 0,5740.
   \end{align*}
   Ainsi $\hVar{\hat{R}} = 2,3900$ et donc
-  $\hat{e-t}(\hat{R}) = 1,5460$, soit $10\%$ de $\hat{R}$.
+  $\hat{e-t}(\hat{R}) = 1,5460$, soit $10~\%$ de $\hat{R}$.
   \qed
 \end{exemple}
 
