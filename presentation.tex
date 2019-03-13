@@ -822,18 +822,18 @@ pour tenir compte des futures évolutions.
   \begin{center}
     \begin{tabular}{|c | c c c |}\hline
       Année & Primes acquises & Montants payés & Rapport sinistres/primes espéré\\ \hline
-      2000 & $\numprint{200000}$ & $\numprint{158000}$ & $85~\%$\\
-      2001 & $\numprint{205000}$ & $\numprint{150000}$ & $87,5~\%$\\
-      2002 & $\numprint{210000}$ & $\numprint{145000}$ & $85~\%$\\
-      2003 & $\numprint{212500}$ & $\numprint{140000}$ & $78~\%$\\
-      2004 & $\numprint{220000}$ & $\numprint{125000}$ & $80~\%$\\
-      2005 & $\numprint{215000}$ & $\numprint{112000}$ & $75~\%$ \\ \hline
+      2000 & $\nombre{200000}$ & $\nombre{158000}$ & $85~\%$\\
+      2001 & $\nombre{205000}$ & $\nombre{150000}$ & $87,5~\%$\\
+      2002 & $\nombre{210000}$ & $\nombre{145000}$ & $85~\%$\\
+      2003 & $\nombre{212500}$ & $\nombre{140000}$ & $78~\%$\\
+      2004 & $\nombre{220000}$ & $\nombre{125000}$ & $80~\%$\\
+      2005 & $\nombre{215000}$ & $\nombre{112000}$ & $75~\%$ \\ \hline
     \end{tabular}
   \end{center}
   En utilisant la méthode des rapports sinistres/primes espérés,
   estimer la réserve totale pour les années 2000 à 2005.
   \begin{rep}
-    $\numprint{200875}$
+    $\nombre{200875}$
   \end{rep}
   \begin{sol}
     On a
@@ -841,15 +841,15 @@ pour tenir compte des futures évolutions.
       \text{Pertes ultimes estimées}_{2000} &= \text{Rapport
                                               sinistres/primes espéré}_{2000} \times \text{Primes
                                               acquises}_{2000}\\
-                                            &= (0,85)(\numprint{200000}) = \numprint{170000}\\
-      \text{Pertes ultimes estimées}_{2001} &= \numprint{179375}\\
-      \text{Pertes ultimes estimées}_{2002} &= \numprint{178500}\\
-      \text{Pertes ultimes estimées}_{2003} &= \numprint{165750}\\
-      \text{Pertes ultimes estimées}_{2004} &= \numprint{176000}\\
-      \text{Pertes ultimes estimées}_{2005} &= \numprint{161250}\\
-      \text{Pertes ultimes estimées}_{Total} &= \numprint{1030875}\\
+                                            &= (0,85)(\nombre{200000}) = \nombre{170000}\\
+      \text{Pertes ultimes estimées}_{2001} &= \nombre{179375}\\
+      \text{Pertes ultimes estimées}_{2002} &= \nombre{178500}\\
+      \text{Pertes ultimes estimées}_{2003} &= \nombre{165750}\\
+      \text{Pertes ultimes estimées}_{2004} &= \nombre{176000}\\
+      \text{Pertes ultimes estimées}_{2005} &= \nombre{161250}\\
+      \text{Pertes ultimes estimées}_{Total} &= \nombre{1030875}\\
       \text{Réserve estimée}_{total} &= \text{Pertes ultimes estimées}_{total} - \text{montants payés}_{total}\\
-                                            &=  \numprint{1030875} - \numprint{830000} = \numprint{200875}.
+                                            &=  \nombre{1030875} - \nombre{830000} = \nombre{200875}.
     \end{align*}
   \end{sol}
 \end{exercice}
@@ -860,24 +860,24 @@ pour tenir compte des futures évolutions.
   \begin{center}
     \begin{tabular}{|c | c c|}\hline
       Année & Primes acquises & Somme des réserves individuelles \\ \hline
-      2000 & $\numprint{100000}$ & $\numprint{58000}$\\
-      2001 & $\numprint{105000}$ & $\numprint{50000}$\\
-      2002 & $\numprint{110000}$ & $\numprint{45000}$\\
-      2003 & $\numprint{112500}$ & $\numprint{40000}$\\
-      2004 & $\numprint{120000}$ & $\numprint{25000}$\\
-      2005 & $\numprint{115000}$ & $\numprint{12000}$ \\ \hline
+      2000 & $\nombre{100000}$ & $\nombre{58000}$\\
+      2001 & $\nombre{105000}$ & $\nombre{50000}$\\
+      2002 & $\nombre{110000}$ & $\nombre{45000}$\\
+      2003 & $\nombre{112500}$ & $\nombre{40000}$\\
+      2004 & $\nombre{120000}$ & $\nombre{25000}$\\
+      2005 & $\nombre{115000}$ & $\nombre{12000}$ \\ \hline
     \end{tabular}
   \end{center}
   En utilisant la méthode des réserves enregistrées, estimer la
   réserve totale pour les années 2000 à 2005 si on utilise un facteur
   de $5~\%$.
   \begin{rep}
-    $\numprint{241500}$
+    $\nombre{241500}$
   \end{rep}
   \begin{sol}
-    La somme des réserves individuelles est $\numprint{230000}$.
+    La somme des réserves individuelles est $\nombre{230000}$.
     Ainsi, la réserve totale est
-    $(\numprint{230000})(1,05) = \numprint{241500}$.
+    $(\nombre{230000})(1,05) = \nombre{241500}$.
   \end{sol}
 \end{exercice}
 
@@ -888,13 +888,13 @@ pour tenir compte des futures évolutions.
   \begin{center}
     \begin{tabular}{|l|l l l l l l l|}\hline
       Année & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$\\ \hline
-      1993 & $\numprint{1780}$ & $\numprint{2673}$ & $\numprint{2874}$ & $\numprint{3094}$ & $\numprint{3157}$ & $\numprint{3166}$ & $\numprint{3166}$ \\
-      1994 & $\numprint{3226}$ & $\numprint{4219}$ & $\numprint{4532}$ & $\numprint{4881}$ & $\numprint{5144}$ & $\numprint{5199}$ & \\
-      1995 & $\numprint{3652}$ & $\numprint{4989}$ & $\numprint{5762}$ & $\numprint{6436}$ & $\numprint{6720}$ & & \\
-      1996 & $\numprint{2723}$ & $\numprint{4301}$ & $\numprint{5526}$ & $\numprint{6231}$ & & & \\
-      1997 & $\numprint{2923}$ & $\numprint{4666}$ & $\numprint{5349}$ & & & & \\
-      1998 & $\numprint{2990}$ & $\numprint{5417}$ & & & & & \\
-      1999 & $\numprint{3917}$ & & & & & &\\ \hline
+      1993 & $\nombre{1780}$ & $\nombre{2673}$ & $\nombre{2874}$ & $\nombre{3094}$ & $\nombre{3157}$ & $\nombre{3166}$ & $\nombre{3166}$ \\
+      1994 & $\nombre{3226}$ & $\nombre{4219}$ & $\nombre{4532}$ & $\nombre{4881}$ & $\nombre{5144}$ & $\nombre{5199}$ & \\
+      1995 & $\nombre{3652}$ & $\nombre{4989}$ & $\nombre{5762}$ & $\nombre{6436}$ & $\nombre{6720}$ & & \\
+      1996 & $\nombre{2723}$ & $\nombre{4301}$ & $\nombre{5526}$ & $\nombre{6231}$ & & & \\
+      1997 & $\nombre{2923}$ & $\nombre{4666}$ & $\nombre{5349}$ & & & & \\
+      1998 & $\nombre{2990}$ & $\nombre{5417}$ & & & & & \\
+      1999 & $\nombre{3917}$ & & & & & &\\ \hline
     \end{tabular}
   \end{center}
 
@@ -913,27 +913,27 @@ pour tenir compte des futures évolutions.
 
   \begin{rep}
     \begin{enumerate}
-    \item $\numprint{3166}$
-    \item $\numprint{773}$
-    \item $\numprint{5417}$
-    \item $\numprint{8071}$
-    \item $\numprint{4119}$
+    \item $\nombre{3166}$
+    \item $\nombre{773}$
+    \item $\nombre{5417}$
+    \item $\nombre{8071}$
+    \item $\nombre{4119}$
     \end{enumerate}
   \end{rep}
   \begin{sol}
     \begin{enumerate}
     \item Le dernier montant cumulatif disponible pour l'année de
-      survenance 1993 est $\numprint{3166}$~\$.
-    \item On calcule $\numprint{5762} - \numprint{4989} = 773$.
+      survenance 1993 est $\nombre{3166}$~\$.
+    \item On calcule $\nombre{5762} - \nombre{4989} = 773$.
     \item Le dernier montant cumulatif disponible pour l'année de
-      survenance 1998 est $\numprint{5417}$.
-    \item On calcule $\numprint{3917} +
-      (\numprint{5417}-\numprint{2990}) + (\numprint{5349} -
-      \numprint{4666}) + (\numprint{6231} - \numprint{5526}) +
-      (\numprint{6720}-\numprint{6436}) + (\numprint{5199} -
-      \numprint{5144}) + 0 = \numprint{8071}$.
-    \item On calcule $\numprint{3226} +
-      (\numprint{2673}-\numprint{1780}) = \numprint{4119}$.
+      survenance 1998 est $\nombre{5417}$.
+    \item On calcule $\nombre{3917} +
+      (\nombre{5417}-\nombre{2990}) + (\nombre{5349} -
+      \nombre{4666}) + (\nombre{6231} - \nombre{5526}) +
+      (\nombre{6720}-\nombre{6436}) + (\nombre{5199} -
+      \nombre{5144}) + 0 = \nombre{8071}$.
+    \item On calcule $\nombre{3226} +
+      (\nombre{2673}-\nombre{1780}) = \nombre{4119}$.
     \end{enumerate}
   \end{sol}
 \end{exercice}
