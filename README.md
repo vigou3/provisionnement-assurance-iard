@@ -30,7 +30,7 @@ La composition d'un document requiert d'abord une distribution du système LaTeX
 - [Vidéo expliquant l'installation sur Windows](https://youtu.be/7MfodhaghUk)
 - [Vidéo expliquant l'installation sur macOS](https://youtu.be/kA53EQ3Q47w)
 
-Ensuite, des connaissances de base sur le fonctionnement de LaTeX sont nécessaires. Consulter [*Rédaction avec LaTeX*](https://vigou3.gitlab.io/formation-latex-ul/), la formation LaTeX de l'Université Laval. 
+Ensuite, des connaissances de base sur le fonctionnement de LaTeX sont nécessaires. Consultez [*Rédaction avec LaTeX*](https://vigou3.gitlab.io/formation-latex-ul/), la formation LaTeX de l'Université Laval. 
 
 >  *Rédaction avec LaTeX* est distribué avec TeX Live. 
 
@@ -42,7 +42,7 @@ La compilation du document requiert les polices de caractères suivantes:
 
 - [Lucida Bright OT, Lucida Math OT et Lucida Mono DK](https://tug.org/store/lucida/). Ces polices de très grande qualité sont payantes. La Bibliothèque de l'Université Laval détient une licence d'utilisation de cette police. Les étudiants et le personnel de l'Université peuvent s'en procurer une copie gratuitement en écrivant à [lucida@bibl.ulaval.ca](mailto:lucida@bibl.ulaval.ca?subject=Obtenir les polices Lucida).
 - [Fira Sans](https://www.fontsquirrel.com/fonts/fira-sans) (les versions OpenType de Mozilla) en graisses *Book*, *Semi Bold*, *Book Italic* et *Semi Bold Italic*.
-- [Font Awesome](http://fontawesome.io/). Cette police fournit une multitude d'icônes et de symboles. Télécharger la [version 4.7.0](https://fontawesome.com/4.7.0 ) de la distribution et installer la police `fontawesome-webfont.ttf` du dossier `fonts`.
+- [Font Awesome](http://fontawesome.io/). Cette police fournit une multitude d'icônes et de symboles. Téléchargez la [version 4.7.0](https://fontawesome.com/4.7.0 ) de la distribution et installez la police `fontawesome-webfont.ttf` du dossier `fonts`.
 
 ### Outils Unix additionnels (Windows)
 
