@@ -42,42 +42,38 @@ La compilation du document requiert les polices de caractères suivantes:
 
 - [Lucida Bright OT, Lucida Math OT et Lucida Mono DK](https://tug.org/store/lucida/). Ces polices de très grande qualité sont payantes. La Bibliothèque de l'Université Laval détient une licence d'utilisation de cette police. Les étudiants et le personnel de l'Université peuvent s'en procurer une copie gratuitement en écrivant à [lucida@bibl.ulaval.ca](mailto:lucida@bibl.ulaval.ca?subject=Obtenir les polices Lucida).
 - [Fira Sans](https://www.fontsquirrel.com/fonts/fira-sans) (les versions OpenType de Mozilla) en graisses *Book*, *Semi Bold*, *Book Italic* et *Semi Bold Italic*.
-- [Font Awesome](http://fontawesome.io/). Cette police fournit une multitude d'icônes et de symboles. Télécharger la plus récente version de la distribution et installer la police `fontawesome-webfont.ttf` du dossier `fonts`.
+- [Font Awesome](http://fontawesome.io/). Cette police fournit une multitude d'icônes et de symboles. Télécharger la [version 4.7.0](https://fontawesome.com/4.7.0 ) de la distribution et installer la police `fontawesome-webfont.ttf` du dossier `fonts`.
 
-### Outils Unix additionnels
+### Outils Unix additionnels (Windows)
 
-La composition du document de référence est rendue plus facile par l'utilisation de l'outil Unix standard `make`. Celui-ci n'est livré ni avec Windows, ni avec macOS.
+La composition du document de référence est rendue plus facile par l'utilisation de l'outil Unix standard `make` qui n'est pas livré avec Windows. 
 
-#### Installation des outils sous Windows
+Il y a différentes manières d'installer des outils Unix sous Windows. Je recommande l'environnement de compilation [MSYS2](https://www.msys2.org/). (Vous devez savoir si vous disposez d'[une version 32 ou 64 bits de Windows](https://support.microsoft.com/fr-ca/help/15056/windows-7-32-64-bit-faq) et choisir la distribution de MSYS2 en conséquence.)
 
-Il y a différentes manières d'installer des outils Unix sous Windows. Nous recommandons l'environnement de compilation [MSYS2](http://www.msys2.org/).
+- [Télécharger MSYS2](https://www.msys2.org/) (Windows seulement)
 
-- [Télécharger MSYS2](http://www.msys2.org/) (Windows seulement)
-
-> Vous devez savoir si vous disposez d'[une version 32 ou 64 bits de Windows](https://support.microsoft.com/fr-ca/help/15056/windows-7-32-64-bit-faq) et choisir la distribution de MSYS2 en conséquence. 
-
-Une fois l'installation de MSYS2 complétée (bien lire les instructions sur la page du projet), démarrer l'invite de commande MSYS et entrer
+Une fois l'installation de MSYS2 complétée (bien lire les instructions sur la page du projet), démarrez l'invite de commande MSYS et entrez
 
     pacman -S make
 
-pour installer le paquetage additionnel.
+pour installer le paquetage contenant `make`.
 
-#### Installation des outils sous macOS
+### Outils Unix additionnels (macOS)
 
-Les outils Unix de compilation sont livrés avec XCode sous macOS. Pour pouvoir les utiliser depuis la ligne de commande, il faut installer les *Command Line Tools*. Entrer simplement à l'invite de commande du Terminal
+Les outils Unix de compilation ne sont pas livrés avec macOS, mais leur installation est très simple. Ils sont livrés avec XCode. Pour pouvoir les utiliser depuis la ligne de commande, il faut installer les *Command Line Tools*. Entrez simplement à l'invite de commande du Terminal
 
     xcode-select --install
 
-puis suivre les instructions.
+puis suivez les instructions.
 
 ### Lancement de la composition
 
-Nous avons automatisé le processus de compilation avec l'outil Unix standard `make`. Le fichier `Makefile` fournit les recettes principales suivantes:
+J'ai automatisé le processus de compilation avec l'outil Unix standard `make`. Le fichier `Makefile` fournit les recettes principales suivantes:
 
 - `pdf` crée les fichiers `.tex` à partir des fichiers `.Rnw` avec Sweave et compile le document maître avec XeLaTeX;
 
 - `zip` crée l'archive contenant le document et le code source des sections d'exemples;
 
-- `release` crée une nouvelle version (*tag*) dans GitLab, téléverse les fichiers PDF et `.zip` et modifie les liens de la page web;
+- `release` crée une nouvelle version (*tag*) dans GitLab, téléverse le fichier `.zip` et modifie les liens de la page web.
 
 Question d'éviter les publications accidentelles, `make all` est équivalent à `make pdf`.
