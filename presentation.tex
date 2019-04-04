@@ -700,14 +700,14 @@ ou
 Ayant estimé ces paiements futurs, le montant des provisions pour
 l'année de survenance $i$ est alors donné par
 \begin{align*}
-  \hat{R}_i &= \hat{C}_{i,n} - C_{i, n+1-i} =
-                  \hat{Y}_{i,n+2-i} + \hat{Y}_{i,n+3-i} + \dots +
-                  \hat{Y}_{i,n}
+  \hat{R}_i &= \hat{C}_{i,I} - C_{i, I+1-i} =
+                  \hat{Y}_{i,I+2-i} + \hat{Y}_{i,I+3-i} + \dots +
+                  \hat{Y}_{i,I}
 \end{align*}
 et le montant total des réserves est donné par
 \begin{align*}
-R &= \sum_{i=1}^n \hat{R}_i = \sum_{i=1}^n \hat{C}_{i,n} -
-C_{i, n+1-i} = \sum_{(i,j) \in \Delta_n } \hat{Y}_{i,j},
+R &= \sum_{i=1}^I \hat{R}_i = \sum_{i=1}^I \hat{C}_{i,I} -
+C_{i, I+1-i} = \sum_{(i,j) \in \Delta_I } \hat{Y}_{i,j},
 \end{align*}
 où $\Delta_I$ désigne l'ensemble
 $\{(i, j), i + j \ge I + 2, i \le I \text{ et } j \le J \}$.
