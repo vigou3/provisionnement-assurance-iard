@@ -240,37 +240,16 @@
     \MakeFramed{\advance\hsize-16pt \FrameRestore}}%
   {\endMakeFramed}
 
-  %% Encadré générique avec titre basé sur titled-frame, ci-dessus.
-  %% Sert pour les listes d'objectifs et les encadrés reliés aux
-  %% problèmes (mises en situation) dans les chapitres. Arguments:
-  %% couleur du cadre (optionnel; noir par défaut) et titre de la
-  %% boite (obligatoire).
-  \newenvironment{emphbox}[2][black]{%
-    \colorlet{TFFrameColor}{#1}%
-    \colorlet{TFTitleColor}{white}%
-    \begin{titled-frame}{\sffamily #2}%
-      \setlength{\parindent}{0pt}}%
-    {\end{titled-frame}}
-
-  %% Liste d'objectifs au début des chapitres
+  %% Liste d'objectifs au début des chapitres dans un encadré
+  %% basé sur titled-frame, ci-dessus.
   \newenvironment{objectifs}{%
-    \begin{emphbox}{\rule[-7pt]{0pt}{20pt} Objectifs du chapitre}
-      \begin{itemize}[nosep]
-        \small\sffamily}%
-      {\end{itemize}\end{emphbox}}
-
-  %% Problèmes (mises en situation) des chapitres: énoncé au début du
-  %% chapitre; astuces en cours de chapitre; solution à la fin
-  %% du chapitre.
-  \newenvironment{prob-enonce}{%
-    \begin{emphbox}[prob]{{\normalfont\faCogs}\; Énoncé du problème}}%
-    {\end{emphbox}}
-  \newenvironment{prob-astuce}{%
-    \begin{emphbox}[prob]{{\normalfont\faBolt}\; Astuce}}%
-    {\end{emphbox}}
-  \newenvironment{prob-solution}{%
-    \begin{emphbox}[prob]{{\normalfont\faLightbulbO}\; Solution du problème}}%
-    {\end{emphbox}}
+    \colorlet{TFFrameColor}{black}%
+    \colorlet{TFTitleColor}{white}%
+    \begin{titled-frame}{\rule[-7pt]{0pt}{20pt}\sffamily Objectifs du chapitre}
+      \setlength{\parindent}{0pt}
+      \small\sffamily
+      \begin{itemize}[nosep]}%
+      {\end{itemize}\end{titled-frame}}
 
   %% Environnements de Sweave. Les environnements Sinput et Soutput
   %% utilisent Verbatim (de fancyvrb). On les réinitialise pour
