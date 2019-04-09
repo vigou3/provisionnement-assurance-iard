@@ -16,6 +16,7 @@
   \usepackage{amsmath,amsthm}
   \usepackage[noae]{Sweave}
   \usepackage{graphicx}
+  \usepackage{etoolbox}                % \AtBeginEnvironment
   \usepackage{currfile}                % pour noms fichiers de script
   \usepackage{framed}                  % env. snugshade*, oframed
   \usepackage[absolute]{textpos}       % éléments des pages de titre
@@ -56,6 +57,10 @@
   [
     Ligatures = TeX,
     Numbers = OldStyle
+  ]
+  \newfontfamily\liningstyle{Lucida Bright OT}
+  [
+    Ligatures = TeX,
   ]
   \setmathfont{Lucida Bright Math OT}
   \setmonofont{Lucida Grande Mono DK}
@@ -156,6 +161,9 @@
   \setlist[enumerate,2]{label=\alph*),labelsep=*,leftmargin=1.5em}
   \setlist[enumerate,3]{label=\roman*),labelsep=*,leftmargin=1.5em,align=right}
   \setlist[itemize]{leftmargin=*,align=left}
+
+  %% Tableaux: utilisation automatique de chiffres classiques
+  \AtBeginEnvironment{tabular}{\liningstyle} % \liningstyle définie ci-dessus
 
   %% Options de babel
   \frenchbsetup{CompactItemize=false,%
