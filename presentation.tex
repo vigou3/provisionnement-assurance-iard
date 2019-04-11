@@ -296,59 +296,55 @@ L'estimation des paramètres d'un modèle décrivant en détail le
 développement individuel des sinistres (voir la
 \autoref{fig:presentation:evolIN}) demande une base de données
 détaillée (dates exactes, montant de chacun des paiements, etc.) et
-fiable, de même que des moyens calculatoires (informatiques)
-importants. De telles ressources n'étant disponibles que depuis peu
-(fin des années 90 environ), plusieurs modèles ont été développés pour
-représenter la \emph{dynamique collective} des sinistres\footnote{%
+fiable, de même qu'une importante puissance de calcul. De telles
+ressources n'étant disponibles que depuis peu (fin des années 1990
+environ), les actuaires ont développé plusieurs modèles pour
+représenter la dynamique \emph{collective} des sinistres\footnote{%
   De nombreuses autres raisons peuvent motiver l'utilisation
   d'approches collectives: la simplicité et la robustesse des modèles
   collectifs, le risque de sur-paramétrisation des approches
-  individuelles, etc. Une comparaison des approches collectives et
-  individuelles est réalisée dans \cite{Jin2014}.}. %
+  individuelles, etc. \citet{Jin2014} offre une comparaison des
+  approches collectives et individuelles.}. %
 
 \subsection{Approches collectives}
 \label{sec:presentation:approches:collectives}
 
-Les modèles collectifs pour les réserves ont été étudiés
-principalement depuis le début des années 80. Parmi ces modèles, le
-modèle \emph{Chain--Ladder} (ou modèle de Mack dans sa version
-stochastique, voir \cite{Mack93}) occupe une position particulière
-étant à la base de la plupart des modèles utilisés en pratique. Ce
-modèle (de même que ses nombreuses extensions et variantes) est
-construit à partir d'une base de données résumées par période
-(typiquement une année) de survenance et par période de développement
-en un tableau nommé \emph{triangle de développement} (voir
-\autoref{sec:presentation:triangles}). Ces modèles seront étudiés dans
-les deux prochains chapitres.
+Les modèles collectifs pour les réserves sont étudiés principalement
+depuis le début des années 1980. Parmi ces modèles, le modèle
+\emph{Chain--Ladder} (ou modèle de \citet{Mack93} dans sa version
+stochastique) occupe une position particulière, étant à la base de la
+plupart des modèles utilisés en pratique. Ce modèle, de même que ses
+nombreuses extensions et variantes, est construit à partir d'une base
+de données résumées par période (typiquement une année) de survenance
+et par période de développement en un tableau nommé \emph{triangle de
+  développement} (\autoref{sec:presentation:triangles}). Nous
+étudierons ces modèles dans les deux prochains chapitres.
 
-À partir de cette même structure, ou à partir d'une version
-\emph{incrémentale} de cette dernière, plusieurs modèles paramétriques
-ont également été proposés (voir \citet{Hertig}, \citet{RV98},
-\citet{EV2005} et \citet{Taylorbook}). Ces modèles s'inscrivent plus
+Plusieurs modèles paramétriques reposent également sur cette structure
+de données, ou sur une version \emph{incrémentale} de celle-ci; voir
+\citet{Hertig,RV98,EV2005,Taylorbook}. Ces modèles s'inscrivent plus
 ou moins directement dans la théorie des modèles linéaires généralisés
-(\emph{Generalized Linear Models}) et des modèles linéaires
-généralisés mixtes (\emph{Generalized Linear Mixed Models}) et seront
-brièvement introduits au Chapitre 9. Un lecteur intéressé par un
-historique plus complet des modèles collectifs est invité à consulter
-\citet{WuthrichBook} et \citet{Engl02}.
+(GLM) et des modèles linéaires généralisés mixtes (GLMM). Consultez
+\citet{WuthrichBook} et \citet{Engl02} pour un historique plus complet
+des modèles collectifs.
 
 \subsection{Approches individuelles}
 \label{sec:presentation:approches:individuelles}
 
-Très récemment, des modèles individuels ont commencé à faire leur
-apparition dans la littérature. Les articles \citet{Arjas} et
-\citet{Norberg, Norberg99} ont proposé une structure stochastique
-individuelle en temps continu pour les sinistres et l'évaluation des
-réserves. À partir de cette base, quelques modèles ont été développés,
-par exemple \citet{Haastrup}, \citet{Lars07}, \citet{Zhao09},
-\citet{ZhaoIME2} et \citet{AntonioPlat}. À l'exception notable de ce
-dernier article, aucune mise en pratique réaliste de ces modèles n'a
-été réalisée. Dans une autre voie, des modèles individuels basés sur
-la structure \emph{chain--ladder} ont été proposés (voir
-\citet{PigAntDen2013} et \citet{PigAntDen2014}). Enfin, quelques
-modèles non-paramétriques ont également été proposés (voir
-\citet{Drieskens} et \citet{Rosenlund} par exemple). Les approches
-individuelles ne seront pas traitées dans le cadre de ce cours.
+Les modèles individuels ont commencé à faire leur apparition dans la
+littérature beaucoup plus récemment. \citet{Arjas} et
+\citet{Norberg,Norberg99} ont d'abord proposé une structure
+stochastique individuelle en temps continu pour les sinistres et
+l'évaluation des réserves. À partir de cette base, divers auteurs ont
+développé des modèles, par exemple
+\citet{Haastrup,Lars07,Zhao09,ZhaoIME2,AntonioPlat}. Chose
+intéressante à noter: il n'existe aucune mise en œuvre réaliste de ces
+modèles, à l'exception notable de celui de \citet{AntonioPlat}. Dans
+une autre voie, \citet{PigAntDen2013} et \citet{PigAntDen2014} ont
+proposé des modèles individuels basés sur la structure Chain-Ladder.
+Enfin, \citet{Drieskens} et \citet{Rosenlund}, notamment, ont proposé
+des modèles non-paramétriques. Nous ne traiteront pas plus avant des
+approches individuelles dans le présent ouvrage.
 
 \begin{exemple}
   On considère un cas d'assurance responsabilité civile automobile
@@ -480,70 +476,85 @@ suivante:
 \section{Techniques intuitives}
 \label{sec:presentation:techniques}
 
-Dans certaines situations où les paiements futurs sont très stables et
-très prévisibles, il est possible d'utiliser des méthodes simples pour
-l'estimation des réserves.
+Dans certaines situations où les paiements futurs s'avèrent très
+stables et très prévisibles, il est possible d'utiliser des méthodes
+simples pour l'estimation des provisions.
 
-\begin{description}
-\item[Méthode des réserves enregistrées] L'idée de la méthode est
-  d'utiliser le total des estimations faites par les experts de la
-  compagnie (les réserves enregistrées) et d'ajouter un pourcentage
-  arbitraire afin d'inclure l'incertitude quant à l'évolution possible
-  des coûts futurs. Le problème majeur de cette méthode est d'estimer
-  correctement ce pourcentage.
+\subsection{Méthode des réserves enregistrées}
 
-\item[Méthode des rapports sinistres/primes espérés] L'idée de la
-  méthode est d'utiliser le rapport sinistres/primes prédit (attendu)
-  de la branche d'affaire et les montants payés à ce jour de
-  réclamations afin d'estimer la réserve. Ainsi, pour une année $i$
-  fixée, on a
-  \begin{align*}
-    \text{Pertes ultimes estimées}_i
-    &= \left(\text{Rapport sinistres/primes espéré}\right)_i \times \text{Primes acquises}_i\\
-    \text{Réserve estimée}_i
-    &= \text{Pertes ultimes estimées}_i - \text{Montants payés}_i
-  \end{align*}
-  En sommant toutes les années de couverture, on obtient une
-  estimation de la réserve:
-  \begin{align*}
-    \text{Réserve estimée totale} &= \sum_i \text{Réserve estimée}_i.
-  \end{align*}
-\end{description}
+L'idée de la méthode des réserves enregistrées consiste à utiliser le
+total des estimations faites par les experts de la compagnie --- les
+réserves enregistrées --- et d'y ajouter un pourcentage arbitraire
+afin d'inclure l'incertitude quant à l'évolution possible des coûts
+futurs. Le problème majeur de cette méthode réside évidemment dans
+l'estimation de ce pourcentage.
+
+\subsection{Méthode du taux de sinistralité espéré}
+
+Le taux de sinistralité (\emph{loss ratio}, en anglais) est le rapport
+entre le montant des sinistres à dédommager et celui des primes
+encaissées. Sur la base de leur expérience, les assureurs peuvent
+établir un taux de sinistralité espéré pour une branche d'affaires. Il
+devient alors simple de baser une méthode de provisionnement sur la
+comparaison entre les montants de réclamation payés à ce jour et les
+montants espérés calculés à partir du taux de sinistralité.
+
+Soit $\operatorname{ELR}_i$ le taux de sinistralité espéré de l'année
+$i$ pour un branche d'affaires quelconque, $X_i$ le montant total des
+réclamations payées dans l'année $i$, $P_i$ le montant des primes
+acquises dans cette même année et, finalement, $R_i$ le montant des
+provisions pour sinistres. Selon la méthode du taux de sinistralité
+espéré:
+\begin{equation}
+  \label{eq:presentation:ELR}
+  R_i = \operatorname{ELR}_i \times P_i - X_i
+\end{equation}
+et
+\begin{equation}
+  \label{eq:presentation:ELR:TOT}
+  R^{\text{TOT}} = \sum_i R_i
+  = \sum_i \operatorname{ELR}_i \times P_i - \sum_i X_i.
+\end{equation}
 
 \begin{exemple}
-  On considère les primes acquises et les montants totaux payés à la
-  fin de 2005, présentés dans le tableau ci-dessous, pour les années
-  2000 à 2005:
-  \begin{center}
-    \begin{tabular}{|c | c c|}\hline
-      Année & Primes acquises & Montants payés \\ \hline
-      2000 & $\nombre{100000}$ & $\nombre{58000}$\\
-      2001 & $\nombre{105000}$ & $\nombre{50000}$\\
-      2002 & $\nombre{110000}$ & $\nombre{45000}$\\
-      2003 & $\nombre{112500}$ & $\nombre{40000}$\\
-      2004 & $\nombre{120000}$ & $\nombre{25000}$\\
-      2005 & $\nombre{115000}$ & $\nombre{12000}$ \\ \hline
-    \end{tabular}
-  \end{center}
-
-  Estimer la réserve totale pour les années 2000 à 2005 si on prévoit
-  un rapport sinistres/primes de $60~\%$ pour toutes les années.
-
+  Le \autoref{tab:presentation:ELR} contient les primes acquises et
+  des montants de réclamations payés à la fin de 2005 pour les années
+  d'accident de 2000 à 2005. Si le taux de sinistralité espéré est de
+  $60~\%$ pour toutes les années, alors, par une application directe
+  de \eqref{eq:presentation:ELR:TOT}, la provision totale pour les
+  années 2000 à 2005 est:
   \begin{align*}
-    \text{Primes acquises}_{total}
-    &= \nombre{662500}\\
-    \text{Pertes ultimes estimées}_{total}
-    &= \left(\text{Rapport sinistres/primes espéré}\right)_{total} \times \text{Primes acquises}_{total}\\
-    &= 0,60 \times \nombre{662500} = \nombre{397500}\\
-    \text{Réserve estimée}_{total}
-    &= \text{Pertes ultimes estimées}_{total} - \text{montants payés}_{total}\\
-    &=  \nombre{397500} - \nombre{230000} = \nombre{167500}.
+    R^{\text{TOT}}
+    &= 0,60 \times \nombre{662500} - \nombre{230000} \\
+    &= \nombre{167500}.
   \end{align*}
-  Cette méthode souffre du problème qu'il est plus que probable que
-  les pertes soient différentes de celles prévues (catastrophe,
-  etc.). %
   \qed
+  \begin{table}
+    \centering
+    \label{tab:presentation:ELR}
+    \caption{Primes acquises et montants de réclamations payés pour
+      l'utilisation de la méthode de provisionnement du taux de
+      sinistralité espéré}
+    \begin{tabular}{ccc}
+      \toprule
+      Année & Primes acquises & Montants payés \\
+      \midrule
+      2000 & \nombre{100000} & \nombre{58000} \\
+      2001 & \nombre{105000} & \nombre{50000} \\
+      2002 & \nombre{110000} & \nombre{45000} \\
+      2003 & \nombre{112500} & \nombre{40000} \\
+      2004 & \nombre{120000} & \nombre{25000} \\
+      2005 & \nombre{115000} & \nombre{12000} \\
+      \midrule
+      TOTAL & \nombre{662500} & \nombre{230000} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
 \end{exemple}
+
+\tipbox{La méthode du taux de sinistralité espéré souffre évidemment
+  du problème qu'il est plus que probable que les pertes diffèrent des
+  montants prévus (catastrophe, etc.).}
 
 
 \section{Triangles de développement}
@@ -625,11 +636,11 @@ angles:
       Année & \multicolumn{5}{c}{Développement (âge)} \\
       accident& 12 mois & 24 mois & 36 mois & 48 mois & 60 mois \\
       \midrule
-      1997 & $\nombre{26312}$ & $\nombre{31467}$ & $\nombre{24672}$ & $\nombre{13055}$ & $\nombre{6158}$ \\
-      1998 & $\nombre{30470}$ & $\nombre{35012}$ & $\nombre{25491}$ & $\nombre{12589}$ \\
-      1999 & $\nombre{49756}$ & $\nombre{51831}$ & $\nombre{35267}$ \\
-      2000 & $\nombre{50420}$ & $\nombre{52315}$ \\
-      2001 & $\nombre{56762}$ \\
+      1997 & \nombre{26312} & \nombre{31467} & \nombre{24672} & \nombre{13055} & \nombre{6158} \\
+      1998 & \nombre{30470} & \nombre{35012} & \nombre{25491} & \nombre{12589} \\
+      1999 & \nombre{49756} & \nombre{51831} & \nombre{35267} \\
+      2000 & \nombre{50420} & \nombre{52315} \\
+      2001 & \nombre{56762} \\
       \bottomrule
     \end{tabular}
   \end{center}
