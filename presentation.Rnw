@@ -12,18 +12,32 @@
 \chapter{Présentation générale}
 \label{chap:presentation}
 
-L'Autorité des marchés financiers (AMF) définit ainsi les provisions
-et réserves en assurance IARD:
-\begin{quote}
-  Processus d'évaluation du montant total nécessaire pour
-  acquitter tous les paiements futurs associés aux sinistres déjà
-  survenus en date d'évaluation (ex. au 31 décembre).
-\end{quote}
+Un rôle important et central de l'actuaire en assurances IARD est le
+calcul des provisions pour sinistres\footnote{Aussi appelées
+  provisions techniques. Le terme «réserves», calqué de l'anglais, est
+  \link{http://gdt.oqlf.gouv.qc.ca/ficheOqlf.aspx?Id_Fiche=8870174}{considéré
+    vieilli} par l'Office québébcois de la langue française.}. %
+Il s'agit d'ailleurs de l'un des deux rôles exclusivement réservé à un
+actuaire Fellow de l'Institut canadien des actuaires (ICA). Les
+provisions ont pour objectif de permettre le règlement complet des
+engagements pris par l'assureur envers ses assurés. Elles sont liées
+au concept même d'assurance et généralement imposées par diverses
+réglementations --- comme celles de l'Autorité des marchés financiers
+(AMF), au Québec --- pour tenir compte du cycle de production inversé
+que comprend le marché des assurances. En effet, l'assureur ne peut
+évaluer les coûts réels que représente un assuré qu'après l'expiration
+du contrat et la fermeture de tous les dossiers liés. Or, le montant
+de la prime, lui, doit être déterminé dès le début du contrat.
 
-L'évaluation des provision pour sinistres constitue un exercice
-crucial dans les opérations des assureurs de dommages. En effet,
-provisions représentent environ 75~\% de leur passif. Si les
-provisions sont sous-évaluées:
+À cause de cette inversion du cycle, un contrôle rigoureux de la
+solvabilité des compagnies est essentiel afin de protéger les assurés,
+les actionnaires ou l'État. La législation des assurances impose aux
+compagnies d'assurances IARD de garder en réserve un montant suffisant
+afin de permettre le paiement de tous les sinistres encourus. Ces
+provisions représentent environ 75~\% de leur passif. L'évaluation des
+provisions pour sinistres constitue donc un exercice crucial dans les
+opérations des assureurs de dommages. Si les provisions sont
+sous-évaluées:
 \begin{itemize}
 \item la santé financière de la compagnie est surévaluée;
 \item la compagnie s'expose au risque de défaut sur ses paiements
@@ -40,95 +54,31 @@ surévaluées, alors:
 \item la valeur de la compagnie est moindre.
 \end{itemize}
 
-Un rôle important et central de l'actuaire en assurances IARD est le
-calcul des provisions (ou des réserves). Il s'agit d'ailleurs de l'un
-des deux rôles exclusivement réservé à un actuaire (fellow de l'ICA).
-Les réserves ont pour objectif de permettre le règlement complet des
-engagements pris par l'assureur envers ses assurés. Elles sont liées
-au concept même d'assurance, généralement imposées par diverses
-réglementations, pour tenir compte du cycle de production inversé que
-comprend le marché des assurances. En effet, l'assureur ne peut
-évaluer les coûts réels que représente un assuré qu'après l'expiration
-du contrat et la fermeture de tous les dossiers liés, alors que le
-montant de la prime doit être déterminé en début de contrat.
 
-À cause de cette inversion du cycle, un contrôle rigoureux de la
-solvabilité des compagnies est essentiel afin de protéger les assurés,
-les actionnaires et/ou l'État. La législation des assurances impose
-aux compagnies d'assurances IARD de garder en réserve un montant
-suffisant afin de permettre le paiement de tous les sinistres
-encourus. Un rôle important et central de l'actuaire de la compagnie
-est de prévoir, avec le maximum de précision, le montant nécessaire de
-cette réserve.
+\section{Développement des sinistres}
+\label{sec:presentation:developpement}
 
 Le développement typique d'un sinistre est illustré à la
-\autoref{fig:presentation:evolIN}. Le sinistre survient à la date de survenance
-($t_1$) et est déclaré à l'assureur à la date de déclaration
-($t_2$). Pour plusieurs situations (incendie, dommages matériels à une
-voiture, etc.), ces deux dates correspondent (ou presque...) mais pour
-d'autres situations (dommages corporels, responsabilité civile), une
-période de temps plus ou moins longue peut séparer ces deux
-moments. Par la suite, un ou plusieurs paiements peuvent être
-effectués ($t_3$, $t_4$ et $t_5$) avant la fermeture du dossier
-($t_6$).
-
-\begin{figure}
-  \centering
-  %   \includegraphics[height=0.50\textwidth,
-  %   width=0.99\textwidth]{ChapitreII/IndLossRes001}
-% \begin{tikzpicture}[snake=zigzag, line before snake = 10mm, line
-%      after snake = 10mm]
-  \begin{tikzpicture}[scale=0.85]
-    \draw[->,color=black,line width=1.5pt] (2,0) -- (15,0);
-
-    \foreach \x in {3,4,8,9,10,14}   \draw (\x cm,2pt) -- (\x cm,-3pt);
-
-    \draw (3.05,0) node[below=3pt] {$t_1$};
-    \draw (4.05,0) node[below=3pt] {$t_2$};
-    \draw (8.05,0) node[below=3pt] {$t_3$};
-    \draw (9.05,0) node[below=3pt] {$t_4$};
-    \draw (10.05,0) node[below=3pt] {$t_5$};
-    \draw (14.05,0) node[below=3pt] {$t_6$};
-
-    \draw[line width=1pt,|-|,color=black] (3,-1) to  (4,-1);
-    \draw (3.5,-2.5) node[above=3pt,color=black] {IBNR};
-    \draw[line width=1pt,|-|,color=gray] (4,-1.5) to  (14,-1.5);
-    \draw (8.8,-2.5) node[above=3pt,color=gray] {RBNS};
-
-
-    % \draw[line width=1pt,|-|,color=black] (3,-1) to  (4,-1);
-    % \draw (3.5,-2.5) node[above=3pt,color=black] {IBNR};
-    \draw[line width=1pt,|-|,color=black] (4,-3.3) to  (8,-3.3);
-    \draw (6,-4.3) node[above=3pt,color=black] {RBNP};
-    \draw[line width=1pt,|-|,color=black] (8,-2.8) to  (14,-2.8);
-    \draw (11,-3.8) node[above=3pt,color=black] {RBNS};
-
-    \draw[line width=1pt,-|,color=black] (2,-4.3) to  (3,-4.3);
-    \draw (2.5,-5.3) node[above=3pt,color=black] {CBNI};
-
-    \draw[line width=1pt,|-,color=black] (14,-4.3) to  (15,-4.3);
-    \draw (14.5,-5.3) node[above=3pt,color=black] {S};
-
-    \draw[->] (3,3) -- (3,0.5);
-    \draw (3,3) node[above=3pt,color=black] {Survenance};
-    \draw[->] (4,2) -- (4,0.5);
-    \draw (4.15,2) node[above=3pt,color=black] {Déclaration};
-    \draw[->] (8,3) -- (8,0.5);
-    \draw[->] (9,3) -- (9,0.5);
-    \draw (9,3) node[above=3pt,color=black] {Paiements};
-    \draw[->] (10,3) -- (10,0.5);
-    \draw[->] (14,3) -- (14,0.5);
-    \draw (14,3) node[above=3pt,color=black] {Fermeture};
-  \end{tikzpicture}
-  \caption{Évolution d'un sinistre}
-  \label{fig:presentation:evolIN}
-\end{figure}
+\autoref{fig:presentation:evolution}. Le sinistre survient durant la
+période où la police d'assurance est en vigueur --- autrement il ne
+serait évidemment pas couvert. Dans plusieurs situations comme
+l'incendie ou les dommages matériels à une voiture, le sinistre est
+immédiatement déclaré à l'assureur. Dans l'assurance contre les
+dommages corporels ou la responsabilité civile, par exemple, une
+période de temps plus ou moins longue peut séparer la survenance du
+sinistre et sa déclaration. Celle-ci peut même parvenir à l'assureur
+hors de la période de couverture de la police. C'est la situation
+représentée à la \autoref*{fig:presentation:evolution}. Par la suite,
+l'assureur peut effectuer un ou plusieurs paiements d'indemnités avant
+de fermer le dossier. Des faits nouveaux peuvent aussi mener à la
+réouverture du dossier et à de nouveaux paiements.
 
 \begin{figure}
   \setlength{\unitlength}{2mm}
-  \begin{picture}(65,12)
+  \begin{picture}(64,26)(0,-14)
     \setlength{\fboxsep}{1.5pt}
     \put(0,0){\colorbox{lightgray}{\makebox(12.5,1.5){}}}
+    %% ligne du temps
     \thicklines
     \put(0,0.75){\vector(1,0){65}}
     \put( 6,0){\line(0,1){1.5}}
@@ -142,6 +92,7 @@ effectués ($t_3$, $t_4$ et $t_5$) avant la fermeture du dossier
     \put(54,0){\line(0,1){1.5}}
     \put(60,0){\line(0,1){1.5}}
 
+    %% flèches vers les divers évènements
     \thinlines
     \put( 6,9){\vector(0,-1){6}}
     \put(15,9){\vector(0,-1){6}}
@@ -153,7 +104,7 @@ effectués ($t_3$, $t_4$ et $t_5$) avant la fermeture du dossier
     \put(51,7){\vector(0,-1){4}}
     \put(54,7){\vector(0,-1){4}}
     \put(60,9){\vector(0,-1){6}}
-
+    %% étiquettes des évènements
     \small
     \put(0.1,-1.5){\makebox(12.5,0){police en vigueur}}
     \put( 6,10.5){\makebox(0,0){sinistre}}
@@ -163,9 +114,39 @@ effectués ($t_3$, $t_4$ et $t_5$) avant la fermeture du dossier
     \put(45,10.5){\makebox(0,0){réouverture}}
     \put(52.5,8.5){\makebox(0,0){paiements}}
     \put(60,10.5){\makebox(0,0){fermeture}}
+
+    %% lignes du statut du sinistre
+    \thicklines\color{gray}
+    \put( 0,-4.25){\line(1,0){6}}
+    \put( 6,-5){\line(0,1){1.5}} %
+    \put( 6,-6.25){\line(1,0){9}}
+    \put( 6,-7.00){\line(0,1){1.5}}
+    \put(15,-7.00){\line(0,1){1.5}} %
+    \put(15,-8.25){\line(1,0){7}}
+    \put(15,-9.00){\line(0,1){1.5}}
+    \put(22,-9.00){\line(0,1){1.5}} %
+    \put(22,-10.25){\line(1,0){13}}
+    \put(22,-11.00){\line(0,1){1.5}}
+    \put(35,-11.00){\line(0,1){1.5}} %
+    \put(35,-12.25){\line(1,0){10}}
+    \put(35,-13.00){\line(0,1){1.5}}
+    \put(45,-13.00){\line(0,1){1.5}} %
+    \put(45,-10.25){\line(1,0){15}}
+    \put(45,-11.00){\line(0,1){1.5}}
+    \put(60,-11.00){\line(0,1){1.5}}
+    \put(60,-12.25){\line(1,0){4}}
+    \put(60,-13.00){\line(0,1){1.5}}
+    %% statuts
+    \put(   3,-6){\makebox(0,0){CMNS}}
+    \put(10.5,-8){\makebox(0,0){SMND}}
+    \put(18.5,-10){\makebox(0,0){SMNP}}
+    \put(28.5,-12){\makebox(0,0){SMNR}}
+    \put(  40,-14){\makebox(0,0){R}}
+    \put(52.5,-12){\makebox(0,0){SMNR}}
+    \put(  62,-14){\makebox(0,0){R}}
   \end{picture}
-  \caption{Évolution d'un sinistre (alternative)}
-  \label{fig:presentation:evolIN:alt}
+  \caption{Évolution d'un sinistre}
+  \label{fig:presentation:evolution}
 \end{figure}
 
 À une certaine date d'évaluation (par exemple, le 31 décembre), les
@@ -173,39 +154,115 @@ sinistres peuvent être séparés en plusieurs catégories en fonction du
 stade atteint par leur développement:
 \begin{itemize}
 \item si la date d'évaluation se trouve entre la date de survenance et
-  la date de déclaration, le sinistre est considéré comme
-  \emph{Incurred But Not Reported} (IBNR)\footnote{%
-    Dans le cadre du cours, on conservera les noms anglais pour les
-    catégories.}; %
+  la date de déclaration, le sinistre est considéré comme «subi mais
+  non déclaré» (SMND) (\emph{Incurred But Not Reported}, IBNR);
 \item si la date d'évaluation se trouve entre la date de déclaration
   et la date du premier paiement, le sinistre est considéré comme
-  \emph{Reported But Not Paid} (RBNP)\footnote{%
+  «subi mais non payé» (SMNP) (\emph{Reported But Not Paid},
+  RBNP)\footnote{%
     Cette catégorie est parfois regroupée avec la catégorie
     suivante.}; %
 \item si la date d'évaluation se trouve entre la date du premier
   paiement et la date de fermeture du dossier, le sinistre est
-  considéré comme \emph{Reported But Not Settled} (RBNS);
+  considéré comme «subi mais non réglé» (SMNR) (\emph{Reported But Not
+    Settled}, RBNS);
 \item si la date d'évaluation se trouve avant la date de survenance,
-  alors le sinistre est considéré comme \emph{Covered But Not
-    Incurred} claims (CBNI); et
+  alors le sinistre est considéré comme «couvert mais non subi» (CMNS)
+  (\emph{Covered But Not Incurred}, CBNI);
 \item si la date d'évaluation se trouve après la date de fermeture du
-  dossier, le sinistre est considéré comme \emph{Settled} (ou
-  \emph{closed}) (S).
+  dossier, le sinistre est considéré comme «réglé» (R)
+  (\emph{Settled} ou \emph{Closed}, S).
 \end{itemize}
-Cette classification est illustrée à la \autoref{fig:presentation:E1E2}.
+Cette classification est illustrée à la
+\autoref{fig:presentation:classification}.
+
+<<echo=FALSE>>=
+set.seed(3)
+
+## dates de survenance
+start.date <- c(2006, 2006, 2007, 2006, 2006,
+                2006, 2012, 2007, 2011, 2006)
+end.date <- c(2008, 2015, 2011, 2011, 2007,
+              2008, 2016, 2008, 2015, 2010)
+
+## nombre de sinistres
+n <- length(start.date)
+
+## nombre de paiements pour chaque sinistre
+npayments <- c(2, 5, 5, 4, 2, 3, 5, 1, 3, 3)
+
+## durée entre deux paiements en années
+wait <- list(c(0, 1), c(1, 1, 3, 3, 1), c(0, 1, 1, 1),
+             c(1, 1, 1, 1), c(0, 1), c(0, 1, 1),
+             c(0, 1, 1, 1, 1), c(1), c(2, 1, 1), c(0, 3, 1))
+
+## montants des paiements
+payments <- lapply(npayments, function(x) rgamma(x, shape = 1, scale = 1.65))
+
+## limites de l'axe des abscisses
+xlim <- seq(2005, 2017)
+@
 
 \begin{figure}
+  \setkeys{Gin}{width=\linewidth}
   \centering
-  \includegraphics[height=0.45\textwidth, width=0.45\textwidth]{images/E1a}
-  \includegraphics[height=0.45\textwidth, width=0.45\textwidth]{images/E2a}
-  \caption{Exemples de classification des sinistres. Le graphique de
-    gauche présente l'évolution de $10$ sinistres, les tailles des
+  \begin{minipage}{0.48\linewidth}
+<<echo=FALSE, fig=TRUE, width=5.5, height=5.5>>=
+par(mar = c(3.1, 3.1, 1.1, 1.1))
+plot(xlim, rep(0, length(xlim)), ylim = c(0, n + 1),
+     xlab = "", ylab = "", type = "n",
+     yaxt = "n")
+axis(1, xlim, at = xlim, labels = FALSE)
+axis(2, at = seq_len(n))
+for (i in seq_len(n))
+{
+    x <- c(start.date[i], start.date[i] + cumsum(wait[[i]]), end.date[i])
+    y <- rep.int(i, length(x))
+    points(x, y,
+           cex = c(0, ceiling(payments[[i]]), 0), type = "o", pch = 19)
+}
+@
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\linewidth}
+<<echo=FALSE, fig=TRUE, width=5.5, height=5.5>>=
+par(mar = c(3.1, 3.1, 1.1, 1.1))
+plot(xlim, rep(0, length(xlim)), ylim = c(0, n + 1),
+     xlab = "", ylab = "", type = "n",
+     yaxt = "n")
+axis(1, xlim, at = xlim, labels = FALSE)
+axis(2, at = seq_len(n))
+T <- 2012
+abline(v = T, lty = 2)
+for (i in seq_len(n))
+{
+    x <- c(start.date[i], start.date[i] + cumsum(wait[[i]]), end.date[i])
+    y <- rep.int(i, length(x))
+    points(x, y,
+           cex = c(0, ceiling(payments[[i]]), 0), type = "o", pch = 19)
+}
+for (i in c(2, 7, 9))
+{
+    x <- start.date[i] + cumsum(wait[[i]])
+    wx <- x >= T
+    x <- c(T, x[x >= T], end.date[i])
+    y <- rep.int(i, length(x))
+    points(x, y,
+           cex = c(0, ceiling(tail(payments[[i]], sum(wx))), 0),
+           type = "o", pch = 19, col = "darkorange")
+}
+@
+  \end{minipage}
+  \caption[Exemple de classification de dix sinistres]{%
+    Exemple de classification de 10 sinistres. Chaque
+    graphique présente l'évolution des sinistres, les tailles des
     points étant proportionnelles aux montants payés. En supposant que
-    l'évaluation a lieu le 1 janvier 2003, le graphique de droite
-    présente la classification des sinistres: les sinistres
-    1,3,4,5,6,8 et 10 sont S, le sinistre 2 est RBNS, le sinistre 7
-    est IBNR et le sinistre 9 est RBNP.}
-  \label{fig:presentation:E1E2}
+    l'évaluation a lieu le 1{\ier} janvier 2012, le graphique de
+    droite présente la classification des sinistres: les sinistres 1,
+    3, 4, 5, 6, 8 et 10 sont réglés (R); le sinistre 2 est subi mais
+    non réglé (SMNR); le sinistre 7 est subi mais non déclaré (SMND);
+    le sinistre 9 est subi mais non payé (SMNP).}
+  \label{fig:presentation:classification}
 \end{figure}
 
 En plus du développement que l'on vient de décrire, une compagnie
@@ -953,7 +1010,7 @@ pour tenir compte des futures évolutions.
 \Closesolutionfile{reponses}
 
 %%% Local Variables:
-%%% mode: latex
+%%% mode: noweb
 %%% TeX-master: "provisionnement-assurance-iard"
 %%% TeX-engine: xetex
 %%% coding: utf-8
