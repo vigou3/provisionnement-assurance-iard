@@ -6,11 +6,19 @@
 
 Les changements au document ci-dessous sont établis par rapport à la
 copie originale de Mathieu Pigeon publiée sous le numéro de version
-2019.0 par Vincent Goulet en mars 2019 après quelques révisions
+2019.0-1 par Vincent Goulet en mars 2019 après quelques révisions
 cosmétiques.
 
-- Chapitre 1: la section sur les techniques intuitives est subdivisée
-  en deux sous-sections. La seconde méthode a été rebaptisée «Méthode
-  du taux de sinistralité espéré» et les formules sont exprimées à
-  l'aide de symboles.
+## Chapitre 1
+
+- Nettoyage du texte de l'introduction du chapitre.
+- La présentation sur le développement des sinistres fait maintenant
+  l'objet d'une section (une nouvelle 1.1).
+- Les figures 1.1 et 1.2 (la seconde était identifiée comme une
+  alternative de la première) ont été fusionnées.
+- Francisation des catégories de stade de développement des sinistres.
+- La section sur les techniques intuitives est subdivisée en deux
+  sous-sections. La seconde méthode a été rebaptisée «Méthode du taux
+  de sinistralité espéré» et les formules sont exprimées à l'aide de
+  symboles.
 
