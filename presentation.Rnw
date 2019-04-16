@@ -46,10 +46,10 @@ par conséquent, l'assureur s'expose à la ruine technique.
 La situation inverse n'est pas préférable car, si les provisions sont
 surévaluées, alors les dépenses sont plus élevées, le profit diminue,
 les impôts diminuent, le surplus diminue et la valeur de la compagnie
-est moindre. Dans un tel contexte, vous pouvez imaginer la pression
-exercée sur l'actuaire d'évaluation: ses provisions doivent tout à la
-fois assurer la stabilité financière à long terme de l'institution et
-maximiser les surplus ou les profits.
+est moindre. Dans un tel contexte, vous pouvez imaginer la pression à
+laquelle doit faire face l'actuaire d'évaluation: ses provisions
+doivent tout à la fois assurer la stabilité financière à long terme de
+l'institution et maximiser les surplus ou les profits.
 
 \notebox{L'évaluation des provisions en assurances IARD s'effectue
   habituellement par secteur d'activité: assurance automobile,
@@ -57,6 +57,60 @@ maximiser les surplus ou les profits.
   etc.}
 
 
+\section{Comparaison avec l'assurance vie}
+\label{sec:presentation:vie-vs-iard}
+
+Au-delà du type de risque couvert, l'assurance IARD diffère
+passablement de l'assurance vie dans la nature même des opérations,
+différences qui induisent des méthodes de provisionnement complètement
+distinctes.
+
+L'assurance vie se déroule sur le long terme, souvent des décennies.
+Le montant des prestations est généralement connu, mais le moment ou
+la durée pendant laquelle elles seront versées sont, en revanche
+inconnus. C'est d'ailleurs dans la modélisation de la valeur actuelle
+des prestations que réside une grande partie du travail actuariel dans
+ce type d'assurance. Autre particularité: à tout moment durant la
+période de validité d'un contrat d'assurance vie, il peut rester des
+primes à percevoir. La provision pour sinistre reliée à un contrat
+d'assurance vie correspond donc à la différence entre la valeur
+actuelle des prestations à verser et celle des primes à percevoir:
+\begin{align*}
+  \text{provision}
+  &= \text{valeur actuelle des prestations futures} \\
+  &\phantom{=} - \text{valeur actuelle des primes futures}.
+\end{align*}
+
+En assurance IARD, la durée des contrats est beaucoup plus courte
+qu'en assurance vie, généralement une seule année. Tant le montant que
+le nombre et le moment des prestations sont inconnus. L'assureur peut
+même être appelé à verser des prestations même si le contrat
+d'assurance n'est plus en vigueur; pensez, par exemple, à une
+assurance santé qui rembourserait des soins liés à une lésion
+professionnelle après la retraite d'un employé. En établissant les
+provisions pour sinistres en fin d'année, l'actuaire doit donc tenir
+compte des montants de prestations que l'assureur pourrait devoir
+payer dans le futur pour:
+\begin{itemize}
+\item les dossiers de sinistres déjà déclarés et dont le montant final
+  peut encore évoluer;
+\item les dossiers fermés susceptibles de rouvrir;
+\item les sinistres déjà survenus, mais non encore déclarés au moment
+  de l'évaluation actuarielle.
+\end{itemize}
+En supposant qu'il ne reste plus de primes à percevoir pour un contrat
+au moment de l'évaluation des provisions, la provision correspondant à
+un contrat est la somme des provisions pour chacun des éléments
+ci-dessus, que l'on regroupe généralement sous le nom de sinistres
+«subis mais non déclarés» (\emph{Incurred But Not Reported}, IBNR):
+\begin{align*}
+  \text{provision}
+  &= \text{provision totale pour sinistres subis mais non déclarés} \\
+  &\phantom{=} - 0.
+\end{align*}
+Toute l'expertise des actuaires d'évaluation en assurance IARD réside
+donc dans la modélisation du développement des sinistres dans le
+temps.
 
 \section{Développement des sinistres}
 \label{sec:presentation:developpement}
