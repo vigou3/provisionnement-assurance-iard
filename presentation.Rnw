@@ -21,38 +21,41 @@ Il s'agit d'ailleurs de l'un des deux rôles exclusivement réservé à un
 actuaire Fellow de l'Institut canadien des actuaires (ICA). Les
 provisions ont pour objectif de permettre le règlement complet des
 engagements pris par l'assureur envers ses assurés. Elles sont liées
-au concept même d'assurance et généralement imposées par diverses
-réglementations --- comme celles de l'Autorité des marchés financiers
-(AMF), au Québec --- pour tenir compte du cycle de production inversé
-que comprend le marché des assurances. En effet, l'assureur ne peut
-évaluer les coûts réels que représente un assuré qu'après l'expiration
-du contrat et la fermeture de tous les dossiers liés. Or, le montant
-de la prime, lui, doit être déterminé dès le début du contrat.
+au concept même d'assurance et leur constitution est généralement
+imposée par diverses réglementations --- comme celles de l'Autorité
+des marchés financiers (AMF), au Québec --- pour tenir compte du cycle
+de production inversé que comprend le marché des assurances. En effet,
+l'assureur ne peut évaluer les coûts réels que représente un assuré
+qu'après l'expiration du contrat et la fermeture de tous les dossiers
+liés. Or, le montant de la prime, quant à lui, doit être déterminé dès
+le début du contrat. À cause de cette inversion du cycle, un contrôle
+rigoureux de la solvabilité des compagnies est essentiel afin de
+protéger les assurés, les actionnaires ou l'État.
 
-À cause de cette inversion du cycle, un contrôle rigoureux de la
-solvabilité des compagnies est essentiel afin de protéger les assurés,
-les actionnaires ou l'État. La législation des assurances impose aux
-compagnies d'assurances IARD de garder en réserve un montant suffisant
-afin de permettre le paiement de tous les sinistres encourus. Ces
-provisions représentent environ 75~\% de leur passif. L'évaluation des
+La législation des assurances impose aux compagnies d'assurances de
+conserver en réserve un montant suffisant afin de permettre le
+paiement de tous les sinistres encourus. Ces provisions représentent
+environ 75~\% du passif des compagnies d'assurances IARD et plus de
+90~\% de celui des compagnies d'assurance vie. L'évaluation des
 provisions pour sinistres constitue donc un exercice crucial dans les
-opérations des assureurs de dommages. Si les provisions sont
-sous-évaluées:
-\begin{itemize}
-\item la santé financière de la compagnie est surévaluée;
-\item la compagnie s'expose au risque de défaut sur ses paiements
-  futurs;
-\item l'assureur est exposé à la ruine technique.
-\end{itemize}
-La situation inverse n'est pas préférable, car si les provisions sont
-surévaluées, alors:
-\begin{itemize}
-\item les dépenses sont plus élevées;
-\item le profit diminue;
-\item les impôts diminuent;
-\item le surplus diminue;
-\item la valeur de la compagnie est moindre.
-\end{itemize}
+opérations des assureurs. Si les provisions pour sinistres sont
+sous-évaluées, la santé financière de la compagnie est surévaluée, la
+compagnie s'expose au risque de défaut sur ses paiements futurs et,
+par conséquent, l'assureur s'expose à la ruine technique.
+
+La situation inverse n'est pas préférable car, si les provisions sont
+surévaluées, alors les dépenses sont plus élevées, le profit diminue,
+les impôts diminuent, le surplus diminue et la valeur de la compagnie
+est moindre. Dans un tel contexte, vous pouvez imaginer la pression
+exercée sur l'actuaire d'évaluation: ses provisions doivent tout à la
+fois assurer la stabilité financière à long terme de l'institution et
+maximiser les surplus ou les profits.
+
+\notebox{L'évaluation des provisions en assurances IARD s'effectue
+  habituellement par secteur d'activité: assurance automobile,
+  habitation, bien commercial, responsabilité civile d'entreprise,
+  etc.}
+
 
 
 \section{Développement des sinistres}
@@ -67,11 +70,11 @@ immédiatement déclaré à l'assureur. Dans l'assurance contre les
 dommages corporels ou la responsabilité civile, par exemple, une
 période de temps plus ou moins longue peut séparer la survenance du
 sinistre et sa déclaration. Celle-ci peut même parvenir à l'assureur
-hors de la période de couverture de la police. C'est la situation
-représentée à la \autoref*{fig:presentation:evolution}. Par la suite,
-l'assureur peut effectuer un ou plusieurs paiements d'indemnités avant
-de fermer le dossier. Des faits nouveaux peuvent aussi mener à la
-réouverture du dossier et à de nouveaux paiements.
+hors de la période de couverture de la police. Il s'agit d'ailleurs de
+la situation représentée à la \autoref*{fig:presentation:evolution}.
+Par la suite, l'assureur peut effectuer un ou plusieurs paiements
+d'indemnités avant de fermer le dossier. Des faits nouveaux peuvent
+aussi mener à la réouverture du dossier et à de nouveaux paiements.
 
 \begin{figure}
   \setlength{\unitlength}{2mm}
@@ -116,7 +119,8 @@ réouverture du dossier et à de nouveaux paiements.
     \put(60,10.5){\makebox(0,0){fermeture}}
 
     %% lignes du statut du sinistre
-    \thicklines\color{gray}
+    \thicklines
+    \color[rgb]{1,0.5,0}                % ~= "darkorange" de R
     \put( 0,-4.25){\line(1,0){6}}
     \put( 6,-5){\line(0,1){1.5}} %
     \put( 6,-6.25){\line(1,0){9}}
@@ -153,6 +157,9 @@ réouverture du dossier et à de nouveaux paiements.
 sinistres peuvent être séparés en plusieurs catégories en fonction du
 stade atteint par leur développement:
 \begin{itemize}
+\item si la date d'évaluation se trouve avant la date de survenance,
+  alors le sinistre est considéré comme «couvert mais non subi» (CMNS)
+  (\emph{Covered But Not Incurred}, CBNI);
 \item si la date d'évaluation se trouve entre la date de survenance et
   la date de déclaration, le sinistre est considéré comme «subi mais
   non déclaré» (SMND) (\emph{Incurred But Not Reported}, IBNR);
@@ -166,15 +173,12 @@ stade atteint par leur développement:
   paiement et la date de fermeture du dossier, le sinistre est
   considéré comme «subi mais non réglé» (SMNR) (\emph{Reported But Not
     Settled}, RBNS);
-\item si la date d'évaluation se trouve avant la date de survenance,
-  alors le sinistre est considéré comme «couvert mais non subi» (CMNS)
-  (\emph{Covered But Not Incurred}, CBNI);
 \item si la date d'évaluation se trouve après la date de fermeture du
   dossier, le sinistre est considéré comme «réglé» (R)
   (\emph{Settled} ou \emph{Closed}, S).
 \end{itemize}
-Cette classification est illustrée à la
-\autoref{fig:presentation:classification}.
+La \autoref{fig:presentation:classification} illustre cette
+classification pour une dizaine de sinistres.
 
 <<echo=FALSE>>=
 set.seed(3)
@@ -253,15 +257,17 @@ for (i in c(2, 7, 9))
 }
 @
   \end{minipage}
-  \caption[Exemple de classification de dix sinistres]{%
-    Exemple de classification de 10 sinistres. Chaque
-    graphique présente l'évolution des sinistres, les tailles des
-    points étant proportionnelles aux montants payés. En supposant que
-    l'évaluation a lieu le 1{\ier} janvier 2012, le graphique de
-    droite présente la classification des sinistres: les sinistres 1,
-    3, 4, 5, 6, 8 et 10 sont réglés (R); le sinistre 2 est subi mais
-    non réglé (SMNR); le sinistre 7 est subi mais non déclaré (SMND);
-    le sinistre 9 est subi mais non payé (SMNP).}
+  \caption[Exemple de classification de 10 sinistres selon leur stade
+  de développement]{%
+    Exemple de classification de 10 sinistres selon leur stade de
+    développement. Chaque graphique présente l'évolution des
+    sinistres, les tailles des points étant proportionnelles aux
+    montants payés. En supposant que l'évaluation a lieu le 1{\ier}
+    janvier 2012, le graphique de droite présente la classification
+    des sinistres: les sinistres 1, 3, 4, 5, 6, 8 et 10 sont réglés
+    (R); le sinistre 2 est subi mais non réglé (SMNR); le sinistre 7
+    est subi mais non déclaré (SMND); le sinistre 9 est subi mais non
+    payé (SMNP).}
   \label{fig:presentation:classification}
 \end{figure}
 
