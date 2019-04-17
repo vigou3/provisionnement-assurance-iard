@@ -327,24 +327,18 @@ for (i in c(2, 7, 9))
   \label{fig:presentation:classification}
 \end{figure}
 
-Lors de l'estimation des réserves, certaines hypothèses sont utilisées:
-\begin{itemize}
-\item les techniques d'évaluation des réserves seront utilisées avec
-  des dollars constants; et
-\item aucune actualisation des montants n'est considérée.
-\end{itemize}
+\importantbox{L'évaluation des provisions en assurance IARD s'effectue
+  en dollars constants et \emph{sans} actualiser les montants de
+  sinistres. En fait, l'actualisation a longtemps été illégale dans
+  l'évaluation du passif des polices, et ce, même si l'effet du
+  facteur d'actualisation n'est pas négligeable pour certains types
+  d'assurances à très longs développement.}
 
-Pendant longtemps, l'actualisation des réserves a été illégale dans
-l'évaluation du passif des polices et ce, même si l'effet du facteur
-d'escompte n'est pas négligeable sur des branches d'assurance très
-longues.
-
-
-Une compagnie d'assurance détient généralement une certaine expertise
-sur le développement des sinistres par le biais de ses experts en
-sinistres. Ceux-ci pourront effectuer des prévisions du montant total
-d'un sinistre à différents moments entre la date de déclaration et la
-date de fermeture d'un dossier, tel qu'illustré à la
+Une compagnie d'assurance détient généralement une certaine expérience
+dans l'évaluation du développement des sinistres par le biais de ses
+experts en sinistres. Ceux-ci pourront effectuer des prévisions du
+montant total d'un sinistre à différents moments entre la date de
+déclaration et la date de fermeture d'un dossier, tel qu'illustré à la
 \autoref{fig:presentation:experts}. Il est à noter qu'un changement
 dans le montant de la provision n'accompagne pas nécessairement un
 paiement.
@@ -436,17 +430,17 @@ paiement.
     responsabilité civile de l'assurance automobile.
   \end{itemize}
   La \autoref{fig:presentation:pieton} illustre sur une ligne de temps
-  l'évolution du développement de ce sinistre ainsi ainsi que les
-  montants des provisions.
+  l'évolution du développement du sinistre et du montant des
+  provisions.
 
   \begin{figure}
     \centering
     \setlength{\unitlength}{3.35mm}
-    \begin{picture}(38,16)(0,-6) \setlength{\fboxsep}{1.5pt}
+    \begin{picture}(38,18)(0,-8) \setlength{\fboxsep}{1.5pt}
       %% ligne du temps
       \thicklines
-      \put(0.5,0.75){\vector(1,0){37.5}}
-      \multiput(1,0.375)(1,0){37}{\line(0,1){0.75}}
+      \put(0.5,0.75){\vector(1,0){37}}
+      \multiput(1,0.375)(1,0){36}{\line(0,1){0.75}}
       \multiput(3,0)(12,0){3}{\line(0,1){1.5}}
 
       %% étiquettes des années
@@ -457,34 +451,42 @@ paiement.
 
       %% flèches vers les divers évènements
       \thinlines
-      \put( 1.5,10){\vector(0,-1){8}}
-      \put( 3.3,9){\vector(0,-1){7}}
-      \put( 3.7,8){\vector(0,-1){6}}
-      \put( 6.0,7){\vector(0,-1){5}}
-      \put( 9.0,6){\vector(0,-1){4}}
-      \put(20.0,6){\vector(0,-1){4}}
-      \put(36.2,10){\vector(0,-1){8}}
+      \put( 1.5,9){\vector(0,-1){7}}
+      \put( 3.3,8){\vector(0,-1){6}}
+      \put( 3.7,7){\vector(0,-1){5}}
+      \put( 6.0,6){\vector(0,-1){4}}
+      \put( 9.0,4){\vector(0,-1){2}}
+      \put(20.0,4){\vector(0,-1){2}}
+      \put(36.2,8){\vector(0,-1){6}}
       %% étiquettes des évènements
       \footnotesize
-      \put( 1.65,9.5){{accident}}
-      \put( 3.45,8.5){{poursuite}}
-      \put( 3.85,7.5){{déclaration}}
-      \put( 6.15,6.5){{rejet offre}}
-      \put( 9.15,5.5){\parbox[t]{17mm}{avocats\par$\nombre{15 000}$~\$}}
-      \put(20.15,5.5){\parbox[t]{17mm}{avocats\par$\nombre{30 000}$~\$}}
-      \put(29.48,9.5){\parbox[t]{22mm}{\raggedleft règlement\par$\nombre{250 000}$~\$}}
+      \put( 1.35,9.5){\makebox(0,0.5)[l]{accident}}
+      \put( 3.15,8.5){\makebox(0,0.5)[l]{poursuite}}
+      \put( 3.55,7.5){\makebox(0,0.5)[l]{déclaration}}
+      \put( 5.85,6.5){\makebox(0,0.5)[l]{rejet offre}}
+      \put( 8.85,5.5){\makebox(0,0.5)[l]{avocats}}
+      \put( 8.85,4.5){\makebox(0,0.5)[l]{$\nombre{15 000}$~\$}}
+      \put(19.85,5.5){\makebox(0,0.5)[l]{avocats}}
+      \put(19.85,4.5){\makebox(0,0.5)[l]{$\nombre{30 000}$~\$}}
+      \put(36.35,9.5){\makebox(0,0.5)[r]{règlement}}
+      \put(36.35,8.5){\makebox(0,0.5)[r]{$\nombre{250 000}$~\$}}
 
       %% flèches vers les provisions
       \thinlines
       \color[rgb]{1,0.5,0}                % ~= "darkorange" de R
-      \put(3.7,-6.5){\vector(0,1){5}}
-      \put(5.0,-5.5){\vector(0,1){4}}
+      \put( 3.7,-6){\vector(0,1){4.5}}
+      \put( 5.0,-4){\vector(0,1){2.5}}
+      \put(36.2,-7){\vector(0,1){6.5}}
       %% étiquettes des provisions
       \footnotesize
-      \put(3.85,-6.5){$\nombre{20 000}$~\$}
-      \put(5.15,-5.5){$\nombre{200 000}$~\$}
+      \put( 3.55,-7){\makebox(0,0.5)[l]{provision initiale}}
+      \put( 3.55,-8){\makebox(0,0.5)[l]{$\nombre{20 000}$~\$}}
+      \put( 4.85,-5){\makebox(0,0.5)[l]{ajustement}}
+      \put( 4.85,-6){\makebox(0,0.5)[l]{$\nombre{200 000}$~\$}}
+      \put(36.35,-8){\makebox(0,0.5)[r]{fermeture}}
     \end{picture}
-    \caption{Évolution du développement du sinistre de l'\autoref{ex:presentation:pieton}}
+    \caption{Évolution du développement du sinistre et des provisions
+      dans l'\autoref{ex:presentation:pieton}}
     \label{fig:presentation:pieton}
   \end{figure}
 
