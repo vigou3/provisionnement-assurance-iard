@@ -16,7 +16,7 @@ Un rôle important et central de l'actuaire en assurances IARD est le
 calcul des provisions pour sinistres\footnote{Aussi appelées
   provisions techniques. Le terme «réserves», calqué de l'anglais, est
   \link{http://gdt.oqlf.gouv.qc.ca/ficheOqlf.aspx?Id_Fiche=8870174}{considéré
-    vieilli} par l'Office québébcois de la langue française.}. %
+    vieilli} par l'Office québécois de la langue française.}. %
 Il s'agit d'ailleurs de l'un des deux rôles exclusivement réservé à un
 actuaire Fellow de l'Institut canadien des actuaires (ICA). Les
 provisions ont pour objectif de permettre le règlement complet des
@@ -89,8 +89,9 @@ n'est plus en vigueur; pensez, par exemple, à une assurance santé qui
 rembourserait des soins liés à une lésion professionnelle après la
 retraite d'un employé. La dynamique de développement des sinistres
 dépend beaucoup du secteur d'activité. À titre indicatif, le
-\autoref{tab:presentation:rythme} présente le rythme de développement
-des sinistres pour différents types d'assurances de dommages.
+\autoref{tab:presentation:rythme}, tiré de \citet{DenuitCharpII},
+présente le rythme de développement des sinistres pour différents
+types d'assurances de dommages.
 
 \begin{table}
   \centering
@@ -159,7 +160,7 @@ dommages corporels ou la responsabilité civile, par exemple, une
 période de temps plus ou moins longue peut séparer la survenance du
 sinistre et sa déclaration. Celle-ci peut même parvenir à l'assureur
 hors de la période de couverture de la police. Il s'agit d'ailleurs de
-la situation représentée à la \autoref*{fig:presentation:evolution}.
+la situation représentée à la \autoref{fig:presentation:evolution}.
 Par la suite, l'assureur peut effectuer un ou plusieurs paiements
 d'indemnités avant de fermer le dossier. Des faits nouveaux peuvent
 aussi mener à la réouverture du dossier et à de nouveaux paiements.
@@ -359,7 +360,7 @@ for (i in c(2, 7, 9))
   \label{fig:presentation:classification}
 \end{figure}
 
-Les compagnies d'assurances de dommage détiennent généralement une
+Les compagnies d'assurances de dommages détiennent généralement une
 certaine expérience dans l'évaluation du développement des sinistres
 par le biais de leurs experts en sinistres. Ceux-ci pourront effectuer
 des prévisions du montant total d'un sinistre à différents moments
@@ -628,7 +629,7 @@ total des estimations faites par les experts de la compagnie --- les
 réserves enregistrées --- et d'y ajouter un pourcentage arbitraire
 afin d'inclure l'incertitude quant à l'évolution possible des coûts
 futurs. Le problème majeur de cette méthode réside évidemment dans
-l'estimation de ce pourcentage.
+l'évaluation de ce pourcentage.
 
 \subsection{Méthode du taux de sinistralité espéré}
 
@@ -702,9 +703,9 @@ et
 \label{sec:presentation:triangles}
 
 Tel que mentionné à la \autoref{sec:presentation:approches}, l'étude
-de l'évolution des coûts dans le s'effectue généralement à l'aide de
-données structurées en triangle de développement. Celui-ci reflète la
-dynamique collective des sinistres.
+de l'évolution des coûts dans le temps s'effectue généralement à
+l'aide de données structurées en triangle de développement. Celui-ci
+reflète la dynamique collective des sinistres.
 
 Un triangle de développement tel que présenté au
 \autoref{tab:presentation:notation-triangle} contient le montant
@@ -769,8 +770,8 @@ laquelle vous lisez un triangle de développement:
   \end{enumerate}}
 
 \begin{exemple}
-  \label{ex:presentation:triangle}
-  Le \autoref{tab:presentation:triangle} contient un un triangle de
+  \label{ex:presentation:tridev}
+  Le \autoref{tab:presentation:tridev} contient un triangle de
   développement incrémental pour des années d'accident de 1997 à 2001.
   Nous pouvons extraire les informations suivantes de ce tableau de
   données:
@@ -789,7 +790,8 @@ laquelle vous lisez un triangle de développement:
   \begin{table}
     \centering
     \caption{Triangle de développement pour
-      l'\autoref{ex:presentation:triangle}}
+      l'\autoref{ex:presentation:tridev}}
+    \label{tab:presentation:tridev}
     \begin{tabular}{*{6}{c}}
       \toprule
       Année & \multicolumn{5}{c}{Développement (âge)} \\
@@ -961,8 +963,8 @@ et le montant total des provisions est donné par
 \end{exercice}
 
 \begin{exercice}
-  \label{exercice:presentation:ELR}
-  Le \autoref{tab:presentation:ELR} contient les primes acquises, les
+  \label{exercice:presentation:exELR}
+  Le \autoref{tab:presentation:exELR} contient les primes acquises, les
   montants payés et les taux de sinistralité espérés pour les années
   2000 à 2005. Estimer la réserve totale pour les années 2000 à 2005
   par la méthode du taux de sinistralité espéré.
@@ -970,8 +972,8 @@ et le montant total des provisions est donné par
   \begin{table}
     \centering
     \caption{Primes acquises, montants payés et taux de sinistralité
-      espérés pour l'\autoref{exercice:presentation:ELR}}
-    \label{tab:presentation:ELR}
+      espérés pour l'\autoref{exercice:presentation:exELR}}
+    \label{tab:presentation:exELR}
     \begin{tabular}{cccr}
       \toprule
       Année & Primes acquises & Montants payés & ELR (\%) \\
