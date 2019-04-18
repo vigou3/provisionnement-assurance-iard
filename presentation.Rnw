@@ -501,7 +501,7 @@ nécessairement un paiement.
       \color{alert}
       \put( 3.7,-6){\vector(0,1){4.5}}
       \put( 5.0,-4){\vector(0,1){2.5}}
-      \put(36.2,-7){\vector(0,1){6.5}}
+      \put(36.2,-7){\vector(0,1){5.5}}
       %% étiquettes des provisions
       \footnotesize
       \put( 3.55,-7){\makebox(0,0.5)[l]{provision initiale}}
