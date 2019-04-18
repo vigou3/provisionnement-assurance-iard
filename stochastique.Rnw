@@ -37,111 +37,102 @@ valeurs prédites des réserves, les erreurs commises lors
 de l'évaluation de celles-ci.
 
 Les hypothèses du modèle de Mack sont les suivantes.
-\begin{enumerate}[({H}1)]
-\item Indépendance par ligne: $(C_{ij})_{j=1,\ldots,n}$ et
-  $(C_{i'j})_{j=1,\ldots,n} $ sont indépendants pour $i \ne i'$;
-\item On peut lier $C_{i j+1}$ sachant le passé
-  $C_{i 1}, \ldots,C_{i j}$
-  \begin{equation*}
-    \Esp{C_{i j+1}|C_{i 1}, \ldots,C_{i j}} = \lambda_j C_{i j}.
-  \end{equation*}
+\begin{enumerate}[({M}1)]
+\item Les montants cumulatifs des sinistres encourus $C_{i, j}$
+  d'années d'accidents différentes sont indépendants.
+\item Il existe des facteurs de développement
+  $f_1, \dots, f_{J - 1} > 0$ et des paramètres
+  $\sigma_1^2, \dots, \sigma_{J - 1}^2 > 0$ tel que
+  \begin{align*}
+    \esp{C_{i, j}|C_{i, 1}, \dots, C_{i, j - 1}}
+    &= \esp{C_{i, j}|C_{i, j - 1}} = f_{j - 1} C_{i, j - 1} \\
+    \var{C_{i, j}|C_{i, 1}, \dots, C_{i, j - 1}}
+    &= \var{C_{i, j}|C_{i, j - 1}} = \sigma_{j - 1}^2 C_{i, j - 1}
+  \end{align*}
+  pour tout $i = 1, \dots, I$ et $j = 2, \dots, J$.
 \end{enumerate}
 Avec ces hypothèses, ce modèle stochastique fournit exactement les
 mêmes réserves que le modèle Chain-Ladder.
 
-Sous les hypothèses (H1) et (H2), pour tout $k > n - i +1$, on a
+Sous les hypothèses (M1) et (M2), pour tout $k > I - i +1$, on a
 \begin{align*}
-\Esp{C_{i j+1}|C_{i 1}, ...,C_{i j}} &= \lambda_{n-i+1} \lambda_{n-i+2}
-\ldots \lambda_{k-1} C_{i, n+1-i}.
+\Esp{C_{i, j+1}|C_{i, 1}, ...,C_{i, j}} &= \lambda_{I-i+1} \lambda_{I-i+2}
+\dots \lambda_{k-1} C_{i, I+1-i}.
 \end{align*}
-Sous les hypothèses (H1) et (H2), les estimateurs standards de
+Sous les hypothèses (M1) et (M2), les estimateurs standards de
 Chain-Ladder, c'est-à-dire
 \begin{equation*}
-  \hat{\lambda}_{j} =
-  \frac{\sum_{i=1}^{n-j} C_{i,j+1}}{\sum_{i=1}^{n-j} C_{i,j}},
-  \quad j = 1, \ldots, n-1
+  \hat{\lambda}_j =
+  \frac{\sum_{i=1}^{I-j} C_{i, j+1}}{\sum_{i=1}^{I-j} C_{i, j}},
+  \quad j = 1, \ldots, I-1
 \end{equation*}
 sont sans biais et non-corrélés. La non-corrélation est essentielle
 dans le modèle puisqu'elle permet d'écrire
 \begin{equation*}
-  \Esp{\hat{\lambda}_{n-i+1} \hat{\lambda}_{n-i+2}\ldots \hat{\lambda}_{k-1}}
-  = \lambda_{n-i+1} \lambda_{n-i+2}\ldots \lambda_{k-1}
+  \esp{\hat{\lambda}_{I-i+1} \hat{\lambda}_{I-i+2} \dots \hat{\lambda}_{k-1}}
+  = \lambda_{I-i+1} \lambda_{I-i+2} \dots \lambda_{k-1}
 \end{equation*}
 qui est utilisée dans l'estimation des réserves.
 
 Une méthode stochastique a l'avantage de pouvoir estimer l'erreur
-d'une prévision. Pour le modèle de Mack, il faut ajouter une troisième
-hypothèse afin de pouvoir calculer l'erreur de prévision:
-\begin{enumerate}[({H}1)]
-  \setcounter{enumi}{2}
-\item On a
-  \begin{equation*}
-    \Var{C_{i, k+1}|C_{i,1}, \dots, C_{i,k}} = C_{i,k} \sigma^2_k.
-  \end{equation*}
-\end{enumerate}
+d'une prévision.
 
 
 \subsection{Estimation de l'erreur}
 \label{sec:stochastique:mack:erreur}
 
-Le montant de réserve pour l'année $i$ est donné par
-\begin{equation*}
-  \hat{R}_i = \hat{C}_{i,n} - C_{i,j}
-\end{equation*}
-et sa variance est définie comme
-\begin{equation*}
-  \Var{\hat{R}_i} = \Esp{(\hat{R}_i - R_i)^2 |C_{i,1},...,C_{i,k}}.
-\end{equation*}
-Elle est estimée par
-\begin{equation*}
-  \hVar{(\hat{R}_i)} = \hat{C}_{i,n}^2 \sum_{k = n-i+1}^{n-1} \frac{\hat{\sigma}^2_k}{\hat{\lambda}_k^2}
-\left(\frac{1}{\hat{C}_{i,k}} + \frac{1}{\sum_{j=1}^{n-k} \hat{C}_{j,k}} \right),
-\end{equation*}
-où
-\begin{itemize}
-\item
-  \begin{equation*}
-    \hat{C}_{i,k} = \lambda_{n-i+1} \lambda_{n-i+2}\ldots
-                    \lambda_{k-1} C_{i,n-i+1}
-  \end{equation*}
-  pour tout $k > n-i+1$ avec la convention $\hat{C}_{i,n-i+1} = C_{i,n-i+1}$;
-\item
-  \begin{equation*}
-    \hat{\sigma}^2_k = \frac{1}{n-k-1} \sum_{i=1}^{n-k} C_{i,k} \left(\frac{C_{i, k+1}}{C_{i, k}} - \hat{\lambda}_k \right)^2,
-    \text{ pour } k = 1,\ldots n-2.
-  \end{equation*}
-\end{itemize}
+L'erreur quadratique moyenne de prévision de la provision de l'année
+d'accident $i$ est
+\begin{align*}
+  \MSEP{\hat{R}_i}
+  &= \esp{(\hat{R}_i - R_i)^2|\mathcal{D}_I} \\
+  &= \var{R_i|\mathcal{D}_I} + (\hat{R}_i - \esp{R_i|\mathcal{D}_I})^2.
+\end{align*}
 
-Le choix de $\hat{\sigma}^2_{n-1}$ est effectué en extrapolant de
+Nous utilisons comme estimateur de cette erreur:
+\begin{equation*}
+  \hMSEP{\hat{R}_i} = (\hat{C}_{i, J}^{\text{CL}})^2
+  \sum_{k = I - i + 1}^{J - 1} \frac{\hat{\sigma}_k^2}{\hat{\lambda}_k^2}
+  \left(
+    \frac{1}{\hat{C}_{i, k}^{\text{CL}}}
+    + \frac{1}{\sum_{i = 1}^{I - k} C_{i, k}}
+  \right)
+\end{equation*}
+pour $i = 2, \dots, I$ et où
+$\hat{C}_{i, k}^{\text{CL}} = C_{i, I - i + 1} \hat{\lambda}_{I - i +
+  1} \cdots \hat{\lambda}_{k - 1}$, $k > I - i + 1$, sont les
+projections des valeurs futures des $C_{i, k}$, et
+$\hat{C}_{i, I - i + 1}^{\text{CL}} = C_{i, I - i + 1}$.
+
+Le choix de $\hat{\sigma}^2_{I-1}$ est effectué en extrapolant de
 telle sorte que :
 \begin{equation*}
-  \frac{\hat{\sigma}^2_{n-3}}{\hat{\sigma}^2_{n-2}} =
-  \frac{\hat{\sigma}^2_{n-2}}{\hat{\sigma}^2_{n-1}}
+  \frac{\hat{\sigma}^2_{I-3}}{\hat{\sigma}^2_{I-2}} =
+  \frac{\hat{\sigma}^2_{I-2}}{\hat{\sigma}^2_{I-1}}
 \end{equation*}
-tout en s'assurant que $\hat{\sigma}^2_{n-3} > \hat{\sigma}^2_{n-2}$.
+tout en s'assurant que $\hat{\sigma}^2_{I-3} > \hat{\sigma}^2_{I-2}$.
 Ainsi,
 \begin{equation*}
-  \hat{\sigma}^2_{n-1} = \min\left\{ \frac{\hat{\sigma}^4_{n-2}}{\hat{\sigma}^2_{n-3}},
-\min\{\hat{\sigma}^2_{n-3}, \hat{\sigma}^2_{n-2} \} \right\}.
+  \hat{\sigma}^2_{I-1} = \min\left\{ \frac{\hat{\sigma}^4_{I-2}}{\hat{\sigma}^2_{I-3}},
+\min\{\hat{\sigma}^2_{I-3}, \hat{\sigma}^2_{I-2} \} \right\}.
 \end{equation*}
-La démonstration de ce dernier résultat n'est pas à réaliser dans le
-cadre de ce cours\footnote{Voir \citet{Mack93}.}.
 
-Ainsi, on a une estimation de la réserve $R_i$, c'est-à-dire
-$\hat{R}_i$, représentant la moyenne de $R_i$, une estimation de
-l'écart-type de $\hat{R}_i$, soit
-$\hat{e-t}(\hat{R}_i) = \sqrt{\hVar{\hat{R}_i}}$ et il est donc
-possible de construire des intervalles de confiance sur les réserves.
+Nous disposons d'une estimation de la provision $R_i$, $\hat{R}_i$, et
+une estimation de l'erreur quadratique de prévision
+$\MSEP{\hat{R}_i}$, $\hMSEP{\hat{R}_i}$. Avec ces quantités nous
+pouvons construire des intervalles de confiance pour les provisions.
 
 \subsection{Intervalles de confiance}
 \label{sec:stochastique:mack:ic}
 
 Si le volume de données est suffisant, on peut supposer une
-distribution normale pour la distribution de la réserve. Ainsi, un
+distribution normale pour la distribution de la provision. Ainsi, un
 intervalle de confiance (à $95~\%$) pourrait être donné par
 \begin{equation*}
-  R_i \in [\hat{R}_i- 1,96 \hat{e-t}(\hat{R}_i); \hat{R}_i + 1,96
-\hat{e-t}(\hat{R}_i)].
+  \left(
+    \hat{R}_i - 1,96 \sqrt{\hMSEP{\hat{R}_i}},
+    \hat{R}_i + 1,96 \sqrt{\hMSEP{\hat{R}_i}}
+  \right).
 \end{equation*}
 
 Cependant, une telle approche peut conduire à des problèmes. Par
@@ -153,22 +144,34 @@ justifiée.
 On pourrait alors plutôt considérer une approche basée sur une
 distribution log-normale. L'idée est de sélectionner les paramètres de
 la loi log-normale afin qu'ils correspondent à ceux que l'on a
-trouvés:
+trouvés. Rappelons que si $X \sim \text{Log-normale}(\mu, \sigma^2)$,
+alors
 \begin{align*}
-  \text{Moyenne d'une Lognormale} &: \exp(\mu_i + \Sigma^2_i/2) = \hat{R}_i\\
-  \text{Variance d'une Lognormale} &: \exp(2\mu_i + \Sigma^2_i)(\exp(\Sigma^2_i) - 1) = (\hat{e-t}(\hat{R}_i))^2,
+  \esp{X} &= e^{\mu + \sigma^2/2} \\
+  \var{X} &= e^{2\mu + \sigma^2} (e^{\sigma^2} - 1) = \esp{X}^2 (e^{\sigma^2} - 1),
 \end{align*}
-et donc
+d'où
 \begin{align*}
-  \mu_i    &= \ln(\hat{R}_i) - \Sigma^2_i/2 \\
-  \Sigma_i^2 &= \ln\left(1 + \left(\frac{\hat{e-t}(\hat{R}_i)}{\hat{R}_i}\right)^2 \right).
+  \mu &= \ln (\esp{X}) - \frac{\sigma^2}{2} \\
+  \sigma^2 &= \ln \left( 1 + \frac{\var{X}}{\esp{X}^2} \right).
 \end{align*}
-Ainsi, un intervalle de confiance (à $95~\%$) est donné par
+
+Ainsi, en supposant que
 \begin{equation*}
-  R_i \in [\exp(\mu_i - 1,96 \Sigma_i) ; \exp(\mu_i + 1,96 \Sigma_i)]
-= \left[\hat{R}_i \exp(-\Sigma^2_i/2 - 1,96 \Sigma_i); \hat{R}_i
-  \exp(-\Sigma^2_i/2 + 1,96 \Sigma_i) \right].
+  R_i \sim \text{Log-normale}(\mu_i, \sigma_i^2),
 \end{equation*}
+un intervalle de confiance (à $95$~\%) pour $R_i$ est
+\begin{equation*}
+  \left(
+    e^{\mu_i - 1,96 \sigma_i},
+    e^{\mu_i + 1,96 \sigma_i}
+  \right),
+\end{equation*}
+avec
+\begin{align*}
+  \mu_i &= \ln (\hat{R}_i) - \frac{\sigma_i^2}{2} \\
+  \sigma_i^2 &= \ln \left( 1 + \frac{\hMSEP{\hat{R}_i}}{\hat{R}_i^2} \right).
+\end{align*}
 
 \begin{exemple}
   \label{ex:stochastique:mack}
@@ -296,15 +299,34 @@ Ainsi, un intervalle de confiance (à $95~\%$) est donné par
   \autoref{sec:stochastique:code} et comparez les résultats avec ceux
   de l'\autoref{ex:stochastique:mack}.}
 
-L'erreur quadratique moyenne du montant total de provisions,
-$\hat{R} = \hat{R}_2 + \ldots + \hat{R}_n$ est intéressante à
-calculer. On ne peut pas se contenter de la somme des
-$\Var{\hat{R}_i}$ parce qu'il y a corrélation entre elles. La variance
-de $\hat{R}$ est estimée par
+L'erreur quadratique moyenne de prévision de la provision totale est
 \begin{equation*}
-  \hVar{\hat{R}} = \sum_{i=2}^n \left(\hVar{\hat{R}_i} + \hat{C}_{i,n} \left(\sum_{j=i+1}^{n}  \hat{C}_{j,n} \right)
-\sum_{k=n-i+1}^{n-1} \frac{2 \hat{\sigma}_k^2/ \hat{\lambda}_k^2}{\sum_{j=1}^{n-k} C_{j,k}}\right).
+  \MSEP{\hat{R}} =
+  \Esp{\left. \sum_{i = 2}^I (\hat{R}_i - R_i)^2 \right| \mathcal{D}_I}.
 \end{equation*}
+L'estimateur de cette erreur est:
+\begin{align*}
+  \hMSEP{\hat{R}}
+  &= \sum_{i = 2}^I \hMSEP{\hat{R}_i}
+    + 2 \sum_{2 \leq i < k \leq I}
+    \hat{C}_{i, J}^{\text{CL}} \hat{C}_{k, J}^{\text{CL}}
+    \sum_{j = I - i + 1}^{J - 1}
+    \frac{\hat{\sigma}_j^2/\hat{\lambda}_j^2}{\sum_{n = 1}^{I - j} C_{n, j}} \\
+  &= \sum_{i = 2}^I
+    \left\{
+    \hMSEP{\hat{R}_i}
+    + \hat{C}_{i, J}^{\text{CL}}
+    \left(
+    \sum_{k = i + 1}^I \hat{C}_{k, J}^{\text{CL}}
+    \right)
+    \sum_{j = I - i + 1}^{J - 1}
+    \frac{2 \hat{\sigma}_j^2/\hat{\lambda}_j^2}{\sum_{n = 1}^{I - j} C_{n,
+    j}}
+    \right\}.
+\end{align*}
+Il est laissé en exercice de dériver les formules des
+intervalles de confiance pour la provision totale.
+
 
 \begin{exemple}
   La réserve totale s'établit à
@@ -361,7 +383,7 @@ de $\hat{R}$ est estimée par
 \end{exemple}
 
 \importantbox{Le modèle de Mack, version stochastique de la méthode
-  Chain-Ladder, est basé sur les hypothèses (H1), (H2) et (H3). Il est
+  Chain-Ladder, est basé sur les hypothèses (M1) et (M2). Il est
   important de vérifier que le triangle de données sur lequel on veut
   travailler satisfait bien à ces trois conditions avant de pouvoir
   appliquer le modèle de Mack.}
