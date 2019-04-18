@@ -167,7 +167,8 @@ provisions par année d'accident:
     &= 22,78 + 33,45 + 66,95 + 155,06 = 278,24.
   \end{align*}
   Nous pouvons regrouper l'ensemble des résultats ci-dessus comme dans
-  le \autoref{tab:deterministe:CL1:resultats}.
+  le \autoref{tab:deterministe:CL1:resultats}. %
+  \qed
 
   \begin{table}
     \centering
@@ -191,7 +192,6 @@ provisions par année d'accident:
       \bottomrule
     \end{tabular}
   \end{table}
-  \qed
 \end{exemple}
 
 \begin{exemple}
@@ -433,29 +433,32 @@ facteurs de déroulement est utilisée pour exprimer l'encouru cumulatif
 comme un pourcentage des pertes ultimes. On rappelle que pour la
 méthode Chain-Ladder, on avait
 \begin{equation*}
-  \widehat{C_{i,n}} = C_{i,j} \cdot \prod_{k=j}^{n-1} \lambda_k,
+  \hat{C}_{i, I}^{\text{CL}} = C_{i, j} \prod_{k = j}^{I-1} \lambda_k,
 \end{equation*}
-où $\prod_{k=j}^{n-1} \lambda_k $ représente le produit des facteurs
-de déroulement jusqu'à la période ultime, $C_{i,n}$ est l'encouru
-ultime et $C_{i,j}$ est l'encouru cumulatif de l'année de survenance
-$i$ à la période de déroulement $j$. La réserve $R_i^{(j)}$ de l'année
+où $\prod_{k=j}^{I-1} \lambda_k $ représente le produit des facteurs
+de déroulement jusqu'à la période ultime, $C_{i, I}$ est l'encouru
+ultime et $C_{i, j}$ est l'encouru cumulatif de l'année de survenance
+$i$ à la période de déroulement $j$. La réserve $R_i$ de l'année
 d'accident $i$ à partir de la période de développement $j$ de la
 méthode Chain-Ladder est, par définition, la différence entre
-l'encouru ultime et l'encouru à la période de déroulement $j$
+l'encouru ultime et l'encouru à la période de déroulement $j$:
 \begin{equation*}
-  R_i^{(j)} = \widehat{C_{i,n}} - C_{i,j}.
+  R_i^{\text{CL}} = \hat{C}_{i, I}^{\text{CL}} - C_{i, j}.
 \end{equation*}
 En combinant ces deux dernières équations, on obtient
 \begin{equation*}
-  R_i^{(j)} = \widehat{C_{i,n}} \cdot \left(1 - \frac{1}{\prod_{k=j}^{n-1} \lambda_k} \right) =  \widehat{C_{i,n}} \cdot \left(1 - \beta_j \right)
+  R_i^{\text{CL}} = \hat{C}_{i, I}
+  \left(
+    1 - \frac{1}{\prod_{k=j}^{I-1} \lambda_k}
+  \right) =  \hat{C_{i, I}}^{\text{CL}} (1 - \beta_j),
 \end{equation*}
-où $\beta_j = \frac{1}{\prod_{k=j}^{n-1} \lambda_k }$ a été utilisé
-afin de simplifier la notation. La variable $\widehat{C_{i,n}}$
-correspond à la perte ultime espérée de l'année de survenance $i$.
-Alors que la méthode Chain-Ladder utilise les données du triangle et
-les $\lambda_k$ pour trouver la valeur de $\widehat{C_{i,n}}$, la
-méthode Borhuetter-Ferguson se permet d'utiliser une source extérieure
-aux données du triangle pour son estimation.
+où $\beta_j = 1/\prod_{k=j}^{I-1} \lambda_k$ a été utilisé afin
+de simplifier la notation. La variable $\hat{C}_{i,n}$ correspond à la
+perte ultime espérée de l'année de survenance $i$. Alors que la
+méthode Chain-Ladder utilise les données du triangle et les
+$\lambda_k$ pour trouver la valeur de $\hat{C}_{i,I}$, la méthode
+Borhuetter-Ferguson se permet d'utiliser une source extérieure aux
+données du triangle pour son estimation.
 
 Pour trouver les pertes incrémentales $Y_{i,j}$ prévues pour une année
 d'accident et une période donnée, on utilise la même logique. D'abord,
