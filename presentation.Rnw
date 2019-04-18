@@ -208,7 +208,7 @@ aussi mener à la réouverture du dossier et à de nouveaux paiements.
 
     %% lignes du statut du sinistre
     \thicklines
-    \color[rgb]{1,0.5,0}                % ~= "darkorange" de R
+    \color{alert}
     \put( 0,-4.25){\line(1,0){6}}
     \put( 6,-5){\line(0,1){1.5}} %
     \put( 6,-6.25){\line(1,0){9}}
@@ -403,7 +403,7 @@ nécessairement un paiement.
 
     %% flèches vers les diverses provisions
     \thinlines
-    \color[rgb]{1,0.5,0}                % ~= "darkorange" de R
+    \color{alert}
     \put(15,-7.5){\vector(0,1){6}}
     \put(22,-5.5){\vector(0,1){4}}
     \put(24,-5.5){\vector(0,1){4}}
@@ -498,7 +498,7 @@ nécessairement un paiement.
 
       %% flèches vers les provisions
       \thinlines
-      \color[rgb]{1,0.5,0}                % ~= "darkorange" de R
+      \color{alert}
       \put( 3.7,-6){\vector(0,1){4.5}}
       \put( 5.0,-4){\vector(0,1){2.5}}
       \put(36.2,-7){\vector(0,1){6.5}}
@@ -641,20 +641,20 @@ comparaison entre les montants de réclamation payés à ce jour et les
 montants espérés calculés à partir du taux de sinistralité.
 
 Soit $\operatorname{ELR}_i$ le taux de sinistralité espéré de l'année
-$i$ pour un secteur d'activité quelconque, $X_i$ le montant total des
+$i$ pour un secteur d'activité quelconque, $Y_i$ le montant total des
 réclamations payées dans l'année $i$, $P_i$ le montant des primes
 acquises dans cette même année et, finalement, $R_i$ le montant des
 provisions pour sinistres. Selon la méthode du taux de sinistralité
 espéré:
 \begin{equation}
   \label{eq:presentation:ELR}
-  R_i = \operatorname{ELR}_i \times P_i - X_i
+  R_i = \operatorname{ELR}_i \times P_i - Y_i
 \end{equation}
 et
 \begin{equation}
   \label{eq:presentation:ELR:TOT}
   R^{\text{TOT}} = \sum_i R_i
-  = \sum_i \operatorname{ELR}_i \times P_i - \sum_i X_i.
+  = \sum_i \operatorname{ELR}_i \times P_i - \sum_i Y_i.
 \end{equation}
 
 \begin{exemple}
@@ -713,11 +713,12 @@ développement $j = 1, \dots, J$ pour l'année d'accident
 $i = 1, \dots, I$. Sans perte de généralité, nous allons supposer que
 $I = J$ dans la suite. Un triangle \emph{incrémental} contient plutôt
 les valeurs $Y_{i,j}$ des montants des sinistres survenus à l'année
-$i$ et payés à l'année $j$.
+$i$ et payés à l'année $j$. Un tel triangle est visuellement identique
+à un triangle cumulatif.
 
 \begin{table}
   \centering
-  \caption{Présentation générale d'un triangle de développement}
+  \caption{Présentation générale d'un triangle de développement cumulatif}
   \label{tab:presentation:notation-triangle}
   \begin{tabular}{*{8}{c}}
     \toprule
@@ -749,6 +750,24 @@ laquelle vous lisez un triangle de développement:
   calendrier donnée pour tous les âges de développement.
 \end{itemize}
 
+\warningbox{La notation des triangles de développement porte
+  facilement à confusion. Parce qu'elles reviennent fréquemment dans
+  la suite, habituez-vous rapidement aux deux conventions suivantes:
+  \begin{enumerate}
+  \item les observations de la diagonale du triangle de développement
+    sont
+    \begin{equation*}
+      C_{i, I - i + 1}, \quad i = 1, \dots, I;
+    \end{equation*}
+  \item l'ensemble des observations dans la partie supérieure du
+    triangle de développement (diagonale incluse) est
+    \begin{equation*}
+      \mathcal{D}_I = \{C_{i, j}; i + j - 1 \leq I, j \leq J\}
+    \end{equation*}
+    et l'ensemble des observations sous la diagonale est le complément
+    de l'ensemble précédent, $\mathcal{D}_I^\complement$.
+  \end{enumerate}}
+
 \begin{exemple}
   \label{ex:presentation:triangle}
   Le \autoref{tab:presentation:triangle} contient un un triangle de
@@ -756,14 +775,15 @@ laquelle vous lisez un triangle de développement:
   Nous pouvons extraire les informations suivantes de ce tableau de
   données:
   \begin{itemize}
-  \item en 1999, $\nombre{49756}$~\$ ont été payés pour les sinistres
-    survenus durant cette même année;
-  \item toujours en 1999, $\nombre{24672}$~\$ ont été payés pour des
-    sinistres survenus en 1997;
+  \item en 1999, la compagnie d'assurance a payé un montant de
+    $\nombre{49756}$~\$ pour les sinistres survenus durant cette même
+    année;
+  \item toujours en 1999, la compagnie a aussi payé
+    $\nombre{24672}$~\$ pour des sinistres survenus en 1997;
   \item à la fin de l'année 2000, le montant total (ou cumulatif) payé
-    pour des sinistres survenus en 1998 est
+    pour des sinistres survenus en 1998 s'élève à
     $\nombre{30470} + \nombre{35012} + \nombre{25491} =
-    \nombre{90973}$.
+    \nombre{90973}$~\$.
   \end{itemize}
 
   \begin{table}
@@ -786,65 +806,53 @@ laquelle vous lisez un triangle de développement:
   \qed
 \end{exemple}
 
-Puisque l'idée du provisionnement est de \textbf{prévoir le montant
-  final des sinistres} afin de provisionner pour les paiements
-non-effectués, sous l'hypothèse que tous les sinistres seront réglés
-après $J$ années, on cherche à compléter le tableau en remplissant le
-triangle inférieur droit
-\begin{center}
+Le problème de provisionnement consiste à prévoir, ou à projeter, le
+montant final des sinistres afin de déterminer le montant que
+l'assureur doit conserver en réserve pour être en mesure de rencontrer
+ses obligations futures. Sous l'hypothèse que tous les sinistres
+seront réglés après $J$ années, cela revient à compléter le triangle
+de développement en remplissant sa partie inférieure, tel qu'illustré
+au \autoref{tab:presentation:triangle-complet}.
+
+\begin{table}
+  \centering
+  \caption{Triangle de développement cumulatif complété à partir de
+    projections des montants de sinistres finaux sous la diagonale}
+  \label{tab:presentation:triangle-complet}
   \begin{tabular}{*{8}{c}}
     \toprule
     Année & \multicolumn{7}{c}{Développement (âge)} \\
     accident & $1$ & $2$ & $\cdots$ & $j$ & $\cdots$ & $J - 1$ & $J$ \\
     \midrule
     $1$ & $C_{1, 1}$ & $C_{1, 2}$ & $\cdots$ & $C_{1, j}$ & $\cdots$ & $C_{1, J-1}$ & $C_{1, J}$ \\
-    $2$ & $C_{2, 1}$ & $C_{2, 2}$ & $\cdots$ & $C_{2, j}$ & $\cdots$ & $C_{2, J-1}$ & $\hat{C}_{1, J}$ \\
+    $2$ & $C_{2, 1}$ & $C_{2, 2}$ & $\cdots$ & $C_{2, j}$ & $\cdots$ & $C_{2, J-1}$ & \textcolor{alert}{$\hat{C}_{1, J}$} \\
     $\vdots$ \\
-    $i$ & $C_{i, 1}$ & $C_{i, 2}$ & $\cdots$ & $C_{i, j}$ & $\cdots$ & $\hat{C}_{i, J-1}$ & $\hat{C}_{1, J}$ \\
+    $i$ & $C_{i, 1}$ & $C_{i, 2}$ & $\cdots$ & $C_{i, j}$ & $\cdots$ & \textcolor{alert}{$\hat{C}_{i, J-1}$} & \textcolor{alert}{$\hat{C}_{i, J}$} \\
     $\vdots$ \\
-    $I - 1$ & $C_{I-1, 1}$ & $C_{I-1, 2}$  & $\cdots$ & $\hat{C}_{i, j}$ & $\cdots$ & $\hat{C}_{i, J-1}$ & $\hat{C}_{1, J}$ \\
-    $I$ & $C_{I, 1}$ & $\hat{C}_{I-1, 2}$  & $\cdots$ & $\hat{C}_{i, j}$ & $\cdots$ & $\hat{C}_{i, J-1}$ & $\hat{C}_{1, J}$ \\
+    $I - 1$ & $C_{I-1, 1}$ & $C_{I-1, 2}$  & $\cdots$ & \textcolor{alert}{$\hat{C}_{I - 1, j}$} & $\cdots$ & \textcolor{alert}{$\hat{C}_{I - 1, J - 1}$} & \textcolor{alert}{$\hat{C}_{I - 1, J}$} \\
+    $I$ & $C_{I, 1}$ & \textcolor{alert}{$\hat{C}_{I, 2}$}  & $\cdots$ & \textcolor{alert}{$\hat{C}_{I, j}$} & $\cdots$ & \textcolor{alert}{$\hat{C}_{I, J - 1}$} & \textcolor{alert}{$\hat{C}_{I, J}$} \\
     \bottomrule
   \end{tabular}
-\end{center}
-ou
-\begin{center}
-  \begin{tabular}{*{8}{c}}
-    \toprule
-    Année & \multicolumn{7}{c}{Développement (âge)} \\
-    accident & $1$ & $2$ & $\cdots$ & $j$ & $\cdots$ & $J - 1$ & $J$ \\
-    \midrule
-    $1$ & $Y_{1, 1}$ & $Y_{1, 2}$ & $\cdots$ & $Y_{1, j}$ & $\cdots$ & $Y_{1, J-1}$ & $Y_{1, J}$ \\
-    $2$ & $Y_{2, 1}$ & $Y_{2, 2}$ & $\cdots$ & $Y_{2, j}$ & $\cdots$ & $Y_{2, J-1}$ & $\hat{C}_{1, J}$ \\
-    $\vdots$ \\
-    $i$ & $Y_{i, 1}$ & $Y_{i, 2}$ & $\cdots$ & $Y_{i, j}$ & $\cdots$ & $\hat{C}_{i, J-1}$ & $\hat{C}_{1, J}$ \\
-    $\vdots$ \\
-    $I - 1$ & $Y_{I-1, 1}$ & $Y_{I-1, 2}$  & $\cdots$ & $\hat{C}_{i, j}$ & $\cdots$ & $\hat{C}_{i, J-1}$ & $\hat{C}_{1, J}$ \\
-    $I$ & $Y_{I, 1}$ & $\hat{C}_{I-1, 2}$  & $\cdots$ & $\hat{C}_{i, j}$ & $\cdots$ & $\hat{C}_{i, J-1}$ & $\hat{C}_{1, J}$ \\
-    \bottomrule
-  \end{tabular}
-\end{center}
+\end{table}
 
-Ayant estimé ces paiements futurs, le montant des provisions pour
-l'année de survenance $i$ est alors donné par
+Avec les paiements futurs en main, le montant de la provision pour
+l'année d'accident $i$, $i = 1, \dots, I$, est alors donné par
 \begin{align*}
-  \hat{R}_i &= \hat{C}_{i,I} - C_{i, I+1-i} =
-                  \hat{Y}_{i,I+2-i} + \hat{Y}_{i,I+3-i} + \dots +
-                  \hat{Y}_{i,I}
+  \hat{R}_i
+  &= \hat{C}_{i, J} - C_{i, J - i + 1} \\
+  &= \hat{Y}_{i, I - i + 2} + \hat{Y}_{i, I - i + 3}
+    + \dots + \hat{Y}_{i, I}
 \end{align*}
-et le montant total des réserves est donné par
+et le montant total des provisions est donné par
 \begin{align*}
-R &= \sum_{i=1}^I \hat{R}_i = \sum_{i=1}^I \hat{C}_{i,I} -
-C_{i, I+1-i} = \sum_{(i,j) \in \Delta_I } \hat{Y}_{i,j},
+  R
+  &= \sum_{i=1}^I \hat{R}_i \\
+  &= \sum_{i=1}^I (\hat{C}_{i, J} - C_{i, J - i + 1}) \\
+  &= \sum_{\mathcal{D}_I^\complement} \hat{Y}_{i, j}.
 \end{align*}
-où $\Delta_I$ désigne l'ensemble
-$\{(i, j), i + j \ge I + 2, i \le I \text{ et } j \le J \}$.
 
-Les modèles basés sur les triangles de développement supposent souvent
-que tous les sinistres sont réglés après $J$ années. Afin d'assouplir
-cette condition, il est aussi possible de considérer des ajustement
-pour tenir compte des futures évolutions.
-
+\tipbox{Puisque, par hypothèse, les sinistres de la première année
+  sont tous réglés, alors $\hat{R}_1 = 0$.}
 
 \section{Exercices}
 \label{sec:presentation:exercices}
@@ -865,42 +873,46 @@ pour tenir compte des futures évolutions.
 \end{Filesave}
 
 \begin{exercice}
- Le \autoref{tab:presentation:loss12} présente les différents paiements
- réalisés par l'assureur YTR.
-  \begin{table}[!h]
+  \label{exercice:presentation:YTR}
+  Le \autoref{tab:presentation:YTR} présente les différents paiements
+  réalisés par l'assureur YTR.
+  \begin{enumerate}
+  \item Construire le triangle de développement cumulatif au
+    31~décembre 2004.
+  \item Après combien d'années le développement des sinistres est-il
+    complété?
+  \end{enumerate}
+
+  \begin{table}
     \centering
-    \caption{Paiements réalisés par l'assureur YTR}
-    \label{tab:presentation:loss12}
-    \begin{tabular}{cccc}
+    \caption{Paiements réalisés par l'assureur YTR pour
+      l'\autoref{exercice:presentation:YTR}}
+    \label{tab:presentation:YTR}
+    \begin{tabular}{cccr}
       \toprule
-      Date paiement & Numéro assuré & Date survenance & Montant\\
+      Numéro dossier & Date du sinistre & Date du paiement & Montant (\$) \\
       \midrule
-      04/2000 & 456 & 03/2000 & $200$\\
-      09/2000 & 476 & 08/2000 & $225$\\
-      02/2001 & 456 & 03/2000 & $40$\\
-      10/2001 & 476 & 08/2000 & $57$\\
-      01/2002 & 456 & 03/2000 & $90$\\
-      04/2003 & 476 & 08/2000 & $102$\\
-      02/2004 & 476 & 08/2000 & $16$\\
-      10/2001 & 287 & 10/2001 & $532$\\
-      12/2002 & 287 & 10/2001 & $125$\\
-      02/2003 & 937 & 03/2001 & $57$\\
-      01/2004 & 287 & 10/2001 & $18$\\
-      05/2002 & 456 & 03/2002 & $717$\\
-      08/2003 & 456 & 03/2002 & $13$\\
-      04/2004 & 456 & 03/2002 & $72$\\
-      07/2003 & 101 & 07/2003 & $440$\\
-      01/2004 & 867 & 03/2003 & $120$\\
-      04/2004 & 200 & 02/2004 & $400$\\
-      10/2004 & 956 & 08/2004 & $220$\\
+      456 & 2000-03 & 2000-04 & $200$ \\
+      476 & 2000-08 & 2000-09 & $225$ \\
+      456 & 2000-03 & 2001-02 & $40$ \\
+      476 & 2000-08 & 2001-10 & $57$ \\
+      456 & 2000-03 & 2002-01 & $90$ \\
+      476 & 2000-08 & 2003-04 & $102$ \\
+      476 & 2000-08 & 2004-02 & $16$ \\
+      287 & 2001-10 & 2001-10 & $532$ \\
+      287 & 2001-10 & 2002-12 & $125$ \\
+      937 & 2001-03 & 2003-02 & $57$ \\
+      287 & 2001-10 & 2004-01 & $18$ \\
+      456 & 2002-03 & 2002-05 & $717$ \\
+      456 & 2002-03 & 2003-08 & $13$ \\
+      456 & 2002-03 & 2004-04 & $72$ \\
+      101 & 2003-07 & 2003-07 & $440$ \\
+      867 & 2003-03 & 2004-01 & $120$ \\
+      200 & 2004-02 & 2004-04 & $400$ \\
+      956 & 2004-08 & 2004-10 & $220$ \\
       \bottomrule
     \end{tabular}
   \end{table}
-  \begin{enumerate}
-  \item Construire les triangles des paiements cumulés.
-  \item Quel est le nombre de périodes nécessaires pour observer le
-    développement complet des paiements?
-  \end{enumerate}
   \begin{rep}
     \begin{enumerate}
       \stepcounter{enumii}
@@ -909,136 +921,134 @@ pour tenir compte des futures évolutions.
   \end{rep}
   \begin{sol}
     \begin{enumerate}
-    \item Le triangle des paiements cumulés est présenté dans le
-      \autoref{tab:presentation:tri1}. Pour la case $(i, j)$, il suffit de
-      sommer les montants des paiements pour les sinistres survenus
-      pendant l'année~$i$ et payés pendant la $j\ieme$~période après
-      la survenance.
-      \begin{table}[!h]
+    \item Le triangle de développement cumulatif se trouve au
+      \autoref{tab:presentation:YTR-sol}. Le montant en position
+      $(i, j)$ dans le tableau correspond à la somme des montants des
+      paiements pour les sinistres survenus pendant l'année~$i$ et
+      payés pendant les années $i$ à $j$, inclusivement. Par exemple,
+      \begin{equation*}
+        C_{2, 2} = 532 + 125 = 657.
+      \end{equation*}
+      \begin{table}
         \centering
-        \caption{Paiements réalisés par l'assureur YTR}
-        \label{tab:presentation:tri1}
+        \caption{Triangle de développement cumulatif de l'assureur YTR
+          pour l'\autoref{exercice:presentation:YTR}}
+        \label{tab:presentation:YTR-sol}
         \begin{tabular}{cccccc}
           \toprule
-          & $1$ & $2$ & $3$ & $4$ & $5$\\
+          Année    & \multicolumn{5}{c}{Développement (âge)} \\
+          accident & 1 & 2 & 3 & 4 & 5 \\
           \midrule
-          2000 & $425$ & $522$ & $612$ & $714$ & $730$\\
-          2001 & $532$ & $657$ & $714$ & $732$ & -\\
-          2002 & $717$ & $730$ & $802$ & - & -\\
-          2003 & $440$ & $560$ & - & - & -\\
-          2004 & $620$ & - & - & - & -\\
+          2000 & 425 & 522 & 612 & 714 & 730 \\
+          2001 & 532 & 657 & 714 & 732 \\
+          2002 & 717 & 730 & 802 \\
+          2003 & 440 & 560 \\
+          2004 & 620 \\
           \bottomrule
         \end{tabular}
       \end{table}
     \item Selon les données enregistrées par la compagnie, il est
       raisonnable de supposer que les paiements sont pratiquement
-      complets après $5$~périodes de développement. Idéalement, le
-      fait de pouvoir consulter une base de données semblables plus
-      mature permettrait de confirmer ou d'infirmer cette hypothèse.
-      Enfin, connaître le type de portefeuille (assurance automobile -
-      dommage matériel, assurance automobile - dommage corporel,
-      assurance responsabilité professionnelle, etc.) permettrait
-      également d'avoir une idée du nombre de périodes de
-      développement nécessaires.
+      complets après $5$~périodes de développement. Idéalement, la
+      consultation d'une base de données semblables plus mature
+      permettrait de confirmer ou d'infirmer cette hypothèse. Enfin,
+      connaitre le type de portefeuille --- automobile (dommages
+      matériels), automobile (dommages corporels), responsabilité
+      professionnelle, etc. --- permettrait d'avoir une meilleure idée
+      du nombre de périodes de développement nécessaires.
     \end{enumerate}
   \end{sol}
 \end{exercice}
 
 \begin{exercice}
-  On considère les primes acquises et les montants totaux payés
-  suivants, à la fin de 2005, pour les années 2000 à 2005.
-  \begin{center}
-    \begin{tabular}{|c | c c c |}\hline
-      Année & Primes acquises & Montants payés & Rapport sinistres/primes espéré\\ \hline
-      2000 & $\nombre{200000}$ & $\nombre{158000}$ & $85~\%$\\
-      2001 & $\nombre{205000}$ & $\nombre{150000}$ & $87,5~\%$\\
-      2002 & $\nombre{210000}$ & $\nombre{145000}$ & $85~\%$\\
-      2003 & $\nombre{212500}$ & $\nombre{140000}$ & $78~\%$\\
-      2004 & $\nombre{220000}$ & $\nombre{125000}$ & $80~\%$\\
-      2005 & $\nombre{215000}$ & $\nombre{112000}$ & $75~\%$ \\ \hline
+  \label{exercice:presentation:ELR}
+  Le \autoref{tab:presentation:ELR} contient les primes acquises, les
+  montants payés et les taux de sinistralité espérés pour les années
+  2000 à 2005. Estimer la réserve totale pour les années 2000 à 2005
+  par la méthode du taux de sinistralité espéré.
+
+  \begin{table}
+    \centering
+    \caption{Primes acquises, montants payés et taux de sinistralité
+      espérés pour l'\autoref{exercice:presentation:ELR}}
+    \label{tab:presentation:ELR}
+    \begin{tabular}{cccr}
+      \toprule
+      Année & Primes acquises & Montants payés & ELR (\%) \\
+      \midrule
+      2000 & \nombre{200000} & \nombre{158000} & 85,0 \\
+      2001 & \nombre{205000} & \nombre{150000} & 87,5 \\
+      2002 & \nombre{210000} & \nombre{145000} & 85,0 \\
+      2003 & \nombre{212500} & \nombre{140000} & 78,0 \\
+      2004 & \nombre{220000} & \nombre{125000} & 80,0 \\
+      2005 & \nombre{215000} & \nombre{112000} & 75,0 \\
+      \bottomrule
     \end{tabular}
-  \end{center}
-  En utilisant la méthode des rapports sinistres/primes espérés,
-  estimer la réserve totale pour les années 2000 à 2005.
+  \end{table}
   \begin{rep}
     $\nombre{200875}$
   \end{rep}
   \begin{sol}
-    On a
+    Par \eqref{eq:presentation:ELR:TOT}, nous avons
     \begin{align*}
-      \text{Pertes ultimes estimées}_{2000} &= \text{Rapport
-                                              sinistres/primes espéré}_{2000} \times \text{Primes
-                                              acquises}_{2000}\\
-                                            &= (0,85)(\nombre{200000}) = \nombre{170000}\\
-      \text{Pertes ultimes estimées}_{2001} &= \nombre{179375}\\
-      \text{Pertes ultimes estimées}_{2002} &= \nombre{178500}\\
-      \text{Pertes ultimes estimées}_{2003} &= \nombre{165750}\\
-      \text{Pertes ultimes estimées}_{2004} &= \nombre{176000}\\
-      \text{Pertes ultimes estimées}_{2005} &= \nombre{161250}\\
-      \text{Pertes ultimes estimées}_{Total} &= \nombre{1030875}\\
-      \text{Réserve estimée}_{total} &= \text{Pertes ultimes estimées}_{total} - \text{montants payés}_{total}\\
-                                            &=  \nombre{1030875} - \nombre{830000} = \nombre{200875}.
+      R^{\text{TOT}}
+      &= \sum_i \operatorname{ELR}_i \times P_i - \sum_i Y_i \\
+      &= [0,85  (\nombre{200000}) +
+          0,875 (\nombre{205000}) +
+          0,85 (\nombre{210000}) \\
+      &\phantom{=} +
+          0,78 (\nombre{212500}) +
+          0,80 (\nombre{220000}) +
+          0,75 (\nombre{215000})] \\
+      &\phantom{=} -
+        [\nombre{158000} +
+         \nombre{150000} +
+         \nombre{145000} \\
+      &\phantom{=} +
+         \nombre{140000}
+         \nombre{125000}
+         \nombre{112000}] \\
+      &= \nombre{1030875} - \nombre{830000} \\
+      &= \nombre{200875}.
     \end{align*}
   \end{sol}
 \end{exercice}
 
 \begin{exercice}
-  On considère les primes acquises et les réserves individuelles de
-  chaque sinistre, à la fin de 2005, pour les années 2000 à 2005
-  \begin{center}
-    \begin{tabular}{|c | c c|}\hline
-      Année & Primes acquises & Somme des réserves individuelles \\ \hline
-      2000 & $\nombre{100000}$ & $\nombre{58000}$\\
-      2001 & $\nombre{105000}$ & $\nombre{50000}$\\
-      2002 & $\nombre{110000}$ & $\nombre{45000}$\\
-      2003 & $\nombre{112500}$ & $\nombre{40000}$\\
-      2004 & $\nombre{120000}$ & $\nombre{25000}$\\
-      2005 & $\nombre{115000}$ & $\nombre{12000}$ \\ \hline
-    \end{tabular}
-  \end{center}
-  En utilisant la méthode des réserves enregistrées, estimer la
-  réserve totale pour les années 2000 à 2005 si on utilise un facteur
-  de $5~\%$.
-  \begin{rep}
-    $\nombre{241500}$
-  \end{rep}
-  \begin{sol}
-    La somme des réserves individuelles est $\nombre{230000}$.
-    Ainsi, la réserve totale est
-    $(\nombre{230000})(1,05) = \nombre{241500}$.
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  L'actuaire de la compagnie \textbf{GFR} possède les informations
-  suivantes sur les montants payés cumulatifs, en fonction des années
-  de développement et de l'année de survenance du sinistre:
-  \begin{center}
-    \begin{tabular}{|l|l l l l l l l|}\hline
-      Année & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$\\ \hline
-      1993 & $\nombre{1780}$ & $\nombre{2673}$ & $\nombre{2874}$ & $\nombre{3094}$ & $\nombre{3157}$ & $\nombre{3166}$ & $\nombre{3166}$ \\
-      1994 & $\nombre{3226}$ & $\nombre{4219}$ & $\nombre{4532}$ & $\nombre{4881}$ & $\nombre{5144}$ & $\nombre{5199}$ & \\
-      1995 & $\nombre{3652}$ & $\nombre{4989}$ & $\nombre{5762}$ & $\nombre{6436}$ & $\nombre{6720}$ & & \\
-      1996 & $\nombre{2723}$ & $\nombre{4301}$ & $\nombre{5526}$ & $\nombre{6231}$ & & & \\
-      1997 & $\nombre{2923}$ & $\nombre{4666}$ & $\nombre{5349}$ & & & & \\
-      1998 & $\nombre{2990}$ & $\nombre{5417}$ & & & & & \\
-      1999 & $\nombre{3917}$ & & & & & &\\ \hline
-    \end{tabular}
-  \end{center}
-
+  \label{exercice:presentation:GFR}
+  L'actuaire de la compagnie GFR possède les informations du
+  \autoref{tab:presentation:GFR} sur les montants cumulatifs
+  d'indemnités payées en fonction de l'année de survenance du sinistre
+  et des années de développement. Déterminer les quantités suivantes.
   \begin{enumerate}
-  \item Combien de dollars ont été payés pour les sinistres survenus
-    en 1993 ?
-  \item En 1997, combien de dollars ont été payés pour les sinistres
-    survenus en 1995 ?
-  \item Quel est le montant total de sinistres payés pour l'année de
-    survenance 1998 ?
-  \item Combien de dollars ont été payés en indemnités pendant l'année
-    1999 ?
-  \item Combien de dollars ont été payés en indemnités pendant l'année
-    1994 ?
+  \item Le montant total payé pour les sinistres survenus en 1993.
+  \item Le montant total payé en 1997 pour les sinistres survenus en
+    1995.
+  \item Le montant total payé pour l'année de survenance 1998.
+  \item Le montant total payé en indemnités pendant l'année 1999.
+  \item Le montant total payé en indemnités pendant l'année 1994.
   \end{enumerate}
 
+  \begin{table}
+    \centering
+    \caption{Triangle de développement cumulatif de l'assureur GFR
+      pour l'\autoref{exercice:presentation:GFR}}
+    \label{tab:presentation:GFR}
+    \begin{tabular}{*{8}{c}}
+      \toprule
+      Année    & \multicolumn{7}{c}{Développement (âge)} \\
+      accident & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      \midrule
+      1993 & \nombre{1780} & \nombre{2673} & \nombre{2874} & \nombre{3094} & \nombre{3157} & \nombre{3166} & \nombre{3166} \\
+      1994 & \nombre{3226} & \nombre{4219} & \nombre{4532} & \nombre{4881} & \nombre{5144} & \nombre{5199} \\
+      1995 & \nombre{3652} & \nombre{4989} & \nombre{5762} & \nombre{6436} & \nombre{6720} \\
+      1996 & \nombre{2723} & \nombre{4301} & \nombre{5526} & \nombre{6231} \\
+      1997 & \nombre{2923} & \nombre{4666} & \nombre{5349} \\
+      1998 & \nombre{2990} & \nombre{5417} \\
+      1999 & \nombre{3917} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
   \begin{rep}
     \begin{enumerate}
     \item $\nombre{3166}$
@@ -1051,17 +1061,21 @@ pour tenir compte des futures évolutions.
   \begin{sol}
     \begin{enumerate}
     \item Le dernier montant cumulatif disponible pour l'année de
-      survenance 1993 est $\nombre{3166}$~\$.
-    \item On calcule $\nombre{5762} - \nombre{4989} = 773$.
+      survenance 1993 est $C_{1993, 7} = \nombre{3166}$~\$.
+    \item Nous avons
+      $Y_{1995, 3} = C_{1995, 3} - C_{1995, 2} = \nombre{5762} -
+      \nombre{4989} = 773$~\$.
     \item Le dernier montant cumulatif disponible pour l'année de
-      survenance 1998 est $\nombre{5417}$.
-    \item On calcule $\nombre{3917} +
-      (\nombre{5417}-\nombre{2990}) + (\nombre{5349} -
-      \nombre{4666}) + (\nombre{6231} - \nombre{5526}) +
-      (\nombre{6720}-\nombre{6436}) + (\nombre{5199} -
-      \nombre{5144}) + 0 = \nombre{8071}$.
-    \item On calcule $\nombre{3226} +
-      (\nombre{2673}-\nombre{1780}) = \nombre{4119}$.
+      survenance 1998 est $C_{1993, 2} = \nombre{5417}$~\$.
+    \item Nous avons
+      $\sum_{j = 1}^7 Y_{1999 + j - 1, j} = \nombre{3917} +
+      (\nombre{5417}-\nombre{2990}) + (\nombre{5349} - \nombre{4666})
+      + (\nombre{6231} - \nombre{5526}) +
+      (\nombre{6720}-\nombre{6436}) + (\nombre{5199} - \nombre{5144})
+      + 0 = \nombre{8071}$~\$.
+    \item Nous avons
+      $\sum_{j = 1}^2 Y_{1994 + j - 1, j} = \nombre{3226} +
+      (\nombre{2673} - \nombre{1780}) = \nombre{4119}$~\$.
     \end{enumerate}
   \end{sol}
 \end{exercice}
