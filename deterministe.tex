@@ -40,21 +40,159 @@ d'augmentation sont appelés \emph{facteurs multiplicatifs}, ou bien
   développement}. L'indice $j$ représente le passage de la période $j$
 à la période $j + 1$, ou encore de la colonne $j$ à la colonne $j+1$
 dans un triangle de développement. Le modèle sous-jacent est donc que:
-$C_{i,j+1} = \lambda_j C_{i,j}$. Les coefficients $\lambda_k$ sont
-estimés à l'aide des observations:
+$C_{i, j+1} = \lambda_j C_{i, j}$. Les coefficients $\lambda_j$,
+$j = 1, \dots, J - 1$, sont estimés à partir des observations par une
+moyenne pondérée des facteurs de développements par année d'accident:
 \begin{align*}
-  \hat{\lambda}_k
-  &= \frac{\sum_{i=1}^{n-k} C_{i,k+1}}{\sum_{i=1}^{n-k} C_{i,k}}, \quad
-    k = 1, \dots, n-1.
+  \hat{\lambda}_j
+  &= \frac{\sum_{i = 1}^{I - j} C_{i, j + 1}}{%
+    \sum_{i = 1}^{I - j} C_{i, j}} \\
+  &= \sum_{i = 1}^{I - j} \frac{C_{i, j}}{C_{\pt, j}}
+    \frac{C_{i, j + 1}}{C_{i, j}}, \quad
+    C_{\pt, j} = \sum_{k = 1}^{I - j} C_{k, j}.
 \end{align*}
-À partir de ces $\hat{\lambda}_k$, on peut estimer
+L'estimateur Chain-Ladder de $C_{i, j}$ pour $i + j - 1 > I$ (partie
+inférieure du triangle) est alors:
+\begin{equation*}
+  \hat{C}_{i, j}^{\text{CL}}
+  = C_{i, I - 1} \hat{\lambda}_{I - i} \cdots \hat{\lambda}_{j - 1}.
+\end{equation*}
+
+Les provisions correspondent aux montants encore à payer pour les
+sinistres. La provision Chain-Ladder pour l'année d'accident $i$ est
+égale à la différence entre les sinistres ultimes et les sinistres
+payés en date d'évaluation:
+\begin{equation*}
+  \hat{R}_i^{\text{CL}} = \hat{C}_{i, J}^{\text{CL}} - C_{i, J - i + 1}.
+\end{equation*}
+La provision totale, quant à elle, est simplement la somme des
+provisions par année d'accident:
 \begin{align*}
-  \hat{C}_{i,j}
-  &= \left(
-    \hat{\lambda}_{n+1-i} \times \hat{\lambda}_{n+2-i} \times \ldots
-    \hat{\lambda}_{j-1}
-    \right) C_{i,n+1-i}.
+  \hat{R}^{\text{CL}}
+  &= \sum_{i = 1}^I \hat{R}_i^{\text{CL}} \\
+  &= \sum_{i = 1}^I (\hat{C}_{i, J}^{\text{CL}} - C_{i, J - i + 1}).
 \end{align*}
+
+\begin{exemple}
+  \label{ex:deterministe:CL1}
+  Le \autoref{tab:deterministe:CL1:donnees} contient les données d'un
+  triangle de développement pour cinq années d'accident et autant
+  d'années de développement.
+
+  \begin{table}
+    \centering
+    \caption{Triangle de développement pour
+      l'\autoref{ex:deterministe:CL1}}
+    \label{tab:deterministe:CL1:donnees}
+    \begin{tabular}{crrrrr}
+      \toprule
+      & \multicolumn{5}{c}{Développement (âge)} \\
+      Année & 1 & 2 & 3 & 4 & 5 \\
+      \midrule
+      1 & 100 & 150 & 175 & 180 & 200 \\
+      2 & 110 & 168 & 192 & 205 \\
+      3 & 115 & 169 & 202 \\
+      4 & 125 & 185 \\
+      5 & 150 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  Les estimateurs de la méthode Chain-Ladder des facteurs de
+  développement sont:
+  \begin{align*}
+    \hat{\lambda}_4 &= \frac{200}{180} = 1,111 \\
+    \hat{\lambda}_3 &= \frac{180+205}{175+192} = 1,049 \\
+    \hat{\lambda}_2 &= \frac{175+192+202}{150+168+169} = 1,168 \\
+    \hat{\lambda}_1 &= \frac{150+168+169+185}{100+110+115+125} = 1,493.
+  \end{align*}
+  À partir de ces facteurs de développement, nous pouvons calculer les
+  prévisions des montants cumulatifs sous la diagonale du triangle de
+  développement. Voici quelques exemples de calcul:
+  \begin{align*}
+    \hat{C}_{2,5}^{\text{CL}}
+    &= C_{2, 4} \hat{\lambda}_4 &
+    \hat{C}_{3,4}^{\text{CL}}
+    &= C_{3, 3} \hat{\lambda}_3 \\
+    &= 205 (1,111) &
+    &= 202 (1,049) \\
+    &= 227,78 &
+    &= 211,91 \\
+    \hat{C}_{3,5}^{\text{CL}}
+    &= \hat{C}_{3, 4}^{\text{CL}} \hat{\lambda}_4 = C_{3, 3} \hat{\lambda}_3 \hat{\lambda}_4 &
+    \hat{C}_{4,5}^{\text{CL}}
+    &= C_{4, 2} \hat{\lambda}_2 \hat{\lambda}_3 \hat{\lambda}_4 \\
+    &= 202 (1,049)(1,111) &
+    &= 185 (1,169)(1,049)(1,111) \\
+    &= 235,45 &
+    &= 251,95.
+  \end{align*}
+  Les résultats complets se trouvent dans le
+  \autoref{tab:deterministe:CL1:complet}.
+
+  \begin{table}
+    \centering
+    \caption{Triangle de développement complété pour
+      l'\autoref{ex:deterministe:CL1}}
+    \label{tab:deterministe:CL1:complet}
+    \begin{tabular}{crrrrr}
+      \toprule
+      & \multicolumn{5}{c}{Développement (âge)} \\
+      Année & 1 & 2 & 3 & 4 & 5 \\
+      \midrule
+      1 & 100 & 150    & 175    & 180    & 200    \\
+      2 & 110 & 168    & 192    & 205    & 227,78 \\
+      3 & 115 & 169    & 202    & 211,91 & 235,45 \\
+      4 & 125 & 185    & 216,15 & 226,75 & 251,95 \\
+      5 & 150 & 224,00 & 261,72 & 274,55 & 305,06 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  Nous pouvons maintenant calculer les provisions par année d'accident
+  ainsi que la provision totale:
+  \begin{align*}
+    \hat{R}_1^{\text{CL}}
+    &= C_{1, 5} - C_{1, 5} = 0 \\
+    \hat{R}_2^{\text{CL}}
+    &= \hat{C}_{2, 5}^{\text{CL}} - C_{2, 4} = 22,78 \\
+    \hat{R}_3^{\text{CL}}
+    &= \hat{C}_{3, 5}^{\text{CL}} - C_{3, 3} = 33,45 \\
+    \hat{R}_4^{\text{CL}}
+    &= \hat{C}_{4, 5}^{\text{CL}} - C_{4, 2} = 66,95 \\
+    \hat{R}_5^{\text{CL}}
+    &= \hat{C}_{5, 5}^{\text{CL}} - C_{5, 1} = 155,06 \\
+    \intertext{et}
+    \hat{R}^{\text{CL}}
+    &= 22,78 + 33,45 + 66,95 + 155,06 = 278,24.
+  \end{align*}
+  Nous pouvons regrouper l'ensemble des résultats ci-dessus comme dans
+  le \autoref{tab:deterministe:CL1:resultats}.
+
+  \begin{table}
+    \centering
+    \caption{Tableau sommaire des résultats pour
+      l'\autoref{ex:deterministe:CL1}}
+    \label{tab:deterministe:CL1:resultats}
+    \begin{tabular}{crrrrrr}
+      \toprule
+      & \multicolumn{5}{c}{Développement (âge)} \\
+      Année & 1 & 2 & 3 & 4 & 5 & Provision \\
+      \midrule
+      1 & 100 & 150    & 175    & 180    & 200    &   0,00 \\
+      2 & 110 & 168    & 192    & 205    & 227,78 &  22,78 \\
+      3 & 115 & 169    & 202    & 211,91 & 235,45 &  33,45 \\
+      4 & 125 & 185    & 216,15 & 226,75 & 251,95 &  66,95 \\
+      5 & 150 & 224,00 & 261,72 & 274,55 & 305,06 & 155,06 \\
+      \midrule
+      $\hat{\lambda}_j$ & $1,493$ & $1,168$ & $1,049$ & $1,111$ \\
+      \midrule
+      TOTAL & & & & & & 278,24 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \qed
+\end{exemple}
 
 \begin{exemple}
   On considère le triangle de paiements suivant (en supposant que la
