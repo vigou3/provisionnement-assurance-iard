@@ -2,15 +2,17 @@
 === Provisionnement en assurance IARD
 ===
 
-# (en développement)
+# 2019.0-2
 
 ## Chapitre 1
 
+Révision complète du chapitre.
+
 - Nettoyage du texte de l'introduction du chapitre.
-- Nouvelle section (1.1) sur la comparaison entre le provisionnement
+- Nouvelle section 1.1 sur la comparaison entre le provisionnement
   en assurance vie et le provisionnement en assurance IARD.
 - La présentation sur le développement des sinistres fait maintenant
-  l'objet d'une section (une nouvelle 1.2).
+  l'objet d'une section une nouvelle 1.2.
 - Les figures 1.1 et 1.2 (la seconde était identifiée comme une
   alternative de la première) ont été fusionnées.
 - Francisation des catégories de stade de développement des sinistres.
@@ -43,9 +45,9 @@
 ## Chapitre 3
 
 - Formulation modifiée pour les hypothèses du modèle de Mack.
-- Variance de la prévision désormais notée «erreur quadratique moyenne
-  de prévision», MSEP.
-- Uniformisation (partielle) de la notation dans la section 3.1
+- Variance de la prévision renommée «erreur quadratique moyenne de
+  prévision» et notée MSEP.
+- Uniformisation (partielle) de la notation dans la section 3.1.
 
 
 # 2019.0-1 (2019-04-04)
