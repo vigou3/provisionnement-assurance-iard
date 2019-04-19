@@ -49,7 +49,7 @@ SCRIPTS = $(addsuffix .R,\
 ## Informations de publication extraites du fichier maître
 TITLE = $(shell grep "\\\\title" ${MASTER:.pdf=.tex} \
 	| cut -d { -f 2 | tr -d })
-URL = $(shell grep "newcommand{\\\\ghurl" ${MASTER:.pdf=.tex} \
+REPOSURL = $(shell grep "newcommand{\\\\reposurl" ${MASTER:.pdf=.tex} \
 	| cut -d } -f 2 | tr -d {)
 YEAR = $(shell grep "newcommand{\\\\year" ${MASTER:.pdf=.tex} \
 	| cut -d } -f 2 | tr -d {)
@@ -118,7 +118,8 @@ Rout: ${SCRIPTS:.R=.Rout}
 contrib: ${COLLABORATEURS}
 
 .PHONY: release
-release: zip create-release upload publish
+#release: zip check-status upload create-release publish
+release: zip check-status upload create-release
 
 .PHONY: zip
 zip: ${MASTER} ${README} ${NEWS} ${SCRIPTS:.R=.Rout} ${LICENSE} ${COLLABORATEURS} ${CONTRIBUTING}
