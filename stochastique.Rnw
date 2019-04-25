@@ -856,7 +856,7 @@ matrix(ddaNEW$pred, ncol = 5)
 \end{exercice}
 
 \begin{exercice}
-  Un assureur dispose des données présentés dans le
+  Un assureur dispose des données présentées dans le
   \autoref{tab:stochastique:tri2}.
   \begin{table}[!h]
     \centering
