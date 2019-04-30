@@ -827,7 +827,7 @@ au \autoref{tab:presentation:triangle-complet}.
     accident & $1$ & $2$ & $\cdots$ & $j$ & $\cdots$ & $J - 1$ & $J$ \\
     \midrule
     $1$ & $C_{1, 1}$ & $C_{1, 2}$ & $\cdots$ & $C_{1, j}$ & $\cdots$ & $C_{1, J-1}$ & $C_{1, J}$ \\
-    $2$ & $C_{2, 1}$ & $C_{2, 2}$ & $\cdots$ & $C_{2, j}$ & $\cdots$ & $C_{2, J-1}$ & \textcolor{alert}{$\hat{C}_{1, J}$} \\
+    $2$ & $C_{2, 1}$ & $C_{2, 2}$ & $\cdots$ & $C_{2, j}$ & $\cdots$ & $C_{2, J-1}$ & \textcolor{alert}{$\hat{C}_{2, J}$} \\
     $\vdots$ \\
     $i$ & $C_{i, 1}$ & $C_{i, 2}$ & $\cdots$ & $C_{i, j}$ & $\cdots$ & \textcolor{alert}{$\hat{C}_{i, J-1}$} & \textcolor{alert}{$\hat{C}_{i, J}$} \\
     $\vdots$ \\
