@@ -1,4 +1,4 @@
-%%% Copyright (C) 2019 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
+%%% Copyright (C) 2020 Vincent Goulet, Frédérick Guillot, Mathieu Pigeon
 %%%
 %%% Ce fichier fait partie du projet
 %%% «Provisionnement en assurance IARD»
@@ -24,7 +24,7 @@
   \usepackage{relsize}                 % \smaller et al.
   \usepackage{manfnt}                  % \mantriangleright (puce)
   \usepackage{metalogo}                % \XeLaTeX logo
-  \usepackage{fontawesome}             % icônes \fa*
+  \usepackage{fontawesome5}            % icônes \fa*
   \usepackage{awesomebox}              % boites info, important, etc.
   \usepackage{answers}                 % exercices et solutions
   \usepackage{listings}                % code informatique
@@ -346,16 +346,16 @@
   \newcommand{\link}[2]{%
     \def\param{#2}%
     \ifx\param\empty
-      \href{#1}{\nolinkurl{#1}~\raisebox{-0.1ex}{\smaller\faExternalLink}}%
+      \href{#1}{\nolinkurl{#1}~\raisebox{-0.1ex}{\smaller\faExternalLink*}}%
     \else
-      \href{#1}{#2~\raisebox{-0.1ex}{\smaller\faExternalLink}}%
+      \href{#1}{#2~\raisebox{-0.1ex}{\smaller\faExternalLink*}}%
     \fi
   }
 
   %% Boite additionnelle (basée sur awesomebox.sty) pour changements
   %% au fil de la lecture.
   \newcommand{\gotorbox}[1]{%
-    \awesomebox{\faMapSigns}{\aweboxrulewidth}{black}{#1}}
+    \awesomebox{\aweboxrulewidth}{\faMapSigns}{black}{#1}}
 
   %% Boite pour le nom du fichier de script correspondant au début des
   %% sections d'exemples.
