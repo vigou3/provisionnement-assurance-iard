@@ -2,6 +2,16 @@
 === Provisionnement en assurance IARD
 ===
 
+# (en développement)
+
+## Nouveautés
+
+- Révision de la section 2.1 terminée.
+- L'ouvrage est maintenant publié sous forme de *release* dans GitLab.
+  Principal changement pour les utilisateurs: le lien vers l'archive
+  `provisionnement-assurance-iard.zip` dans les notes de versions se
+  trouve maintenant tout en haut, sous *Assets*.
+
 # 2019.0-2
 
 ## Chapitre 1
