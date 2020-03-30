@@ -744,7 +744,7 @@ Par contre, il n'est pas possible d'évaluer l'erreur d'estimation.
           \bottomrule
         \end{tabular}
       \end{table}
-      La variance de la réserve de la première années de survenance
+      La variance de la réserve de la première année de survenance
       est nulle. Pour les autres, on a
       \begin{align*}
         \hVar{\hat{R}_2}
@@ -856,7 +856,7 @@ matrix(ddaNEW$pred, ncol = 5)
 \end{exercice}
 
 \begin{exercice}
-  Un assureur dispose des données présentés dans le
+  Un assureur dispose des données présentées dans le
   \autoref{tab:stochastique:tri2}.
   \begin{table}[!h]
     \centering
