@@ -659,7 +659,7 @@ et
 \end{equation}
 
 \begin{exemple}
-  L'\autoref{tab:presentation:ELR} contient les primes acquises et
+  Le \autoref{tab:presentation:ELR} contient les primes acquises et
   des montants de réclamations payés à la fin de 2005 pour les années
   d'accident de 2000 à 2005. Si le taux de sinistralité espéré est de
   $60~\%$ pour toutes les années, alors, par une application directe
@@ -673,10 +673,10 @@ et
   \qed
   \begin{table}
     \centering
-    \label{tab:presentation:ELR}
     \caption{Primes acquises et montants de réclamations payés pour
       l'utilisation de la méthode de provisionnement du taux de
       sinistralité espéré}
+    \label{tab:presentation:ELR}
     \begin{tabular}{ccc}
       \toprule
       Année & Primes acquises & Montants payés \\
