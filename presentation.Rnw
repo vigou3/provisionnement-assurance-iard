@@ -673,10 +673,10 @@ et
   \qed
   \begin{table}
     \centering
-    \label{tab:presentation:ELR}
     \caption{Primes acquises et montants de réclamations payés pour
       l'utilisation de la méthode de provisionnement du taux de
       sinistralité espéré}
+    \label{tab:presentation:ELR}
     \begin{tabular}{ccc}
       \toprule
       Année & Primes acquises & Montants payés \\
