@@ -100,10 +100,9 @@ ${MASTER}: ${MASTER:.pdf=.tex} ${RNWFILES:.Rnw=.tex} ${TEXFILES} ${SCRIPTS} \
 
 ${COLLABORATEURS}: FORCE
 	git log --pretty="%an%n" | sort | uniq | \
-	  grep -v -E "${OMITAUTHORS}" | \
 	  awk 'BEGIN { print "Les personnes dont le nom [1] apparait ci-dessous ont contribué à\nl'\''amélioration de «${TITLE}»." } \
-	       { print $$0 } \
-	       END { print "\n[1] Noms tels qu'\''ils figurent dans le journal du dépôt Git\n    ${REPOSURL}" }' > ${COLLABORATEURS}
+	       $$0 !~ "${OMITAUTHORS}" \
+	       END { print "\n[1] Noms tels qu'\''ils figurent dans le journal du dépôt Git\n    ${REPOSURL}" }'
 
 .PHONY: pdf
 pdf: ${MASTER}
