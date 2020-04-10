@@ -17,7 +17,7 @@ calcul des provisions pour sinistres\footnote{Aussi appelées
   provisions techniques. Le terme «réserves», calqué de l'anglais, est
   \link{http://gdt.oqlf.gouv.qc.ca/ficheOqlf.aspx?Id_Fiche=8870174}{considéré
     vieilli} par l'Office québécois de la langue française.}. %
-Il s'agit d'ailleurs de l'un des deux rôles exclusivement réservé à un
+Il s'agit d'ailleurs de l'un des deux rôles exclusivement réservés à un
 actuaire Fellow de l'Institut canadien des actuaires (ICA). Les
 provisions ont pour objectif de permettre le règlement complet des
 engagements pris par l'assureur envers ses assurés. Elles sont liées
@@ -67,7 +67,7 @@ distinctes.
 
 L'assurance vie se déroule sur le long terme, souvent des décennies.
 Le montant des prestations est généralement connu, mais le moment ou
-la durée pendant laquelle elles seront versées sont, en revanche
+la durée pendant laquelle elles seront versées sont en revanche
 inconnus. C'est d'ailleurs dans la modélisation de la valeur actuelle
 des prestations que réside une grande partie du travail actuariel dans
 ce type d'assurance. Autre particularité: à tout moment durant la
