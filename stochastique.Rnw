@@ -499,7 +499,7 @@ indépendantes. La distribution de Poisson étant membre de la famille
 exponentielle linéaire, elle peut être utilisée dans le cadre des
 modèles linéaires généralisés. Ainsi, il pourrait être intéressant de
 voir ce qu'on peut faire avec cette distribution, en utilisant
-diverses fonctions de liens
+diverses fonctions de lien
 \begin{equation*}
   \mu_{ij} = g(\gamma + \alpha_i + \beta_j),
 \end{equation*}
